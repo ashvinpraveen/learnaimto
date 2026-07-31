@@ -94,33 +94,6 @@ const learnathonStats = [
   { value: "50+", label: "Sponsors & Exhibitors" },
 ];
 
-const trainers = [
-  {
-    name: "Timothy Tiah",
-    title: "Founder & CEO, Colony",
-    bio: "Founder and CEO of Colony and co-founder of Nuffnang, sharing practical lessons from building and scaling Malaysian companies.",
-    image: "/aimto-assets/trainers/timothy-tiah.png",
-  },
-  {
-    name: "Jon Lai",
-    title: "Founder & CEO, Atomic Group",
-    bio: "Founder and CEO of Atomic Group, building digital-first consumer brands in health and wellness.",
-    image: "/aimto-assets/trainers/jon-lai.jpg",
-  },
-  {
-    name: "Warren Leow",
-    title: "Founder & Strategy Lead, AITraining2U",
-    bio: "Former Bain consultant and former CEO of Designs.ai, now leading practical AI training and automation at AITraining2U.",
-    image: "/aimto-assets/trainers/warren-leow.jpg",
-  },
-  {
-    name: "Danial Hadi",
-    title: "Founder, KrackedDevs",
-    bio: "Founder of KrackedDevs, a Malaysian builder community where people learn, build and ship real software projects.",
-    image: "/aimto-assets/trainers/danial-hadi.jpg",
-  },
-];
-
 const faqs = [
   {
     question: "Is the Learn-a-thon free?",
@@ -312,51 +285,6 @@ export default function LearnathonThreePage() {
           </div>
         </section>
 
-        <section
-          className={styles.trainersSection}
-          aria-labelledby="trainers-title"
-          id="trainers"
-        >
-          <div className={styles.trainersIntro} data-reveal="up">
-            <div>
-              <div className={styles.sectionLabel}>
-                REAL BUILDERS, BESIDE YOU_
-              </div>
-              <h2 id="trainers-title">Speakers and mentors</h2>
-            </div>
-            <p>
-              Learn from people doing the work, ask the difficult question and
-              get practical help when your build needs a push.
-            </p>
-          </div>
-          <div
-            className={styles.trainersGrid}
-            aria-label="Learn-a-thon speakers and mentors"
-            data-reveal="stagger"
-          >
-            {trainers.map((trainer) => (
-              <article className={styles.trainerCard} key={trainer.name}>
-                <div className={styles.trainerPortrait}>
-                  <Image
-                    src={trainer.image}
-                    alt={trainer.name}
-                    fill
-                    sizes="(max-width: 680px) calc(100vw - 40px), (max-width: 1000px) 44vw, 22vw"
-                  />
-                </div>
-                <div className={styles.trainerDetails}>
-                  <h3>{trainer.name}</h3>
-                  <small>{trainer.title}</small>
-                  <p>{trainer.bio}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-          <p className={styles.trainersMore}>
-            MORE SPEAKERS AND MENTORS TO BE ANNOUNCED_
-          </p>
-        </section>
-
         <LearnathonCountdown />
 
         <section className={styles.campusSection} id="campus">
@@ -475,45 +403,22 @@ export default function LearnathonThreePage() {
             </a>
             <p>Malaysia learns AI by building, together.</p>
           </div>
-          <AimtoButton className={styles.footerCta} href={registrationUrl}>
-            Sign up free <span aria-hidden="true">↗</span>
-          </AimtoButton>
         </div>
-
-        <nav className={styles.footerNav} aria-label="Footer navigation">
-          <div>
-            <h2>Program_</h2>
-            <a href="#overview">About the Learn-a-thon</a>
-            <a href="#inspiration">What you could build</a>
-            <a href="#experience">What you&apos;ll get</a>
-            <a href="#trainers">Speakers and mentors</a>
-          </div>
-          <div>
-            <h2>About_</h2>
-            <a href="/aimto">AI Malaysia Takeover</a>
-            <a href="#campus">The Campus</a>
-            <a href="https://instagram.com/malaysianai">
-              Instagram <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-          <div>
-            <h2>Attend_</h2>
-            <a href={registrationUrl}>Sign up free</a>
-            <a href="#campus">Get here</a>
-            <a href="#faq">FAQ</a>
-          </div>
-          <div>
-            <h2>Legal_</h2>
-            <a href="/privacy">Privacy notice</a>
-            <a href="/terms">Terms &amp; conditions</a>
-          </div>
-        </nav>
 
         <div className={styles.footerMeta}>
           <p>© The Malaysian Learn-a-thon 2026</p>
-          <a href="#top">
-            Back to top <span aria-hidden="true">↑</span>
-          </a>
+          <div className={styles.footerMetaLinks}>
+            <a
+              href="https://instagram.com/malaysianai"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagram <span aria-hidden="true">↗</span>
+            </a>
+            <a href="#top">
+              Back to top <span aria-hidden="true">↑</span>
+            </a>
+          </div>
         </div>
       </footer>
     </div>
