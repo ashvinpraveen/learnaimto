@@ -3,23 +3,23 @@ import WelcomeQuiz from "./WelcomeQuiz";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Get Your AI Score — Aimto Learn-a-thon",
+    absolute: "AI Builder Scorecard — Aimto Learn-a-thon",
   },
   description:
-    "A quick Typeform-style quiz to map your AI fluency and get ready for the Malaysian Learn-a-thon.",
+    "Take the AIMTO AI Builder Scorecard. Get your BUILD score, builder type, and a personalised Learn-a-thon day plan.",
   openGraph: {
-    title: "Get Your AI Score",
+    title: "AI Builder Scorecard",
     description:
-      "Answer six quick questions and find out where you stand with AI.",
+      "How ready are you to build with AI? Get your score, type, and day plan for the Malaysian Learn-a-thon.",
     url: "/welcome",
     type: "website",
     images: [{ url: "/aimto-assets/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Get Your AI Score",
+    title: "AI Builder Scorecard",
     description:
-      "Answer six quick questions and find out where you stand with AI.",
+      "How ready are you to build with AI? Get your score, type, and day plan for the Malaysian Learn-a-thon.",
     images: ["/aimto-assets/og-image.png"],
   },
 };
