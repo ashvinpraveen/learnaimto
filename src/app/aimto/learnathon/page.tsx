@@ -381,7 +381,7 @@ export default function LearnathonThreePage() {
               <details key={faq.question}>
                 <summary>
                   <span>{String(index + 1).padStart(2, "0")}_</span>
-                  {faq.question}
+                  <h3>{faq.question}</h3>
                   <i aria-hidden="true">+</i>
                 </summary>
                 <p>{faq.answer}</p>
