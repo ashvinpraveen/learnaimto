@@ -289,6 +289,7 @@ export default function LearnathonThreePage() {
           </div>
         </section>
 
+        {/*
         <section className={styles.learningToolsSection} aria-labelledby="learn-latest-ai-tools">
           <div className={styles.sectionHeading} data-reveal="up">
             <h2 id="learn-latest-ai-tools">
@@ -310,6 +311,7 @@ export default function LearnathonThreePage() {
             </div>
           </div>
         </section>
+        */}
 
         <LearnathonCountdown />
 
@@ -380,6 +382,7 @@ export default function LearnathonThreePage() {
           </p>
         </section>
 
+        {/*
         <section className={styles.fullEventSection} aria-labelledby="join-the-full-event">
           <div className={styles.fullEventIntro} data-reveal="up">
             <div className={styles.sectionLabel}>THE FULL EVENT_</div>
@@ -390,6 +393,7 @@ export default function LearnathonThreePage() {
             </p>
           </div>
         </section>
+        */}
 
         <section className={styles.faqSection} id="faq">
           <div className={styles.faqIntro} data-reveal="up">

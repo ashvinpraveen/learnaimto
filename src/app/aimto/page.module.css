@@ -275,7 +275,7 @@
 
 .navDropdown a:hover,
 .navDropdown a:focus-visible {
-  background: rgba(var(--aimto-accent-rgb, 215 255 54), 0.1);
+  background: rgba(var(--aimto-accent-rgb, 215, 255, 54), 0.1);
   color: var(--aimto-accent-text, var(--lime));
   outline: none;
 }
@@ -302,7 +302,7 @@
 .ctaButton:focus-visible {
   background: var(--aimto-accent, var(--lime));
   border-color: var(--aimto-accent, var(--lime));
-  box-shadow: 0 0 0 3px rgba(var(--aimto-accent-rgb, 215 255 54), 0.14);
+  box-shadow: 0 0 0 3px rgba(var(--aimto-accent-rgb, 215, 255, 54), 0.14);
   color: var(--aimto-accent-ink, #070707) !important;
   outline: none;
   transform: none;

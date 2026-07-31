@@ -27,6 +27,7 @@
   --theme-hero-control: var(--aimto-hero-control);
   --theme-hero-control-ink: var(--aimto-hero-control-ink);
   --theme-footer: var(--aimto-footer);
+  --theme-countdown: var(--aimto-countdown);
   --theme-final-from: var(--aimto-final-from);
   --theme-final-to: var(--aimto-final-to);
   --theme-final-ink: var(--aimto-final-ink);
@@ -54,13 +55,28 @@
   width: 100%;
 }
 
-:global(html[data-theme="light"]) .site main > section:not(.hero):not(.finalCta) {
+:global(html[data-theme="light"]) .site main > section:not(.hero):not(.finalCta):not(.countdown) {
   background: var(--theme-surface);
   color: var(--theme-ink);
 }
 
 :global(html[data-theme="light"]) .hero {
   color: var(--theme-hero-ink);
+}
+
+:global(html[data-theme="light"]) .countdown {
+  background: var(--theme-countdown);
+  border-block-color: rgba(79, 36, 255, 0.28);
+  color: #070707;
+}
+
+:global(html[data-theme="light"]) .countdown .sectionLabel,
+:global(html[data-theme="light"]) .countdownUnits span {
+  color: rgba(7, 7, 7, 0.62);
+}
+
+:global(html[data-theme="light"]) .countdownUnits strong {
+  color: #070707;
 }
 
 .site[data-motion="ready"] [data-reveal="up"],
@@ -2058,7 +2074,7 @@
 
 .countdown {
   align-items: center;
-  background: var(--theme-surface);
+  background: var(--theme-countdown);
   border-block: 1px solid rgba(var(--theme-accent-rgb), 0.5);
   display: flex;
   gap: 48px;
