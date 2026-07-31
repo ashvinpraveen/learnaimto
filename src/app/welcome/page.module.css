@@ -1,22 +1,20 @@
 .site {
   --black: #070707;
-  --ink: #111111;
-  --paper: #f5f3ed;
   --white: #ffffff;
-  --violet: #4f24ff;
-  --violet-deep: #2714c9;
-  --electric: #7a5cff;
+  --lime: #d7ff36;
   --cyan: #69e4ff;
   --pink: #ff8bdc;
-  --lime: #d7ff36;
+  --violet: #7a5cff;
   --muted: rgba(245, 243, 237, 0.62);
-  --line: rgba(255, 255, 255, 0.12);
+  --muted-strong: rgba(245, 243, 237, 0.78);
+  --line: rgba(255, 255, 255, 0.14);
+  --panel: #0f0f0f;
   background: var(--black);
   color: var(--white);
   font-family: "Rethink Sans", Inter, system-ui, sans-serif;
   min-height: 100vh;
   max-width: 100%;
-  overflow: clip;
+  overflow-x: clip;
   position: relative;
   width: 100%;
 }
@@ -25,25 +23,6 @@
 .site *::before,
 .site *::after {
   box-sizing: border-box;
-}
-
-.atmosphere {
-  background:
-    radial-gradient(
-      ellipse 70% 55% at 82% 12%,
-      rgba(122, 92, 255, 0.28),
-      transparent 58%
-    ),
-    radial-gradient(
-      ellipse 55% 45% at 8% 88%,
-      rgba(105, 228, 255, 0.12),
-      transparent 55%
-    ),
-    linear-gradient(180deg, #0b0b12 0%, #070707 48%, #050508 100%);
-  inset: 0;
-  pointer-events: none;
-  position: absolute;
-  z-index: 0;
 }
 
 .progressTrack {
@@ -57,7 +36,7 @@
 }
 
 .progressFill {
-  background: linear-gradient(90deg, var(--electric), var(--lime));
+  background: var(--lime);
   height: 100%;
   transition: width 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -84,7 +63,9 @@
 .ghostButton,
 .secondaryButton,
 .primaryButton,
-.option {
+.textButton,
+.option,
+.nameInput {
   appearance: none;
   cursor: pointer;
   font: inherit;
@@ -100,8 +81,7 @@
   padding: 0 18px;
   transition:
     background 180ms ease,
-    border-color 180ms ease,
-    color 180ms ease;
+    border-color 180ms ease;
 }
 
 .ghostButton:hover,
@@ -123,28 +103,34 @@
   z-index: 1;
 }
 
+.stageResult {
+  align-items: flex-start;
+}
+
 .panel {
   max-width: 720px;
   width: 100%;
 }
 
+.panelWide {
+  max-width: 1120px;
+}
+
 .slideIn {
-  animation: slide-forward 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: slide-forward 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .slideInBack {
-  animation: slide-back 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: slide-back 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes slide-forward {
   from {
-    filter: blur(10px);
     opacity: 0;
-    transform: translate3d(0, 28px, 0);
+    transform: translate3d(0, 24px, 0);
   }
 
   to {
-    filter: none;
     opacity: 1;
     transform: none;
   }
@@ -152,79 +138,112 @@
 
 @keyframes slide-back {
   from {
-    filter: blur(10px);
     opacity: 0;
-    transform: translate3d(0, -20px, 0);
+    transform: translate3d(0, -16px, 0);
   }
 
   to {
-    filter: none;
     opacity: 1;
     transform: none;
   }
 }
 
 .kicker,
-.stepLabel {
+.stepLabel,
+.blockLabel,
+.miniLabel,
+.tierLabel {
   color: var(--lime);
-  font-size: 0.85rem;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
-  margin: 0 0 18px;
+  letter-spacing: 0.04em;
+  margin: 0 0 16px;
   text-transform: uppercase;
 }
 
-.stepLabel span {
-  color: rgba(215, 255, 54, 0.45);
+.stepLabel {
+  color: var(--muted-strong);
 }
 
 .title,
 .questionTitle,
-.tierTitle {
-  font-family: "Newsreader", Georgia, serif;
-  font-weight: 400;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+.tierTitle,
+.playbookTitle,
+.resultName {
+  font-family: "Space Grotesk", "Rethink Sans", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
   margin: 0;
   text-wrap: balance;
 }
 
 .title {
-  font-size: clamp(3rem, 9vw, 5.5rem);
-}
-
-.title span {
-  background: linear-gradient(120deg, var(--white) 20%, var(--cyan) 55%, var(--electric));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  font-size: clamp(2.6rem, 8vw, 4.6rem);
+  text-transform: uppercase;
 }
 
 .questionTitle {
-  font-size: clamp(2.1rem, 5.5vw, 3.4rem);
-  max-width: 16ch;
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  max-width: 18ch;
+  text-transform: uppercase;
+}
+
+.resultName {
+  color: var(--muted-strong);
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  margin-bottom: 8px;
+  text-transform: uppercase;
 }
 
 .lede,
 .helper,
 .summary,
-.nextStep,
 .hint,
 .scoreDetail,
-.tierLabel {
+.credibility,
+.traitMeaning,
+.playbookLead,
+.eventBenefit,
+.miniBody,
+.ctaNote,
+.shareStatus {
   color: var(--muted);
   line-height: 1.55;
 }
 
 .lede {
-  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  font-size: clamp(1.05rem, 2.2vw, 1.2rem);
   margin: 22px 0 0;
-  max-width: 34ch;
+  max-width: 38ch;
 }
 
 .helper {
   font-size: 1rem;
   margin: 14px 0 0;
+  max-width: 42ch;
+}
+
+.benefitList {
+  color: var(--muted-strong);
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin: 28px 0 0;
+  max-width: 40ch;
+  padding: 0;
+}
+
+.benefitList li {
+  border-left: 2px solid var(--lime);
+  padding-left: 14px;
+}
+
+.credibility {
+  font-size: 0.95rem;
+  margin: 22px 0 0;
+  max-width: 42ch;
 }
 
 .actions {
@@ -248,8 +267,7 @@
   text-decoration: none;
   transition:
     background 180ms ease,
-    border-color 180ms ease,
-    box-shadow 180ms ease;
+    border-color 180ms ease;
   width: fit-content;
 }
 
@@ -257,7 +275,6 @@
 .primaryButton:focus-visible {
   background: var(--lime);
   border-color: var(--lime);
-  box-shadow: 0 0 0 3px rgba(215, 255, 54, 0.14);
   outline: none;
 }
 
@@ -286,9 +303,9 @@
 
 .option {
   align-items: center;
-  background: rgba(255, 255, 255, 0.03);
+  background: transparent;
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: 14px;
   color: var(--white);
   display: flex;
   gap: 16px;
@@ -297,29 +314,27 @@
   text-align: left;
   transition:
     background 180ms ease,
-    border-color 180ms ease,
-    transform 180ms ease;
+    border-color 180ms ease;
   width: 100%;
 }
 
 .option:hover,
 .option:focus-visible {
-  background: rgba(122, 92, 255, 0.14);
-  border-color: rgba(122, 92, 255, 0.55);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.34);
   outline: none;
-  transform: translateY(-1px);
 }
 
 .optionSelected {
-  background: rgba(215, 255, 54, 0.1);
+  background: rgba(215, 255, 54, 0.08);
   border-color: rgba(215, 255, 54, 0.7);
 }
 
 .optionKey {
   align-items: center;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 8px;
   color: var(--muted);
   display: inline-flex;
   flex: 0 0 auto;
@@ -341,43 +356,87 @@
   font-weight: 500;
 }
 
-.result .scoreRow {
+.nameForm {
+  display: grid;
+  gap: 18px;
+  margin-top: 28px;
+  max-width: 420px;
+}
+
+.nameInput {
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: var(--white);
+  cursor: text;
+  font-family: "Space Grotesk", "Rethink Sans", system-ui, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  min-height: 64px;
+  padding: 0 18px;
+  width: 100%;
+}
+
+.nameInput:focus {
+  border-color: var(--lime);
+  outline: none;
+}
+
+.nameInput::placeholder {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.srOnly {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.resultGrid {
+  display: grid;
+  gap: 40px;
+}
+
+.resultMain {
+  min-width: 0;
+}
+
+.scoreRow {
   align-items: end;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px 32px;
-  margin: 8px 0 28px;
+  gap: 16px 28px;
+  margin: 8px 0 24px;
 }
 
 .scoreValue {
-  font-family: "Newsreader", Georgia, serif;
-  font-size: clamp(5rem, 18vw, 8.5rem);
-  font-weight: 400;
+  font-family: "Space Grotesk", "Rethink Sans", system-ui, sans-serif;
+  font-size: clamp(4.8rem, 16vw, 7.5rem);
+  font-weight: 700;
   letter-spacing: -0.06em;
   line-height: 0.85;
   margin: 0;
 }
 
 .scoreValue span {
-  color: var(--cyan);
-  font-size: 0.42em;
+  color: var(--white);
+  font-size: 0.38em;
   margin-left: 4px;
 }
 
 .scoreMeta {
-  padding-bottom: 10px;
-}
-
-.tierLabel {
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  margin: 0 0 8px;
-  text-transform: uppercase;
+  padding-bottom: 8px;
 }
 
 .tierTitle {
-  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+  text-transform: uppercase;
 }
 
 .scoreDetail {
@@ -386,23 +445,210 @@
 }
 
 .summary {
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   margin: 0;
-  max-width: 40ch;
+  max-width: 48ch;
 }
 
-.nextStep {
+.insightBlock,
+.traitBlock,
+.gapBlock,
+.sharePanel,
+.playbook {
+  border-top: 1px solid var(--line);
+  margin-top: 32px;
+  padding-top: 24px;
+}
+
+.insightList,
+.plainList,
+.dayPlan,
+.traitList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.insightList,
+.plainList {
+  display: grid;
+  gap: 12px;
+}
+
+.insightList li,
+.plainList li {
+  color: var(--muted-strong);
+  line-height: 1.5;
+  padding-left: 14px;
+  position: relative;
+}
+
+.insightList li::before,
+.plainList li::before {
+  background: var(--lime);
+  content: "";
+  height: 6px;
+  left: 0;
+  position: absolute;
+  top: 0.55em;
+  width: 6px;
+}
+
+.traitList {
+  display: grid;
+  gap: 18px;
+}
+
+.traitHead {
+  color: var(--muted-strong);
+  display: flex;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.82rem;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.traitHead strong {
+  color: var(--white);
+  margin-right: 8px;
+}
+
+.traitBar {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 99px;
+  height: 8px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.traitBar span {
+  display: block;
+  height: 100%;
+}
+
+.traitMeaning {
+  font-size: 0.92rem;
+  margin: 8px 0 0;
+}
+
+.gapBlock {
+  display: grid;
+  gap: 28px;
+}
+
+.resultAside {
+  display: grid;
+  gap: 28px;
+  min-width: 0;
+}
+
+.shareCardWrap {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.shareCanvas {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.shareActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.shareActions .secondaryButton {
+  flex: 1 1 auto;
+  min-width: 120px;
+}
+
+.playbookTitle {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.playbookLead {
+  margin: 0 0 16px;
+}
+
+.eventBenefit {
   color: var(--white);
   font-size: 1.05rem;
   font-weight: 600;
-  margin: 18px 0 0;
-  max-width: 36ch;
+  margin: 0 0 22px;
 }
 
-.result .actions {
-  align-items: flex-start;
-  flex-direction: row;
-  flex-wrap: wrap;
+.miniLabel {
+  color: var(--muted);
+  margin: 18px 0 8px;
+}
+
+.miniBody {
+  color: var(--muted-strong);
+  margin: 0;
+}
+
+.dayPlan {
+  color: var(--muted-strong);
+  display: grid;
+  gap: 10px;
+  list-style: decimal;
+  padding-left: 18px;
+}
+
+.dayPlan li {
+  line-height: 1.45;
+  padding-left: 4px;
+}
+
+.ctaStack {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.ctaStack .primaryButton {
+  width: 100%;
+}
+
+.ctaNote {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.textButton {
+  background: transparent;
+  border: 0;
+  color: var(--muted-strong);
+  padding: 8px 0;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  width: fit-content;
+}
+
+.textButton:hover,
+.textButton:focus-visible {
+  color: var(--white);
+  outline: none;
+}
+
+@media (min-width: 980px) {
+  .resultGrid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+    gap: 48px;
+  }
+
+  .gapBlock {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media (max-width: 640px) {
@@ -420,14 +666,13 @@
     min-height: 58px;
   }
 
-  .result .actions {
-    flex-direction: column;
-    width: 100%;
-  }
-
   .primaryButton,
   .secondaryButton {
     width: 100%;
+  }
+
+  .shareActions {
+    flex-direction: column;
   }
 }
 
