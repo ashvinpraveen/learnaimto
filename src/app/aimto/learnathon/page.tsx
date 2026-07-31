@@ -193,7 +193,7 @@ export default function LearnathonThreePage() {
             </div>
             <div className={styles.heroActions}>
               <AimtoButton href={registrationUrl}>
-                Sign up <span aria-hidden="true">↗</span>
+                Sign up free <span aria-hidden="true">↗</span>
               </AimtoButton>
               <a className={styles.textLink} href="#overview">
                 About the day <span aria-hidden="true">↓</span>
@@ -455,7 +455,7 @@ export default function LearnathonThreePage() {
               Open to any and every Malaysian. Free. Just come!
             </p>
             <AimtoButton href={registrationUrl}>
-              Sign up <span aria-hidden="true">↗</span>
+              Sign up free <span aria-hidden="true">↗</span>
             </AimtoButton>
           </div>
         </section>
@@ -476,7 +476,7 @@ export default function LearnathonThreePage() {
             <p>Malaysia learns AI by building, together.</p>
           </div>
           <AimtoButton className={styles.footerCta} href={registrationUrl}>
-            Sign up <span aria-hidden="true">↗</span>
+            Sign up free <span aria-hidden="true">↗</span>
           </AimtoButton>
         </div>
 
@@ -498,7 +498,7 @@ export default function LearnathonThreePage() {
           </div>
           <div>
             <h2>Attend_</h2>
-            <a href={registrationUrl}>Sign up</a>
+            <a href={registrationUrl}>Sign up free</a>
             <a href="#campus">Get here</a>
             <a href="#faq">FAQ</a>
           </div>

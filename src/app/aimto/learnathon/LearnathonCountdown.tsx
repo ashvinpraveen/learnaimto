@@ -56,7 +56,7 @@ export default function LearnathonCountdown() {
         </div>
       </div>
       <AimtoButton href="https://event.aimto.my/concierge-menu/registration">
-        Sign up <span aria-hidden="true">↗</span>
+        Sign up free <span aria-hidden="true">↗</span>
       </AimtoButton>
     </section>
   );

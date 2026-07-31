@@ -216,14 +216,14 @@ export default function AimtoNav({ registrationUrl }: AimtoNavProps) {
           </a>
         </div>
         <AimtoButton className={styles.navCta} href={registrationUrl}>
-          Sign up <span aria-hidden="true">↗</span>
+          Sign up free <span aria-hidden="true">↗</span>
         </AimtoButton>
         <div className={styles.mobileNavActions}>
           <AimtoButton
             className={styles.mobileJoinCta}
             href={registrationUrl}
           >
-            Join <span aria-hidden="true">↗</span>
+            Sign up free <span aria-hidden="true">↗</span>
           </AimtoButton>
           <button
             ref={mobileToggleRef}
@@ -292,7 +292,7 @@ export default function AimtoNav({ registrationUrl }: AimtoNavProps) {
             href={registrationUrl}
             onClick={closeMobileMenu}
           >
-            Sign up <span aria-hidden="true">↗</span>
+            Sign up free <span aria-hidden="true">↗</span>
           </AimtoButton>
         </div>
       </nav>
