@@ -5,66 +5,162 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: 45 37% 94%;
-    --foreground: 190 52% 9%;
+  /* AIMTO theme tokens — dark is the default brand surface. */
+  :root,
+  html[data-theme="dark"] {
+    color-scheme: dark;
 
-    --card: 45 30% 92%;
-    --card-foreground: 190 52% 9%;
+    --aimto-canvas: #070707;
+    --aimto-surface: #090909;
+    --aimto-surface-soft: #111111;
+    --aimto-ink: #f5f6f8;
+    --aimto-ink-rgb: 245 246 248;
+    --aimto-ink-muted: rgba(245, 246, 248, 0.66);
+    --aimto-border: rgba(245, 246, 248, 0.24);
+    --aimto-border-soft: rgba(245, 246, 248, 0.12);
+    --aimto-accent: #d7ff36;
+    --aimto-accent-rgb: 215 255 54;
+    --aimto-accent-text: #d7ff36;
+    --aimto-accent-ink: #070707;
+    --aimto-control: #ffffff;
+    --aimto-control-ink: #070707;
+    --aimto-overlay: #0b0b0b;
+    --aimto-overlay-rgb: 11 11 11;
+    --aimto-panel: rgba(14, 14, 18, 0.98);
+    --aimto-panel-border: rgba(245, 246, 248, 0.14);
+    --aimto-caption-bg: rgba(5, 5, 8, 0.72);
+    --aimto-caption-ink: rgba(245, 246, 248, 0.92);
+    --aimto-on-vivid: #f5f6f8;
+    --aimto-hero-ink: #f4f6fc;
+    --aimto-hero-ink-rgb: 244 246 252;
+    --aimto-hero-ink-muted: rgba(244, 246, 252, 0.62);
+    --aimto-hero-border: rgba(244, 246, 252, 0.34);
+    --aimto-hero-control: #ffffff;
+    --aimto-hero-control-ink: #070707;
+    --aimto-logo-filter: none;
+    --aimto-nav-bg: transparent;
+    --aimto-nav-bg-scrolled: rgba(11, 11, 11, 0.94);
+    --aimto-toggle-bg: rgba(245, 246, 248, 0.14);
+    --aimto-toggle-thumb: #f5f6f8;
+    --aimto-shadow: rgba(0, 0, 0, 0.25);
+    --aimto-footer: #0a0a0a;
+    --aimto-final-from: var(--aimto-canvas);
+    --aimto-final-to: #3a17df;
+    --aimto-final-ink: #070707;
+    --aimto-final-ink-rgb: 7 7 7;
+    --aimto-final-muted: rgba(7, 7, 7, 0.72);
+    --aimto-final-control: #070707;
+    --aimto-final-control-ink: #f5f6f8;
+    --aimto-final-accent: #070707;
+    --aimto-violet: #4f24ff;
+    --aimto-violet-deep: #2714c9;
+    --aimto-electric: #7a5cff;
+    --aimto-cyan: #69e4ff;
+    --aimto-pink: #ff8bdc;
+    --aimto-orange: #ff8f4f;
 
-    --popover: 45 30% 92%;
-    --popover-foreground: 190 52% 9%;
-
-    --primary: 190 52% 9%;
-    --primary-foreground: 45 37% 94%;
-
-    --secondary: 45 25% 88%;
-    --secondary-foreground: 190 52% 9%;
-
-    --muted: 45 25% 88%;
-    --muted-foreground: 190 12% 35%;
-
-    --accent: 45 30% 92%;
-    --accent-foreground: 190 52% 9%;
-
-    --destructive: 0 84.2% 60.2%;
+    /* Tailwind/shadcn bridge */
+    --background: 0 0% 3%;
+    --foreground: 210 20% 96%;
+    --card: 0 0% 5%;
+    --card-foreground: 210 20% 96%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 210 20% 96%;
+    --primary: 210 20% 96%;
+    --primary-foreground: 0 0% 3%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 210 20% 96%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 215 12% 70%;
+    --accent: 72 100% 61%;
+    --accent-foreground: 0 0% 3%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
-    --border: 43 19% 82%;
-    --input: 43 19% 82%;
-    --ring: 190 52% 9%;
-
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 72 100% 61%;
     --radius: 0.5rem;
 
-    /* Custom palette */
-    --cream: 45 37% 94%;
-    --cream-dark: 45 25% 88%;
-    --sand: 43 19% 82%;
+    --cream: 40 24% 93%;
+    --cream-dark: 40 18% 88%;
+    --sand: 38 14% 82%;
     --dark-teal: 190 52% 9%;
     --dark-teal-accent: 188 51% 12%;
   }
 
-  .dark {
-    /* Keeping standard dark mode values just in case user toggles, but default is light */
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+  html[data-theme="light"] {
+    color-scheme: light;
+
+    --aimto-canvas: #f3f0e8;
+    --aimto-surface: #f7f4ed;
+    --aimto-surface-soft: #fffdf8;
+    --aimto-ink: #15130f;
+    --aimto-ink-rgb: 21 19 15;
+    --aimto-ink-muted: rgba(21, 19, 15, 0.64);
+    --aimto-border: rgba(21, 19, 15, 0.18);
+    --aimto-border-soft: rgba(21, 19, 15, 0.1);
+    --aimto-accent: #d7ff36;
+    --aimto-accent-rgb: 215 255 54;
+    /* Readable olive on cream; bright lime stays for fills/ticker. */
+    --aimto-accent-text: #4f6800;
+    --aimto-accent-ink: #14120c;
+    --aimto-control: #15130f;
+    --aimto-control-ink: #f7f4ed;
+    --aimto-overlay: #15130f;
+    --aimto-overlay-rgb: 21 19 15;
+    --aimto-panel: rgba(247, 244, 237, 0.98);
+    --aimto-panel-border: rgba(21, 19, 15, 0.14);
+    --aimto-caption-bg: rgba(21, 19, 15, 0.78);
+    --aimto-caption-ink: rgba(247, 244, 237, 0.94);
+    --aimto-on-vivid: #f5f6f8;
+    /* Hero stays photographic — keep light type over the image. */
+    --aimto-hero-ink: #f4f6fc;
+    --aimto-hero-ink-rgb: 244 246 252;
+    --aimto-hero-ink-muted: rgba(244, 246, 252, 0.7);
+    --aimto-hero-border: rgba(244, 246, 252, 0.34);
+    --aimto-hero-control: #ffffff;
+    --aimto-hero-control-ink: #070707;
+    --aimto-logo-filter: invert(1);
+    --aimto-nav-bg: transparent;
+    --aimto-nav-bg-scrolled: rgba(247, 244, 237, 0.96);
+    --aimto-toggle-bg: #e6e1d6;
+    --aimto-toggle-thumb: #15130f;
+    --aimto-shadow: rgba(21, 19, 15, 0.12);
+    --aimto-footer: #ebe4d4;
+    --aimto-final-from: var(--aimto-canvas);
+    --aimto-final-to: #4f24ff;
+    --aimto-final-ink: #070707;
+    --aimto-final-ink-rgb: 7 7 7;
+    --aimto-final-muted: rgba(7, 7, 7, 0.72);
+    --aimto-final-control: #070707;
+    --aimto-final-control-ink: #f7f4ed;
+    --aimto-final-accent: #070707;
+    --aimto-violet: #4f24ff;
+    --aimto-violet-deep: #2714c9;
+    --aimto-electric: #7a5cff;
+    --aimto-cyan: #2aa8c4;
+    --aimto-pink: #d453a8;
+    --aimto-orange: #e06b2f;
+
+    --background: 40 24% 93%;
+    --foreground: 30 16% 8%;
+    --card: 40 28% 95%;
+    --card-foreground: 30 16% 8%;
+    --popover: 40 28% 95%;
+    --popover-foreground: 30 16% 8%;
+    --primary: 30 16% 8%;
+    --primary-foreground: 40 28% 95%;
+    --secondary: 40 18% 88%;
+    --secondary-foreground: 30 16% 8%;
+    --muted: 40 18% 88%;
+    --muted-foreground: 30 8% 36%;
+    --accent: 72 88% 48%;
+    --accent-foreground: 30 16% 8%;
+    --destructive: 0 72% 48%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 36 14% 80%;
+    --input: 36 14% 80%;
+    --ring: 72 88% 42%;
   }
 }
 
@@ -74,6 +170,7 @@
   }
 
   html {
+    background-color: var(--aimto-canvas);
     scroll-behavior: smooth;
     font-size: 14px;
     -webkit-font-smoothing: antialiased;

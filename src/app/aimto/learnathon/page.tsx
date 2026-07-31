@@ -3,6 +3,7 @@ import Image from "next/image";
 import AimtoMotion from "../AimtoMotion";
 import AimtoNav from "../AimtoNav";
 import AimtoScrambleTitle from "../AimtoScrambleTitle";
+import AimtoThemeToggle from "../AimtoThemeToggle";
 import AimtoButton from "./AimtoButton";
 import LearnathonCountdown from "./LearnathonCountdown";
 import LearnathonProjects from "./LearnathonProjects";
@@ -53,6 +54,9 @@ const registrationUrl =
 const tickerItems = [
   "OPEN TO EVERY MALAYSIAN_",
   "LEARN AI_",
+  "AI FOR THE UNCLES_",
+  "AI FOR THE AUNTIES_",
+  "AI FOR THE KIDS_",
   "BUILD SOMETHING FOR YOURSELF_",
   "HANDS-ON HELP FROM EXPERTS_",
   "FREE AI TOOLS_",
@@ -285,6 +289,28 @@ export default function LearnathonThreePage() {
           </div>
         </section>
 
+        <section className={styles.learningToolsSection} aria-labelledby="learn-latest-ai-tools">
+          <div className={styles.sectionHeading} data-reveal="up">
+            <h2 id="learn-latest-ai-tools">
+              Learn the latest AI tools & tech
+            </h2>
+            <p className={styles.learningToolsCopy}>
+              Mentors, support and community to help you learn the latest tools.
+            </p>
+          </div>
+          <div
+            className={styles.toolLogoStrip}
+            aria-hidden="true"
+            data-reveal="up"
+          >
+            <div className={styles.toolLogoStripTrack}>
+              {Array.from({ length: 8 }).map((_, index) => (
+                <span className={styles.toolLogoSlot} key={`tool-slot-${index}`} />
+              ))}
+            </div>
+          </div>
+        </section>
+
         <LearnathonCountdown />
 
         <section className={styles.campusSection} id="campus">
@@ -354,10 +380,21 @@ export default function LearnathonThreePage() {
           </p>
         </section>
 
+        <section className={styles.fullEventSection} aria-labelledby="join-the-full-event">
+          <div className={styles.fullEventIntro} data-reveal="up">
+            <div className={styles.sectionLabel}>THE FULL EVENT_</div>
+            <h2 id="join-the-full-event">Your build day is just the beginning.</h2>
+            <p>
+              Join the full AI Malaysia Takeover: two days of workshops, talks and
+              panels with leaders from across Malaysia.
+            </p>
+          </div>
+        </section>
+
         <section className={styles.faqSection} id="faq">
           <div className={styles.faqIntro} data-reveal="up">
             <div className={styles.sectionLabel}>FAQ_</div>
-            <h2>Questions &amp; Answers</h2>
+            <h2>Questions &amp; answers</h2>
           </div>
           <div className={styles.faqList} data-reveal="up">
             {faqs.map((faq, index) => (
@@ -374,7 +411,6 @@ export default function LearnathonThreePage() {
         </section>
 
         <section className={styles.finalCta}>
-          <div className={styles.finalGlow} aria-hidden="true" />
           <div data-reveal="up">
             <h2>
               <span>Jommm</span> sign up
@@ -401,13 +437,13 @@ export default function LearnathonThreePage() {
                 sizes="220px"
               />
             </a>
-            <p>Malaysia learns AI by building, together.</p>
           </div>
         </div>
 
         <div className={styles.footerMeta}>
           <p>© The Malaysian Learn-a-thon 2026</p>
           <div className={styles.footerMetaLinks}>
+            <AimtoThemeToggle />
             <a
               href="https://instagram.com/malaysianai"
               target="_blank"

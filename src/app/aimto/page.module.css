@@ -1,17 +1,17 @@
 .site {
-  --black: #070707;
+  --black: var(--aimto-overlay, #070707);
   --ink: #111111;
-  --paper: #f5f3ed;
-  --white: #ffffff;
-  --violet: #4f24ff;
-  --violet-deep: #2714c9;
-  --electric: #7a5cff;
-  --cyan: #69e4ff;
-  --pink: #ff8bdc;
-  --orange: #ff8f4f;
-  --lime: #d7ff36;
-  background: var(--black);
-  color: var(--white);
+  --paper: var(--aimto-surface, #f5f3ed);
+  --white: var(--aimto-control, #ffffff);
+  --violet: var(--aimto-violet, #4f24ff);
+  --violet-deep: var(--aimto-violet-deep, #2714c9);
+  --electric: var(--aimto-electric, #7a5cff);
+  --cyan: var(--aimto-cyan, #69e4ff);
+  --pink: var(--aimto-pink, #ff8bdc);
+  --orange: var(--aimto-orange, #ff8f4f);
+  --lime: var(--aimto-accent, #d7ff36);
+  background: var(--aimto-canvas, var(--black));
+  color: var(--aimto-ink, var(--white));
   font-family: "Rethink Sans", Inter, system-ui, sans-serif;
   min-height: 100vh;
   max-width: 100%;
@@ -128,10 +128,10 @@
 
 .nav {
   align-items: center;
-  backdrop-filter: blur(0);
-  background: transparent;
+  backdrop-filter: none;
+  background: var(--aimto-nav-bg, transparent);
   border-bottom: 1px solid transparent;
-  box-shadow: 0 16px 50px rgba(0, 0, 0, 0);
+  box-shadow: 0 16px 50px transparent;
   display: flex;
   gap: 28px;
   justify-content: space-between;
@@ -147,9 +147,9 @@
 
 .navScrolled {
   backdrop-filter: blur(18px);
-  background: rgba(14, 14, 18, 0.94);
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.25);
+  background: var(--aimto-nav-bg-scrolled, rgba(14, 14, 18, 0.94));
+  border-bottom-color: var(--aimto-border, rgba(255, 255, 255, 0.1));
+  box-shadow: 0 16px 50px var(--aimto-shadow, rgba(0, 0, 0, 0.25));
 }
 
 .brand {
@@ -193,14 +193,14 @@
 
 .navLinks > a,
 .navMenuButton {
-  color: rgba(255, 255, 255, 0.64);
+  color: var(--aimto-ink-muted, rgba(255, 255, 255, 0.64));
   transition: color 180ms ease;
 }
 
 .navLinks > a:hover,
 .navMenuButton:hover,
 .navMenuButton[aria-expanded="true"] {
-  color: var(--white);
+  color: var(--aimto-ink, var(--white));
 }
 
 .navGroup {
@@ -212,7 +212,7 @@
   appearance: none;
   background: transparent;
   border: 0;
-  color: rgba(255, 255, 255, 0.64);
+  color: var(--aimto-ink-muted, rgba(255, 255, 255, 0.64));
   cursor: pointer;
   display: flex;
   gap: 9px;
@@ -238,9 +238,9 @@
 }
 
 .navDropdown {
-  background: rgba(14, 14, 18, 0.98);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.38);
+  background: var(--aimto-panel, rgba(14, 14, 18, 0.98));
+  border: 1px solid var(--aimto-panel-border, rgba(255, 255, 255, 0.14));
+  box-shadow: 0 18px 42px var(--aimto-shadow, rgba(0, 0, 0, 0.38));
   display: none;
   gap: 2px;
   left: 50%;
@@ -265,7 +265,7 @@
 }
 
 .navDropdown a {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--aimto-ink-muted, rgba(255, 255, 255, 0.7));
   padding: 11px 12px;
   transition:
     background 160ms ease,
@@ -275,17 +275,17 @@
 
 .navDropdown a:hover,
 .navDropdown a:focus-visible {
-  background: rgba(215, 255, 54, 0.1);
-  color: var(--lime);
+  background: rgba(var(--aimto-accent-rgb, 215 255 54), 0.1);
+  color: var(--aimto-accent-text, var(--lime));
   outline: none;
 }
 
 .ctaButton {
   align-items: center;
-  background: var(--white);
+  background: var(--aimto-control, #ffffff);
   border: 1px solid transparent;
   border-radius: 999px;
-  color: var(--black) !important;
+  color: var(--aimto-control-ink, #070707) !important;
   display: inline-flex;
   gap: 12px;
   justify-content: center;
@@ -300,12 +300,75 @@
 
 .ctaButton:hover,
 .ctaButton:focus-visible {
-  background: var(--lime);
-  border-color: var(--lime);
-  box-shadow: 0 0 0 3px rgba(215, 255, 54, 0.14);
-  color: var(--black) !important;
+  background: var(--aimto-accent, var(--lime));
+  border-color: var(--aimto-accent, var(--lime));
+  box-shadow: 0 0 0 3px rgba(var(--aimto-accent-rgb, 215 255 54), 0.14);
+  color: var(--aimto-accent-ink, #070707) !important;
   outline: none;
   transform: none;
+}
+
+.brandLogo {
+  display: block;
+  filter: var(--aimto-logo-filter, none);
+  height: auto;
+  width: clamp(138px, 13vw, 188px);
+}
+
+.themeToggleGroup {
+  align-items: center;
+  background: var(--aimto-toggle-bg, rgba(255, 255, 255, 0.14));
+  border: 1px solid var(--aimto-border, rgba(255, 255, 255, 0.24));
+  border-radius: 999px;
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+}
+
+.themeToggleItem {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: var(--aimto-ink, #ffffff);
+  cursor: pointer;
+  display: inline-flex;
+  height: 30px;
+  justify-content: center;
+  opacity: 0.45;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    opacity 160ms ease;
+  width: 30px;
+}
+
+.themeToggleItem:hover,
+.themeToggleItem:focus-visible {
+  opacity: 0.85;
+  outline: none;
+}
+
+.themeToggleItem[data-state="on"] {
+  background: var(--aimto-toggle-thumb, var(--aimto-ink, #ffffff));
+  color: var(--aimto-canvas, #070707);
+  opacity: 1;
+}
+
+/* Light mode: clear nav over the hero; bar + inverted logo only after scroll. */
+:global(html[data-theme="light"]) .nav:not(.navScrolled) .brandLogo {
+  filter: none;
+}
+
+:global(html[data-theme="light"]) .nav:not(.navScrolled) .ctaButton {
+  background: var(--aimto-hero-control);
+  color: var(--aimto-hero-control-ink) !important;
+}
+
+:global(html[data-theme="light"]) .navScrolled .ctaButton {
+  background: var(--aimto-control);
+  color: var(--aimto-control-ink) !important;
 }
 
 .mobileNavActions,
@@ -761,7 +824,7 @@
 }
 
 .scrambleWord {
-  color: var(--lime);
+  color: var(--aimto-accent-text, var(--lime));
   min-height: 1em;
   white-space: nowrap;
 }
@@ -2212,8 +2275,8 @@
 
   .navMobileOpen {
     backdrop-filter: blur(18px);
-    background: rgba(14, 14, 18, 0.98);
-    border-bottom-color: rgba(255, 255, 255, 0.1);
+    background: var(--aimto-nav-bg-scrolled, rgba(14, 14, 18, 0.98));
+    border-bottom-color: var(--aimto-border, rgba(255, 255, 255, 0.1));
   }
 
   .mobileNavActions {
@@ -2508,8 +2571,8 @@
   }
 
   .navScrolled {
-    backdrop-filter: none;
-    background: rgba(14, 14, 18, 0.98);
+    backdrop-filter: blur(18px);
+    background: var(--aimto-nav-bg-scrolled, rgba(14, 14, 18, 0.98));
   }
 
   .brand {

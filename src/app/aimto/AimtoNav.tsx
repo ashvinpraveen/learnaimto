@@ -23,6 +23,7 @@ export default function AimtoNav({ registrationUrl }: AimtoNavProps) {
     <header className={styles.navWrap}>
       <nav
         className={`${styles.nav} ${scrolled ? styles.navScrolled : ""}`}
+        data-scrolled={scrolled ? "true" : "false"}
         aria-label="AI Malaysia Takeover"
       >
         <a
@@ -37,6 +38,7 @@ export default function AimtoNav({ registrationUrl }: AimtoNavProps) {
             height={113}
             sizes="188px"
             priority
+            className={styles.brandLogo}
           />
         </a>
         <AimtoButton className={styles.navCta} href={registrationUrl}>

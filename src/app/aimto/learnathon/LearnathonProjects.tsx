@@ -110,15 +110,15 @@ export default function LearnathonProjects() {
       aria-labelledby="learnathon-projects-title"
       id="inspiration"
     >
-      <div className={styles.projectsIntro} data-reveal="up">
-        <div className={styles.sectionLabel}>INSPIRATION_</div>
-        <h2 id="learnathon-projects-title">What you could build</h2>
-        <p>
-          Here&apos;s some ideas what other Malaysians are building, but feel
-          free to bring your own ideas. All you need is a laptop and we&apos;ll
-          guide you every step on the way.
-        </p>
-      </div>
+        <div className={styles.projectsIntro} data-reveal="up">
+          <div className={styles.sectionLabel}>INSPIRATION_</div>
+          <h2 id="learnathon-projects-title">What you could build</h2>
+          <p>
+            Here&apos;s some ideas what other Malaysians are building, but feel
+            free to bring your own ideas. All you need is a laptop and we&apos;ll
+            guide you every step on the way.
+          </p>
+        </div>
 
       <div
         className={styles.projectsCarousel}

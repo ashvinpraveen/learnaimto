@@ -28,9 +28,42 @@ export const metadata: Metadata = {
   },
 };
 
+const THEME_SCRIPT = `
+  (function () {
+    try {
+      const KEY = "aimto-theme-preference";
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+      const saved = window.localStorage.getItem(KEY);
+      const preference =
+        saved === "light" || saved === "dark" || saved === "system"
+          ? saved
+          : "system";
+      const theme = preference === "system" ? systemTheme : preference;
+
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
+    } catch {
+      const fallbackTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+      document.documentElement.dataset.theme = fallbackTheme;
+      document.documentElement.style.colorScheme = fallbackTheme;
+    }
+  })();
+`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: THEME_SCRIPT,
+          }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );
