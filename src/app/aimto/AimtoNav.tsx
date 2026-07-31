@@ -47,14 +47,17 @@ export default function AimtoNav({ registrationUrl }: AimtoNavProps) {
             className={styles.navThemeToggle}
             surface={scrolled ? "default" : "hero"}
           />
-          <AimtoButton className={styles.navCta} href={registrationUrl}>
+          <AimtoButton
+            className={`${styles.ctaButton} ${styles.navCta}`}
+            href={registrationUrl}
+          >
             Sign up free <span aria-hidden="true">↗</span>
           </AimtoButton>
         </div>
         <div className={styles.mobileNavActions}>
           <AimtoThemeToggle surface={scrolled ? "default" : "hero"} />
           <AimtoButton
-            className={styles.mobileJoinCta}
+            className={`${styles.ctaButton} ${styles.mobileJoinCta}`}
             href={registrationUrl}
           >
             Sign up free <span aria-hidden="true">↗</span>

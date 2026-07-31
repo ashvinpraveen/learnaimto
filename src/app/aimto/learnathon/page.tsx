@@ -15,7 +15,7 @@ import AimtoMotion from "../AimtoMotion";
 import AimtoNav from "../AimtoNav";
 import AimtoScrambleTitle from "../AimtoScrambleTitle";
 import AimtoThemeToggle from "../AimtoThemeToggle";
-import AimtoButton from "./AimtoButton";
+import AimtoButton from "../AimtoButton";
 import LearnathonCountdown from "./LearnathonCountdown";
 import LearnathonProjects from "./LearnathonProjects";
 import styles from "./page.module.css";
@@ -145,7 +145,7 @@ export default function LearnathonThreePage() {
               </div>
             </div>
             <div className={styles.heroActions}>
-              <AimtoButton href={registrationUrl}>
+              <AimtoButton className={styles.ctaButton} href={registrationUrl}>
                 Sign up free <span aria-hidden="true">↗</span>
               </AimtoButton>
               <a className={styles.textLink} href="#overview">
@@ -400,7 +400,7 @@ export default function LearnathonThreePage() {
             </p>
           </div>
           <AimtoButton
-            className={styles.finalCtaButton}
+            className={`${styles.ctaButton} ${styles.finalCtaButton}`}
             href={registrationUrl}
             data-reveal="up"
           >

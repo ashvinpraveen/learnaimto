@@ -27,6 +27,11 @@ export const LEARNATHON_FAQS = [
       "Yes. Registration is free, and every AI tool we use has a free tier—no payment needed for the day.",
   },
   {
+    question: "Is this related to the AI Malaysia Takeover 2026 event?",
+    answer:
+      "Yes—the Learn-a-thon is day two of the two-day AI Malaysia Takeover (aimto.my). Attend both days for the full experience: more free speaking sessions, workshops, and support and learning opportunities.",
+  },
+  {
     question: "Are spaces limited?",
     answer:
       "Yes. Capacity at The Campus is limited, so register early to lock in your spot.",

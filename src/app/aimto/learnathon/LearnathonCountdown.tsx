@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import AimtoButton from "./AimtoButton";
+import AimtoButton from "../AimtoButton";
 import { EVENT_START_ISO, REGISTRATION_URL } from "@/lib/constants";
 import styles from "./page.module.css";
 
@@ -56,7 +56,7 @@ export default function LearnathonCountdown() {
           ))}
         </div>
       </div>
-      <AimtoButton href={REGISTRATION_URL}>
+      <AimtoButton className={styles.ctaButton} href={REGISTRATION_URL}>
         Sign up free <span aria-hidden="true">↗</span>
       </AimtoButton>
     </section>
