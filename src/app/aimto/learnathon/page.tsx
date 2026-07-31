@@ -51,57 +51,39 @@ const registrationUrl =
   "https://event.aimto.my/concierge-menu/registration";
 
 const tickerItems = [
-  "ONE SHARED BUILDER FLOOR_",
-  "NO CODING EXPERIENCE NEEDED_",
-  "MENTORS ON THE FLOOR_",
-  "BUILD WALL + IDEA PROMPTS_",
-  "DEBUG + DEPLOY BAR_",
-  "ROLLING SHOW + TELL_",
+  "OPEN TO EVERY MALAYSIAN_",
+  "LEARN AI_",
+  "BUILD SOMETHING FOR YOURSELF_",
+  "HANDS-ON HELP FROM EXPERTS_",
+  "FREE AI TOOLS_",
+  "SHOW + TELL_",
   "TAKE YOUR BUILD HOME_",
 ];
 
-const experienceZones = [
+const whatYouGet = [
   {
-    label: "GET MOVING_",
-    days: ["START"],
-    title: "Starter Kits & Resource Hub",
-    body: "Open a ready-made starter pack with simple tool guides, templates and beginner prompts so your first useful build is never a blank page.",
-    image: "/aimto-assets/learnathon-zones/starter-kits.jpg",
-  },
-  {
-    label: "FIND YOUR SPARK_",
-    days: ["CHOOSE"],
-    title: "Build Wall & Inspiration Board",
-    body: "Post what you want to make, find a teammate, ask for help or choose a beginner-friendly idea when you are not sure where to start.",
-    image: "/aimto-assets/learnathon-zones/inspiration-wall.jpg",
-  },
-  {
-    label: "THE HEART OF IT_",
-    days: ["BUILD"],
-    title: "One Shared Builder Floor",
-    body: "Beginners and experienced builders sit side by side. Watch, ask, learn, make and help the person next to you in productive, friendly chaos.",
-    image: "/aimto-assets/learnathon-zones/builder-floor.jpg",
-  },
-  {
-    label: "THE HUMAN SAFETY NET_",
-    days: ["UNSTICK"],
-    title: "Mentors & Helpdesk",
-    body: "Ask a roaming mentor, use the virtual helpdesk or pick up a quick-start resource. There will always be another way to get help.",
+    number: "01",
+    title: "Free support",
+    body: "Hands-on help from mentors and trainers whenever you get stuck.",
     image: "/aimto-assets/learnathon-zones/mentor-helpdesk.jpg",
   },
   {
-    label: "THE LAST MILE_",
-    days: ["SHIP"],
-    title: "Debug & Deploy Bar",
-    body: "Bring a working prototype for deeper help with errors, integrations, hosting, publishing and preparing something you can share.",
-    image: "/aimto-assets/learnathon-zones/debug-deploy.jpg",
+    number: "02",
+    title: "Free AI tools",
+    body: "Access the tools you need to learn, build and publish on the day.",
+    image: "/aimto-assets/learnathon-zones/starter-kits.jpg",
   },
   {
-    label: "CELEBRATE THE BUILD_",
-    days: ["SHARE"],
-    title: "Sandbox Stage & Show and Tell",
-    body: "Catch short practical workshops and rolling five-minute demos. Finished, unfinished and wonderfully messy projects are all welcome.",
+    number: "03",
+    title: "See what other people are building",
+    body: "Catch show and tells from fellow Malaysians building in the open.",
     image: "/aimto-assets/learnathon-zones/show-and-tell.jpg",
+  },
+  {
+    number: "04",
+    title: "A day of fun, community and your own working apps",
+    body: "Leave with new friends, new skills and something you actually made.",
+    image: "/aimto-assets/learnathon-zones/builder-floor.jpg",
   },
 ];
 
@@ -188,8 +170,9 @@ export default function LearnathonThreePage() {
               <span>Learn-a-thon</span>
             </h1>
             <p className={styles.heroIntro}>
-              One day for every Malaysian to learn AI, build something useful
-              and get help from real builders along the way.
+              Open to any and every Malaysian: Learn AI. Build something for
+              yourself. Hands on help from experts. Where else can get? Free
+              some more. Just come!
             </p>
             <div className={styles.heroEventMeta}>
               <div className={styles.heroDate}>
@@ -210,10 +193,10 @@ export default function LearnathonThreePage() {
             </div>
             <div className={styles.heroActions}>
               <AimtoButton href={registrationUrl}>
-                Secure your seats now <span aria-hidden="true">↗</span>
+                Sign up <span aria-hidden="true">↗</span>
               </AimtoButton>
               <a className={styles.textLink} href="#overview">
-                See how the day works <span aria-hidden="true">↓</span>
+                About the day <span aria-hidden="true">↓</span>
               </a>
             </div>
           </div>
@@ -269,7 +252,7 @@ export default function LearnathonThreePage() {
 
         <section className={styles.introSection} id="overview">
           <div className={styles.sectionLabel} data-reveal="up">
-            AI DOESN&apos;T HAVE TO BE CONFUSING_
+            ABOUT_
           </div>
           <div className={styles.introLayout} data-reveal="up">
             <AimtoScrambleTitle />
@@ -277,8 +260,8 @@ export default function LearnathonThreePage() {
               className={`${styles.introCopy} ${styles.learnathonIntroCopy}`}
             >
               <p className={styles.lead}>
-                Building cool things with AI has never been easier, yet getting
-                started is so hard.
+                &ldquo;Building cool things with AI has never been easier.
+                Especially with hands-on support!&rdquo;
               </p>
               <p>
                 The Learn-a-thon is a space where anyone with zero experience
@@ -286,8 +269,8 @@ export default function LearnathonThreePage() {
                 a day.
               </p>
               <p>
-                Accelerate your learning with the support from Malaysia&apos;s
-                leading trainers and mentors.
+                It&apos;ll be a fun day filled with activities and support from
+                leading AI trainers in Malaysia — and it&apos;s free!
               </p>
             </div>
             <div className={styles.introArtwork} data-reveal="soft">
@@ -306,36 +289,24 @@ export default function LearnathonThreePage() {
 
         <section className={styles.zonesSection} id="experience">
           <div className={styles.sectionHeading} data-reveal="up">
-            <div className={styles.sectionLabel}>YOUR BUILD JOURNEY_</div>
-            <h2>
-              What You&apos;ll See
-            </h2>
+            <div className={styles.sectionLabel}>THE DAY_</div>
+            <h2>What you&apos;ll get</h2>
           </div>
-          <div className={styles.zonesGrid} data-reveal="stagger">
-            {experienceZones.map((zone, index) => (
-              <article className={styles.zoneCard} key={zone.label}>
+          <div className={`${styles.zonesGrid} ${styles.benefitsGrid}`} data-reveal="stagger">
+            {whatYouGet.map((item) => (
+              <article className={styles.zoneCard} key={item.number}>
                 <Image
-                  src={zone.image}
+                  src={item.image}
                   alt=""
                   width={800}
                   height={520}
                   sizes="(max-width: 680px) 100vw, 50vw"
                 />
                 <div className={styles.zoneMeta}>
-                  <span className={styles.zoneIndex}>
-                    {String(index + 1).padStart(2, "0")}_
-                  </span>
-                  <span className={styles.zoneProperties}>
-                    <span className={styles.zoneDays}>
-                      {zone.days.map((day) => (
-                        <small key={day}>{day}</small>
-                      ))}
-                    </span>
-                    <em>{zone.label}</em>
-                  </span>
+                  <span className={styles.zoneIndex}>{item.number}_</span>
                 </div>
-                <h3>{zone.title}</h3>
-                <p>{zone.body}</p>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
               </article>
             ))}
           </div>
@@ -351,7 +322,7 @@ export default function LearnathonThreePage() {
               <div className={styles.sectionLabel}>
                 REAL BUILDERS, BESIDE YOU_
               </div>
-              <h2 id="trainers-title">Meet your Trainers &amp; Builders</h2>
+              <h2 id="trainers-title">Speakers and mentors</h2>
             </div>
             <p>
               Learn from people doing the work, ask the difficult question and
@@ -360,7 +331,7 @@ export default function LearnathonThreePage() {
           </div>
           <div
             className={styles.trainersGrid}
-            aria-label="Learn-a-thon trainers"
+            aria-label="Learn-a-thon speakers and mentors"
             data-reveal="stagger"
           >
             {trainers.map((trainer) => (
@@ -381,7 +352,9 @@ export default function LearnathonThreePage() {
               </article>
             ))}
           </div>
-          <p className={styles.trainersMore}>MORE TRAINERS TO BE ANNOUNCED_</p>
+          <p className={styles.trainersMore}>
+            MORE SPEAKERS AND MENTORS TO BE ANNOUNCED_
+          </p>
         </section>
 
         <LearnathonCountdown />
@@ -453,87 +426,6 @@ export default function LearnathonThreePage() {
           </p>
         </section>
 
-        <section className={styles.participationSection}>
-          <div className={styles.participationIntro} data-reveal="up">
-            <div className={styles.headingTitleGroup}>
-              <div className={styles.sectionLabel}>YOUR WAY IN_</div>
-              <h2>One floor. Many ways to begin.</h2>
-            </div>
-            <p>
-              Come alone, bring family, start from zero or arrive with a build
-              already underway. There is a place for you on the floor.
-            </p>
-          </div>
-          <div className={styles.participationGrid} data-reveal="stagger">
-            <a href={registrationUrl}>
-              <Image
-                src="/aimto-assets/learnathon-builder-floor.jpg"
-                alt="A busy, collaborative AI Builder Floor"
-                width={720}
-                height={480}
-                sizes="(max-width: 680px) 100vw, (max-width: 980px) 50vw, 25vw"
-              />
-              <div className={styles.participationCardBody}>
-                <span>01_</span>
-                <strong>Start from zero</strong>
-                <small>Use a guided idea and get set up with support.</small>
-                <span className={styles.participationCardLink}>Register ↗</span>
-              </div>
-            </a>
-            <a href={registrationUrl}>
-              <Image
-                src="/aimto-assets/campus-courtyard.jpg"
-                alt="The open courtyard at The Campus Ampang"
-                width={720}
-                height={480}
-                sizes="(max-width: 680px) 100vw, (max-width: 980px) 50vw, 25vw"
-              />
-              <div className={styles.participationCardBody}>
-                <span>02_</span>
-                <strong>Bring someone</strong>
-                <small>Learn alongside a friend, colleague or family member.</small>
-                <span className={styles.participationCardLink}>
-                  Register together ↗
-                </span>
-              </div>
-            </a>
-            <a href={registrationUrl}>
-              <Image
-                src="/aimto-assets/for-thinkers-builders.jpg"
-                alt="Builders sharing ideas and practical experience"
-                width={720}
-                height={480}
-                sizes="(max-width: 680px) 100vw, (max-width: 980px) 50vw, 25vw"
-              />
-              <div className={styles.participationCardBody}>
-                <span>03_</span>
-                <strong>Bring a problem</strong>
-                <small>Turn one real frustration into a useful AI workflow.</small>
-                <span className={styles.participationCardLink}>
-                  Start building ↗
-                </span>
-              </div>
-            </a>
-            <a href={registrationUrl}>
-              <Image
-                src="/aimto-assets/the-sandbox.jpg"
-                alt="A public session on the Sandbox Stage"
-                width={720}
-                height={480}
-                sizes="(max-width: 680px) 100vw, (max-width: 980px) 50vw, 25vw"
-              />
-              <div className={styles.participationCardBody}>
-                <span>04_</span>
-                <strong>Show your work</strong>
-                <small>Share a finished build or a work in progress on stage.</small>
-                <span className={styles.participationCardLink}>
-                  Join the floor ↗
-                </span>
-              </div>
-            </a>
-          </div>
-        </section>
-
         <section className={styles.faqSection} id="faq">
           <div className={styles.faqIntro} data-reveal="up">
             <div className={styles.sectionLabel}>FAQ_</div>
@@ -557,13 +449,13 @@ export default function LearnathonThreePage() {
           <div className={styles.finalGlow} aria-hidden="true" />
           <div data-reveal="up">
             <h2>
-              <span>Build</span> something that matters.
+              <span>Jommm</span> sign up
             </h2>
             <p className={styles.finalDescription}>
-              One day. One shared floor. A useful build you can take home.
+              Open to any and every Malaysian. Free. Just come!
             </p>
             <AimtoButton href={registrationUrl}>
-              Secure your seats now <span aria-hidden="true">↗</span>
+              Sign up <span aria-hidden="true">↗</span>
             </AimtoButton>
           </div>
         </section>
@@ -584,7 +476,7 @@ export default function LearnathonThreePage() {
             <p>Malaysia learns AI by building, together.</p>
           </div>
           <AimtoButton className={styles.footerCta} href={registrationUrl}>
-            Secure your seats now <span aria-hidden="true">↗</span>
+            Sign up <span aria-hidden="true">↗</span>
           </AimtoButton>
         </div>
 
@@ -592,8 +484,9 @@ export default function LearnathonThreePage() {
           <div>
             <h2>Program_</h2>
             <a href="#overview">About the Learn-a-thon</a>
-            <a href="#experience">Your build journey</a>
-            <a href="#trainers">Trainers &amp; builders</a>
+            <a href="#inspiration">What you could build</a>
+            <a href="#experience">What you&apos;ll get</a>
+            <a href="#trainers">Speakers and mentors</a>
           </div>
           <div>
             <h2>About_</h2>
@@ -605,7 +498,7 @@ export default function LearnathonThreePage() {
           </div>
           <div>
             <h2>Attend_</h2>
-            <a href={registrationUrl}>Tickets</a>
+            <a href={registrationUrl}>Sign up</a>
             <a href="#campus">Get here</a>
             <a href="#faq">FAQ</a>
           </div>

@@ -216,7 +216,7 @@ export default function AimtoNav({ registrationUrl }: AimtoNavProps) {
           </a>
         </div>
         <AimtoButton className={styles.navCta} href={registrationUrl}>
-          Secure your seats now <span aria-hidden="true">↗</span>
+          Sign up <span aria-hidden="true">↗</span>
         </AimtoButton>
         <div className={styles.mobileNavActions}>
           <AimtoButton
@@ -292,7 +292,7 @@ export default function AimtoNav({ registrationUrl }: AimtoNavProps) {
             href={registrationUrl}
             onClick={closeMobileMenu}
           >
-            Secure your seats now <span aria-hidden="true">↗</span>
+            Sign up <span aria-hidden="true">↗</span>
           </AimtoButton>
         </div>
       </nav>

@@ -4,8 +4,8 @@ import styles from "./page.module.css";
 type ProjectIdea = {
   type: string;
   prompt: string;
-  image?: string;
-  alt?: string;
+  image: string;
+  alt: string;
 };
 
 const projectIdeas: ProjectIdea[] = [
@@ -74,56 +74,68 @@ const projectIdeas: ProjectIdea[] = [
   },
 ];
 
+function ProjectCard({
+  idea,
+  duplicate = false,
+}: {
+  idea: ProjectIdea;
+  duplicate?: boolean;
+}) {
+  return (
+    <article
+      className={styles.projectCard}
+      aria-hidden={duplicate || undefined}
+    >
+      <div className={styles.projectVisual}>
+        <Image
+          src={idea.image}
+          alt={duplicate ? "" : idea.alt}
+          fill
+          sizes="(max-width: 680px) 78vw, 320px"
+          unoptimized
+        />
+      </div>
+      <div className={styles.projectDetails}>
+        <small>{idea.type}</small>
+        <h3>{idea.prompt}</h3>
+      </div>
+    </article>
+  );
+}
+
 export default function LearnathonProjects() {
   return (
     <section
       className={styles.projectsSection}
       aria-labelledby="learnathon-projects-title"
+      id="inspiration"
     >
       <div className={styles.projectsIntro} data-reveal="up">
-        <div>
-          <div className={styles.sectionLabel}>WHAT YOU CAN BUILD_</div>
-          <h2 id="learnathon-projects-title">
-            Learn to build something you&apos;d love
-          </h2>
-        </div>
+        <div className={styles.sectionLabel}>INSPIRATION_</div>
+        <h2 id="learnathon-projects-title">What you could build</h2>
         <p>
-          Even if you&apos;re a beginner, you can build complete apps with AI
-          in minutes &amp; get support during this event
+          Start with a simple idea that helps someone you care about — then
+          build it with AI support on the day.
         </p>
       </div>
 
       <div
-        className={styles.projectsGrid}
+        className={styles.projectsCarousel}
         aria-label="Example Learn-a-thon projects"
-        data-reveal="stagger"
+        data-reveal="up"
       >
-        {projectIdeas.map((idea) => (
-          <article className={styles.projectCard} key={idea.type}>
-            <div
-              className={`${styles.projectVisual} ${
-                idea.image ? "" : styles.projectVisualPlaceholder
-              }`}
-            >
-              {idea.image ? (
-                <Image
-                  src={idea.image}
-                  alt={idea.alt ?? "An artistic Learn-a-thon project illustration"}
-                  fill
-                  loading="eager"
-                  sizes="(max-width: 680px) calc(100vw - 40px), (max-width: 1000px) 50vw, 25vw"
-                  unoptimized
-                />
-              ) : (
-                <span>ARTWORK NEXT_</span>
-              )}
-            </div>
-            <div className={styles.projectDetails}>
-              <small>{idea.type}</small>
-              <h3>{idea.prompt}</h3>
-            </div>
-          </article>
-        ))}
+        <div className={styles.projectsCarouselTrack}>
+          <div className={styles.projectsCarouselGroup}>
+            {projectIdeas.map((idea) => (
+              <ProjectCard idea={idea} key={idea.type} />
+            ))}
+          </div>
+          <div className={styles.projectsCarouselGroup} aria-hidden="true">
+            {projectIdeas.map((idea) => (
+              <ProjectCard idea={idea} key={`${idea.type}-repeat`} duplicate />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
