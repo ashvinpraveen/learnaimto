@@ -32,10 +32,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/aimto-assets/learnathon-builder-floor.jpg",
-        width: 1536,
-        height: 1024,
-        alt: "A collaborative AI builder floor at The Campus Ampang",
+        url: "/aimto-assets/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "The Malaysian Learn-a-thon — Learn AI. Build Something.",
       },
     ],
   },
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     title: "The Malaysian Learn-a-thon",
     description:
       "Learn AI, build something useful and take it home.",
-    images: ["/aimto-assets/learnathon-builder-floor.jpg"],
+    images: ["/aimto-assets/og-image.png"],
   },
 };
 

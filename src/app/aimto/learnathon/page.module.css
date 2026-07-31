@@ -2414,14 +2414,16 @@
 .finalCta {
   background:
     radial-gradient(
-      ellipse 90% 60% at 50% 100%,
+      ellipse 95% 55% at 50% 78%,
       var(--theme-final-to) 0%,
-      transparent 68%
+      transparent 72%
     ),
     linear-gradient(
       180deg,
       var(--theme-final-from) 0%,
-      color-mix(in srgb, var(--theme-final-from) 55%, var(--theme-final-to)) 48%,
+      var(--theme-final-from) 28%,
+      color-mix(in srgb, var(--theme-final-from) 70%, var(--theme-final-to)) 52%,
+      var(--theme-final-to) 75%,
       var(--theme-final-to) 100%
     );
   color: var(--theme-final-ink);
