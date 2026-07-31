@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import AimtoButton from "./AimtoButton";
+import AimtoThemeToggle from "./AimtoThemeToggle";
 import styles from "./page.module.css";
 
 type AimtoNavProps = {
@@ -41,10 +42,17 @@ export default function AimtoNav({ registrationUrl }: AimtoNavProps) {
             className={styles.brandLogo}
           />
         </a>
-        <AimtoButton className={styles.navCta} href={registrationUrl}>
-          Sign up free <span aria-hidden="true">↗</span>
-        </AimtoButton>
+        <div className={styles.navActions}>
+          <AimtoThemeToggle
+            className={styles.navThemeToggle}
+            surface={scrolled ? "default" : "hero"}
+          />
+          <AimtoButton className={styles.navCta} href={registrationUrl}>
+            Sign up free <span aria-hidden="true">↗</span>
+          </AimtoButton>
+        </div>
         <div className={styles.mobileNavActions}>
+          <AimtoThemeToggle surface={scrolled ? "default" : "hero"} />
           <AimtoButton
             className={styles.mobileJoinCta}
             href={registrationUrl}

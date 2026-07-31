@@ -1,0 +1,56 @@
+.themeToggleGroup {
+  align-items: center;
+  background: var(--aimto-toggle-bg, rgba(255, 255, 255, 0.14));
+  border: 1px solid var(--aimto-border, rgba(255, 255, 255, 0.24));
+  border-radius: 999px;
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+}
+
+.themeToggleItem {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: var(--aimto-ink, #ffffff);
+  cursor: pointer;
+  display: inline-flex;
+  height: 30px;
+  justify-content: center;
+  opacity: 0.45;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    opacity 160ms ease;
+  width: 30px;
+}
+
+.themeToggleItem:hover,
+.themeToggleItem:focus-visible {
+  opacity: 0.85;
+  outline: none;
+}
+
+.themeToggleItem[data-state="on"] {
+  background: var(--aimto-toggle-thumb, var(--aimto-ink, #ffffff));
+  color: var(--aimto-canvas, #070707);
+  opacity: 1;
+}
+
+:global(html[data-theme="light"]) .themeToggleGroupHero {
+  background: rgba(244, 246, 252, 0.14);
+  border-color: rgba(244, 246, 252, 0.34);
+}
+
+:global(html[data-theme="light"]) .themeToggleGroupHero .themeToggleItem {
+  color: #f4f6fc;
+}
+
+:global(html[data-theme="light"])
+  .themeToggleGroupHero
+  .themeToggleItem[data-state="on"] {
+  background: #f4f6fc;
+  color: #070707;
+}

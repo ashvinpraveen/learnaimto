@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { Monitor, Moon, Sun } from "lucide-react";
-import styles from "./page.module.css";
+import styles from "./AimtoThemeToggle.module.css";
 
 type ThemePreference = "system" | "light" | "dark";
 type ResolvedTheme = "light" | "dark";
@@ -59,9 +59,14 @@ function preferenceLabel(preference: ThemePreference, resolved: ResolvedTheme) {
 
 type AimtoThemeToggleProps = {
   className?: string;
+  /** Use light controls when sitting on the photographic hero. */
+  surface?: "default" | "hero";
 };
 
-export default function AimtoThemeToggle({ className }: AimtoThemeToggleProps) {
+export default function AimtoThemeToggle({
+  className,
+  surface = "default",
+}: AimtoThemeToggleProps) {
   const [preference, setPreference] = useState<ThemePreference>("system");
   const [theme, setTheme] = useState<ResolvedTheme>("dark");
   const [themeReady, setThemeReady] = useState(false);
@@ -110,7 +115,9 @@ export default function AimtoThemeToggle({ className }: AimtoThemeToggleProps) {
       aria-label={
         themeReady ? preferenceLabel(preference, theme) : "Color theme"
       }
-      className={`${styles.themeToggleGroup}${className ? ` ${className}` : ""}`}
+      className={`${styles.themeToggleGroup}${
+        surface === "hero" ? ` ${styles.themeToggleGroupHero}` : ""
+      }${className ? ` ${className}` : ""}`}
       onValueChange={onPreferenceChange}
       type="single"
       value={preference}

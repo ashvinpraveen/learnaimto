@@ -10,6 +10,8 @@ import {
   type KeyboardEvent,
 } from "react";
 import Image from "next/image";
+import AimtoThemeToggle from "../aimto/AimtoThemeToggle";
+import { REGISTRATION_URL } from "@/lib/constants";
 import ShareCard, { downloadShareCard } from "./ShareCard";
 import {
   buildScorecard,
@@ -21,9 +23,6 @@ import {
   type QuizOption,
 } from "./questions";
 import styles from "./page.module.css";
-
-const REGISTRATION_URL =
-  "https://event.aimto.my/concierge-menu/registration";
 
 const TOTAL_STEPS = QUIZ_QUESTIONS.length + 1; // + qualifier
 type Phase = "intro" | "quiz" | "qualifier" | "name" | "result";
@@ -302,11 +301,18 @@ export default function WelcomeQuiz() {
             priority
           />
         </a>
-        {phase !== "intro" && (
-          <button type="button" className={styles.ghostButton} onClick={goBack}>
-            Back
-          </button>
-        )}
+        <div className={styles.topBarActions}>
+          <AimtoThemeToggle />
+          {phase !== "intro" && (
+            <button
+              type="button"
+              className={styles.ghostButton}
+              onClick={goBack}
+            >
+              Back
+            </button>
+          )}
+        </div>
       </header>
 
       <main

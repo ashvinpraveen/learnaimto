@@ -1,34 +1,75 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { JetBrains_Mono, Rethink_Sans, Space_Grotesk } from "next/font/google";
+import { OG_IMAGE, SITE_NAME } from "@/lib/constants";
 import "../index.css";
+
+const rethinkSans = Rethink_Sans({
+  subsets: ["latin"],
+  variable: "--font-rethink",
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#070707",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f3f0e8" },
+    { media: "(prefers-color-scheme: dark)", color: "#070707" },
+  ],
 };
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: "The Malaysian Learn-a-thon — Learn AI. Build Something.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  ),
+  title: {
+    default: "The Malaysian Learn-a-thon — Learn AI. Build Something.",
+    template: `%s — ${SITE_NAME}`,
+  },
   description:
     "A one-day public AI build experience for every Malaysian. Learn, make and get help from real builders on 12 August 2026 at The Campus, Ampang.",
-  icons: { icon: "/aimto-assets/favicon.png" },
+  applicationName: SITE_NAME,
+  icons: {
+    icon: [{ url: "/aimto-assets/favicon.png", type: "image/png" }],
+    apple: [{ url: "/aimto-assets/favicon.png" }],
+  },
   openGraph: {
     title: "The Malaysian Learn-a-thon",
     description: "Learn AI, build something useful and take it home.",
-    url: "/aimto/learnathon",
+    url: "/",
+    siteName: SITE_NAME,
+    locale: "en_MY",
     type: "website",
-    images: [{ url: "/aimto-assets/og-image.png", width: 1200, height: 630 }],
+    images: [
+      {
+        url: OG_IMAGE.url,
+        width: OG_IMAGE.width,
+        height: OG_IMAGE.height,
+        alt: OG_IMAGE.alt,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "The Malaysian Learn-a-thon",
     description: "Learn AI, build something useful and take it home.",
-    images: ["/aimto-assets/og-image.png"],
+    images: [OG_IMAGE.url],
+  },
+  alternates: {
+    canonical: "/",
   },
 };
 
@@ -58,9 +99,17 @@ const THEME_SCRIPT = `
   })();
 `;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${rethinkSans.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+    >
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -68,7 +117,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

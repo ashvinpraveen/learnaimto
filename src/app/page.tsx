@@ -1,1 +1,1 @@
-export { default } from "./aimto/learnathon/page";
+export { default, metadata } from "./aimto/learnathon/page";

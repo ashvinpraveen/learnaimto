@@ -1,17 +1,21 @@
 .site {
-  --black: #070707;
-  --white: #ffffff;
-  --lime: #d7ff36;
-  --cyan: #69e4ff;
-  --pink: #ff8bdc;
-  --violet: #7a5cff;
-  --muted: rgba(245, 243, 237, 0.62);
-  --muted-strong: rgba(245, 243, 237, 0.78);
-  --line: rgba(255, 255, 255, 0.14);
-  --panel: #0f0f0f;
-  background: var(--black);
-  color: var(--white);
-  font-family: "Rethink Sans", Inter, system-ui, sans-serif;
+  --ink: var(--aimto-ink);
+  --ink-rgb: var(--aimto-ink-rgb);
+  --muted: var(--aimto-ink-muted);
+  --muted-strong: rgba(var(--aimto-ink-rgb), 0.78);
+  --line: var(--aimto-border);
+  --panel: var(--aimto-surface-soft);
+  --lime: var(--aimto-accent);
+  --lime-text: var(--aimto-accent-text);
+  --lime-rgb: var(--aimto-accent-rgb);
+  --control: var(--aimto-control);
+  --control-ink: var(--aimto-control-ink);
+  --cyan: var(--aimto-cyan);
+  --pink: var(--aimto-pink);
+  --violet: var(--aimto-electric);
+  background: var(--aimto-canvas);
+  color: var(--ink);
+  font-family: var(--font-rethink), "Rethink Sans", system-ui, sans-serif;
   min-height: 100vh;
   max-width: 100%;
   overflow-x: clip;
@@ -26,7 +30,7 @@
 }
 
 .progressTrack {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(var(--ink-rgb), 0.08);
   height: 3px;
   left: 0;
   position: fixed;
@@ -45,9 +49,16 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
+  gap: 16px;
   padding: 28px clamp(20px, 4vw, 48px) 0;
   position: relative;
   z-index: 2;
+}
+
+.topBarActions {
+  align-items: center;
+  display: flex;
+  gap: 12px;
 }
 
 .brand {
@@ -56,6 +67,7 @@
 }
 
 .brand img {
+  filter: var(--aimto-logo-filter, none);
   height: auto;
   width: 100%;
 }
@@ -76,7 +88,7 @@
   background: transparent;
   border: 1px solid var(--line);
   border-radius: 999px;
-  color: var(--white);
+  color: var(--ink);
   min-height: 44px;
   padding: 0 18px;
   transition:
@@ -88,8 +100,8 @@
 .ghostButton:focus-visible,
 .secondaryButton:hover,
 .secondaryButton:focus-visible {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(var(--ink-rgb), 0.06);
+  border-color: rgba(var(--ink-rgb), 0.28);
   outline: none;
 }
 
@@ -153,8 +165,8 @@
 .blockLabel,
 .miniLabel,
 .tierLabel {
-  color: var(--lime);
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  color: var(--lime-text);
+  font-family: var(--font-mono), "JetBrains Mono", ui-monospace, monospace;
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -171,7 +183,7 @@
 .tierTitle,
 .playbookTitle,
 .resultName {
-  font-family: "Space Grotesk", "Rethink Sans", system-ui, sans-serif;
+  font-family: var(--font-space), "Space Grotesk", system-ui, sans-serif;
   font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 0.98;
@@ -255,10 +267,10 @@
 
 .primaryButton {
   align-items: center;
-  background: var(--white);
+  background: var(--control);
   border: 1px solid transparent;
   border-radius: 999px;
-  color: var(--black);
+  color: var(--control-ink);
   display: inline-flex;
   gap: 12px;
   justify-content: center;
@@ -267,7 +279,8 @@
   text-decoration: none;
   transition:
     background 180ms ease,
-    border-color 180ms ease;
+    border-color 180ms ease,
+    color 180ms ease;
   width: fit-content;
 }
 
@@ -275,6 +288,7 @@
 .primaryButton:focus-visible {
   background: var(--lime);
   border-color: var(--lime);
+  color: var(--aimto-accent-ink);
   outline: none;
 }
 
@@ -284,11 +298,11 @@
 }
 
 .hint kbd {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(var(--ink-rgb), 0.08);
   border: 1px solid var(--line);
   border-radius: 6px;
   display: inline-block;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: var(--font-mono), "JetBrains Mono", ui-monospace, monospace;
   font-size: 0.8em;
   line-height: 1;
   margin: 0 2px;
@@ -306,7 +320,7 @@
   background: transparent;
   border: 1px solid var(--line);
   border-radius: 14px;
-  color: var(--white);
+  color: var(--ink);
   display: flex;
   gap: 16px;
   min-height: 64px;
@@ -320,25 +334,25 @@
 
 .option:hover,
 .option:focus-visible {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(var(--ink-rgb), 0.04);
+  border-color: rgba(var(--ink-rgb), 0.34);
   outline: none;
 }
 
 .optionSelected {
-  background: rgba(215, 255, 54, 0.08);
-  border-color: rgba(215, 255, 54, 0.7);
+  background: rgba(var(--lime-rgb), 0.08);
+  border-color: rgba(var(--lime-rgb), 0.7);
 }
 
 .optionKey {
   align-items: center;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(var(--ink-rgb), 0.05);
   border: 1px solid var(--line);
   border-radius: 8px;
   color: var(--muted);
   display: inline-flex;
   flex: 0 0 auto;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: var(--font-mono), "JetBrains Mono", ui-monospace, monospace;
   font-size: 0.85rem;
   height: 34px;
   justify-content: center;
@@ -348,7 +362,7 @@
 .optionSelected .optionKey {
   background: var(--lime);
   border-color: var(--lime);
-  color: var(--black);
+  color: var(--aimto-accent-ink);
 }
 
 .optionLabel {
@@ -367,9 +381,9 @@
   background: transparent;
   border: 1px solid var(--line);
   border-radius: 14px;
-  color: var(--white);
+  color: var(--ink);
   cursor: text;
-  font-family: "Space Grotesk", "Rethink Sans", system-ui, sans-serif;
+  font-family: var(--font-space), "Space Grotesk", system-ui, sans-serif;
   font-size: 1.35rem;
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -384,7 +398,7 @@
 }
 
 .nameInput::placeholder {
-  color: rgba(255, 255, 255, 0.28);
+  color: rgba(var(--ink-rgb), 0.28);
 }
 
 .srOnly {
@@ -416,7 +430,7 @@
 }
 
 .scoreValue {
-  font-family: "Space Grotesk", "Rethink Sans", system-ui, sans-serif;
+  font-family: var(--font-space), "Space Grotesk", system-ui, sans-serif;
   font-size: clamp(4.8rem, 16vw, 7.5rem);
   font-weight: 700;
   letter-spacing: -0.06em;
@@ -425,7 +439,7 @@
 }
 
 .scoreValue span {
-  color: var(--white);
+  color: var(--ink);
   font-size: 0.38em;
   margin-left: 4px;
 }
@@ -502,7 +516,7 @@
 .traitHead {
   color: var(--muted-strong);
   display: flex;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: var(--font-mono), "JetBrains Mono", ui-monospace, monospace;
   font-size: 0.82rem;
   justify-content: space-between;
   margin-bottom: 8px;
@@ -510,12 +524,12 @@
 }
 
 .traitHead strong {
-  color: var(--white);
+  color: var(--ink);
   margin-right: 8px;
 }
 
 .traitBar {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(var(--ink-rgb), 0.08);
   border-radius: 99px;
   height: 8px;
   overflow: hidden;
@@ -544,8 +558,8 @@
 }
 
 .shareCardWrap {
-  background: var(--panel);
-  border: 1px solid var(--line);
+  background: #0f0f0f;
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 16px;
   overflow: hidden;
 }
@@ -579,7 +593,7 @@
 }
 
 .eventBenefit {
-  color: var(--white);
+  color: var(--ink);
   font-size: 1.05rem;
   font-weight: 600;
   margin: 0 0 22px;
@@ -636,7 +650,7 @@
 
 .textButton:hover,
 .textButton:focus-visible {
-  color: var(--white);
+  color: var(--ink);
   outline: none;
 }
 

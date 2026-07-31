@@ -170,14 +170,22 @@
 .site main h2 {
   font-family: "Rethink Sans", Inter, system-ui, sans-serif;
   letter-spacing: 0;
-  line-height: 1.28;
-  margin: 0 0 0.62rem;
+  line-height: 1.05;
+  margin: 0 0 0.28em;
   text-transform: none !important;
 }
 
+.site main h2 + p {
+  margin-top: 0;
+}
+
 .site main p {
-  line-height: 1.62;
-  margin: 0 0 1rem;
+  line-height: 1.55;
+  margin: 0 0 0.75rem;
+}
+
+.site main p:last-child {
+  margin-bottom: 0;
 }
 
 .site a {
@@ -900,7 +908,7 @@
 .introCopy {
   align-self: start;
   display: grid;
-  gap: 20px;
+  gap: 12px;
   position: relative;
   z-index: 1;
 }
@@ -1114,21 +1122,22 @@
 }
 
 .finalCta .ctaButton {
-  background: var(--theme-final-control);
-  color: var(--theme-final-control-ink) !important;
+  background: var(--theme-accent-ink);
+  color: var(--theme-accent) !important;
   min-height: 52px;
   padding-inline: 26px;
 }
 
 .finalCta .ctaButton:hover,
 .finalCta .ctaButton:focus-visible {
-  background: var(--lime);
-  color: var(--theme-accent-ink) !important;
+  background: var(--theme-overlay);
+  color: var(--theme-accent) !important;
 }
 
 .sectionHeading {
   display: grid;
-  gap: 34px;
+  column-gap: 34px;
+  row-gap: 12px;
   grid-template-columns: minmax(160px, 0.35fr) minmax(0, 1fr);
 }
 
@@ -1534,7 +1543,7 @@
 
 .campusIntro {
   display: grid;
-  gap: 28px;
+  gap: 12px;
 }
 
 .campusIntro h2 {
@@ -2412,61 +2421,53 @@
 }
 
 .finalCta {
-  background:
-    radial-gradient(
-      ellipse 95% 55% at 50% 78%,
-      var(--theme-final-to) 0%,
-      transparent 72%
-    ),
-    linear-gradient(
-      180deg,
-      var(--theme-final-from) 0%,
-      var(--theme-final-from) 28%,
-      color-mix(in srgb, var(--theme-final-from) 70%, var(--theme-final-to)) 52%,
-      var(--theme-final-to) 75%,
-      var(--theme-final-to) 100%
-    );
-  color: var(--theme-final-ink);
+  background: var(--theme-accent);
+  color: var(--theme-accent-ink);
   display: grid;
-  min-height: 72svh;
+  gap: clamp(24px, 4vw, 48px);
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  min-height: 0;
   overflow: hidden;
-  padding: clamp(90px, 12vw, 180px) clamp(24px, 6vw, 96px);
-  place-items: center;
+  padding: clamp(48px, 7vw, 88px) clamp(24px, 6vw, 96px);
   position: relative;
-  text-align: center;
+  text-align: left;
 }
 
 .finalCta::before {
   display: none;
 }
 
-.finalCta > * {
-  position: relative;
-  z-index: 2;
-}
-
-.finalCta > div:last-child {
-  align-items: center;
+.finalCopy {
   display: flex;
   flex-direction: column;
-  gap: clamp(28px, 3vw, 40px);
+  gap: 10px;
   max-width: 920px;
 }
 
 .finalCta h2 {
-  font-size: clamp(46px, 6.2vw, 96px);
+  font-size: clamp(40px, 5.6vw, 84px);
   font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin: 0;
 }
 
 .finalCta h2 span {
-  color: var(--theme-final-accent);
+  color: inherit;
 }
 
 .finalDescription {
-  color: var(--theme-final-muted);
-  font-size: clamp(16px, 1.55vw, 21px);
-  line-height: 1.45;
+  color: rgba(var(--theme-overlay-rgb), 0.72);
+  font-size: clamp(16px, 1.5vw, 20px);
+  line-height: 1.35;
   margin: 0;
+  max-width: 36ch;
+}
+
+.finalCtaButton {
+  align-self: end;
+  flex-shrink: 0;
 }
 
 .footer {
@@ -3462,12 +3463,17 @@
   }
 
   .finalCta {
-    min-height: 76svh;
+    align-items: start;
+    grid-template-columns: 1fr;
     padding-inline: 20px;
   }
 
   .finalCta h2 {
     font-size: clamp(38px, 11vw, 56px);
+  }
+
+  .finalCtaButton {
+    align-self: start;
   }
 
   .footer {

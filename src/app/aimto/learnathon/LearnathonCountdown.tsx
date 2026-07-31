@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import AimtoButton from "./AimtoButton";
+import { EVENT_START_ISO, REGISTRATION_URL } from "@/lib/constants";
 import styles from "./page.module.css";
 
-const eventStart = new Date("2026-08-12T10:00:00+08:00").getTime();
+const eventStart = new Date(EVENT_START_ISO).getTime();
 
 function getRemaining() {
   const difference = Math.max(0, eventStart - Date.now());
@@ -55,7 +56,7 @@ export default function LearnathonCountdown() {
           ))}
         </div>
       </div>
-      <AimtoButton href="https://event.aimto.my/concierge-menu/registration">
+      <AimtoButton href={REGISTRATION_URL}>
         Sign up free <span aria-hidden="true">↗</span>
       </AimtoButton>
     </section>

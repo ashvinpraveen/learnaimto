@@ -1,5 +1,16 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import {
+  LEARNATHON_FAQS,
+  OG_IMAGE,
+  REGISTRATION_URL,
+  SITE_NAME,
+} from "@/lib/constants";
+import {
+  JsonLd,
+  learnathonEventJsonLd,
+  learnathonFaqJsonLd,
+} from "@/lib/seo";
 import AimtoMotion from "../AimtoMotion";
 import AimtoNav from "../AimtoNav";
 import AimtoScrambleTitle from "../AimtoScrambleTitle";
@@ -13,43 +24,37 @@ export const metadata: Metadata = {
   title: {
     absolute: "The Malaysian Learn-a-thon — Learn AI. Build Something.",
   },
-  icons: {
-    icon: [
-      {
-        url: "/aimto-assets/favicon.png",
-        type: "image/png",
-        sizes: "32x32",
-      },
-    ],
-  },
   description:
     "A one-day public AI build experience for every Malaysian. Learn, make and get help from real builders on 12 August 2026 at The Campus, Ampang.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "The Malaysian Learn-a-thon",
     description:
       "Learn AI, build something useful and take it home. 12 August 2026 at The Campus Ampang.",
-    url: "/aimto/learnathon",
+    url: "/",
+    siteName: SITE_NAME,
+    locale: "en_MY",
     type: "website",
     images: [
       {
-        url: "/aimto-assets/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "The Malaysian Learn-a-thon — Learn AI. Build Something.",
+        url: OG_IMAGE.url,
+        width: OG_IMAGE.width,
+        height: OG_IMAGE.height,
+        alt: OG_IMAGE.alt,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "The Malaysian Learn-a-thon",
-    description:
-      "Learn AI, build something useful and take it home.",
-    images: ["/aimto-assets/og-image.png"],
+    description: "Learn AI, build something useful and take it home.",
+    images: [OG_IMAGE.url],
   },
 };
 
-const registrationUrl =
-  "https://event.aimto.my/concierge-menu/registration";
+const registrationUrl = REGISTRATION_URL;
 
 const tickerItems = [
   "OPEN TO EVERY MALAYSIAN_",
@@ -98,42 +103,13 @@ const learnathonStats = [
   { value: "50+", label: "Sponsors & Exhibitors" },
 ];
 
-const faqs = [
-  {
-    question: "Is the Learn-a-thon free?",
-    answer:
-      "Yes. Public registration is free. Some AI tools may have optional paid plans after the event; we will make any tool requirements clear before the day.",
-  },
-  {
-    question: "Do I need coding experience?",
-    answer:
-      "No. Complete beginners are welcome, with setup support, practical sessions and mentors who can help you take the next step.",
-  },
-  {
-    question: "Should I bring a laptop?",
-    answer:
-      "Yes—bring a laptop and charger if you want to build. We will share any account or setup guidance before the day.",
-  },
-  {
-    question: "What if I have no idea what to build?",
-    answer:
-      "That is exactly what the Inspiration Board is for. Choose a beginner prompt, browse community problems or find a teammate at the Build Wall.",
-  },
-  {
-    question: "Can experienced builders join?",
-    answer:
-      "Absolutely. Take on a challenge, explore advanced tools, meet other builders, showcase a project or help someone who is just getting started.",
-  },
-  {
-    question: "Do I have to present my project?",
-    answer:
-      "No. Show and Tell is optional. You can submit to the Builder Gallery, quietly take your project home or volunteer for a five-minute demo.",
-  },
-];
+const faqs = LEARNATHON_FAQS;
 
 export default function LearnathonThreePage() {
   return (
     <div className={styles.site} id="aimto-learnathon-site">
+      <JsonLd data={learnathonEventJsonLd()} />
+      <JsonLd data={learnathonFaqJsonLd()} />
       <AimtoMotion rootId="aimto-learnathon-site" />
       <AimtoNav registrationUrl={registrationUrl} />
 
@@ -415,17 +391,21 @@ export default function LearnathonThreePage() {
         </section>
 
         <section className={styles.finalCta}>
-          <div data-reveal="up">
+          <div className={styles.finalCopy} data-reveal="up">
             <h2>
               <span>Jommm</span> sign up
             </h2>
             <p className={styles.finalDescription}>
               Open to any and every Malaysian. Free. Just come!
             </p>
-            <AimtoButton href={registrationUrl}>
-              Sign up free <span aria-hidden="true">↗</span>
-            </AimtoButton>
           </div>
+          <AimtoButton
+            className={styles.finalCtaButton}
+            href={registrationUrl}
+            data-reveal="up"
+          >
+            Sign up free <span aria-hidden="true">↗</span>
+          </AimtoButton>
         </section>
       </main>
 
