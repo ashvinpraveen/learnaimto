@@ -2854,6 +2854,10 @@
     position: static;
   }
 
+  .faqSection {
+    gap: 36px;
+  }
+
   .footer {
     padding-inline: 30px;
   }
