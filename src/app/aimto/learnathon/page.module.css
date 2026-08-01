@@ -3383,7 +3383,9 @@
   }
 
   .finalCta {
+    align-content: center;
     align-items: center;
+    gap: 18px;
     grid-template-columns: 1fr;
     justify-items: center;
     min-height: min(72svh, 560px);
@@ -3393,7 +3395,7 @@
 
   .finalCopy {
     align-items: center;
-    gap: 14px;
+    gap: 8px;
     max-width: 28ch;
   }
 
@@ -3407,7 +3409,7 @@
 
   .finalCtaButton {
     align-self: center;
-    margin-top: 12px;
+    margin-top: 4px;
   }
 
   .footer {
