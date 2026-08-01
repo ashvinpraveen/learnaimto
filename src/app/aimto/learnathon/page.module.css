@@ -3371,17 +3371,31 @@
   }
 
   .finalCta {
-    align-items: start;
+    align-items: center;
     grid-template-columns: 1fr;
-    padding-inline: 20px;
+    justify-items: center;
+    min-height: min(72svh, 560px);
+    padding: 72px 24px;
+    text-align: center;
+  }
+
+  .finalCopy {
+    align-items: center;
+    gap: 14px;
+    max-width: 28ch;
+  }
+
+  .finalDescription {
+    max-width: 26ch;
   }
 
   .finalCta h2 {
-    font-size: clamp(38px, 11vw, 56px);
+    font-size: clamp(42px, 12vw, 58px);
   }
 
   .finalCtaButton {
-    align-self: start;
+    align-self: center;
+    margin-top: 12px;
   }
 
   .footer {
