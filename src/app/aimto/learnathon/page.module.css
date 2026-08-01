@@ -1825,6 +1825,7 @@
     transparent
   );
   overflow: hidden;
+  touch-action: pan-y;
   width: 100%;
 }
 
@@ -1835,8 +1836,39 @@
   will-change: transform;
 }
 
-.projectsCarousel:hover .projectsCarouselTrack {
-  animation-play-state: paused;
+@media (hover: hover) and (pointer: fine) {
+  .projectsCarousel:hover .projectsCarouselTrack {
+    animation-play-state: paused;
+  }
+}
+
+.projectsCarouselPaused {
+  cursor: grab;
+  mask-image: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-padding-inline: clamp(20px, 5vw, 96px);
+  scroll-snap-type: x mandatory;
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+}
+
+.projectsCarouselPaused .projectsCarouselTrack {
+  animation: none;
+  transform: none;
+  will-change: auto;
+}
+
+.projectsCarouselPaused .projectsCarouselGroup:nth-child(2) {
+  display: none;
+}
+
+.projectsCarouselPaused .projectsCarouselGroup {
+  padding-inline: clamp(20px, 5vw, 96px);
+}
+
+.projectsCarouselPaused .projectsCarouselGroup .projectCard {
+  scroll-snap-align: start;
 }
 
 .projectsCarouselGroup {
@@ -1883,20 +1915,21 @@
 }
 
 .benefitsGrid .zoneCard h3 {
-  font-size: clamp(16px, 1.35vw, 22px);
+  font-size: clamp(18px, 1.45vw, 24px);
   letter-spacing: -0.03em;
-  margin: 18px clamp(14px, 1.4vw, 20px) 0;
+  margin: 14px clamp(14px, 1.4vw, 20px) 0;
 }
 
 .benefitsGrid .zoneCard p {
-  font-size: 13px;
-  line-height: 1.45;
-  margin: 12px clamp(14px, 1.4vw, 20px) 0;
-  padding-bottom: 20px;
+  color: rgba(var(--theme-ink-rgb), 0.78);
+  font-size: 15px;
+  line-height: 1.55;
+  margin: 10px clamp(14px, 1.4vw, 20px) 0;
+  padding-bottom: 18px;
 }
 
 .benefitsGrid .zoneMeta {
-  margin-top: 16px;
+  margin-top: 12px;
   padding-inline: clamp(14px, 1.4vw, 20px);
 }
 
@@ -2882,6 +2915,10 @@
     padding-bottom: 88px;
   }
 
+  .zonesSection {
+    padding-block: 64px;
+  }
+
   .projectsSection,
   .trainersSection {
     padding: 88px 0;
@@ -3258,6 +3295,39 @@
 
   .benefitsGrid {
     grid-template-columns: 1fr;
+    gap: 18px;
+    margin-top: 28px;
+  }
+
+  .benefitsGrid .zoneCard > img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .benefitsGrid .zoneMeta {
+    background: transparent;
+    border-bottom: none;
+    display: block;
+    margin-top: 12px;
+    min-height: 0;
+    padding: 0 16px;
+  }
+
+  .benefitsGrid .zoneCard h3 {
+    font-family: "Rethink Sans", Inter, system-ui, sans-serif;
+    font-size: clamp(24px, 6.5vw, 30px);
+    font-weight: 650;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin: 12px 16px 0;
+    text-transform: none;
+  }
+
+  .benefitsGrid .zoneCard p {
+    color: rgba(var(--theme-ink-rgb), 0.8);
+    font-size: 17px;
+    line-height: 1.55;
+    margin: 10px 16px 0;
+    padding-bottom: 18px;
   }
 
   .heroContent > .heroIntro {
@@ -3573,6 +3643,7 @@
     mask-image: none;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    touch-action: pan-x;
     -webkit-overflow-scrolling: touch;
   }
 
