@@ -42,7 +42,7 @@
     --aimto-toggle-thumb: #f5f6f8;
     --aimto-shadow: rgba(0, 0, 0, 0.25);
     --aimto-footer: #0a0a0a;
-    --aimto-countdown: #121214;
+    --aimto-countdown: #d7ff36;
     --aimto-final-from: var(--aimto-canvas);
     --aimto-final-to: #3a17df;
     --aimto-final-ink: #f4f6fc;
@@ -120,7 +120,7 @@
     --aimto-toggle-thumb: #15130f;
     --aimto-shadow: rgba(21, 19, 15, 0.12);
     --aimto-footer: #ebe4d4;
-    --aimto-countdown: #ddd6ff;
+    --aimto-countdown: #d7ff36;
     --aimto-final-from: var(--aimto-canvas);
     --aimto-final-to: #4f24ff;
     --aimto-final-ink: #070707;
