@@ -870,23 +870,54 @@
 
 .sectionLabel {
   color: rgba(var(--theme-ink-rgb), 0.54);
+  margin: 0;
+}
+
+/* Shared section intro stack: eyebrow → title → supporting copy */
+.sectionHeading,
+.projectsIntro,
+.campusIntro,
+.faqIntro,
+.trainersIntro,
+.fullEventIntro {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 720px;
+}
+
+.sectionHeading h2,
+.projectsIntro h2,
+.campusIntro h2,
+.faqIntro h2,
+.trainersIntro h2,
+.fullEventIntro h2,
+.introLayout h2,
+.scrambleTitle {
+  font-size: clamp(42px, 7vw, 65px);
+  font-weight: 500;
+  margin: 0;
+}
+
+.sectionHeading > p,
+.projectsIntro > p,
+.campusIntro > p,
+.trainersIntro > p,
+.fullEventIntro > p,
+.introCopy p {
+  color: rgba(var(--theme-ink-rgb), 0.68);
+  font-size: 17px;
+  line-height: 1.55;
+  margin: 0;
+  max-width: 44ch;
 }
 
 .introLayout {
   display: grid;
   gap: clamp(28px, 4vw, 48px);
   grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
-  margin-top: clamp(24px, 3vw, 36px);
-}
-
-.introLayout h2,
-.sectionHeading h2,
-.fullEventIntro h2,
-.campusCopy h2,
-.communityCopy h2,
-.faqIntro h2 {
-  font-size: clamp(42px, 7vw, 65px);
-  font-weight: 500;
+  margin-top: 12px;
 }
 
 .scrambleTitle {
@@ -913,24 +944,12 @@
   z-index: 1;
 }
 
-.learnathonIntroCopy {
-  padding-bottom: 26.35px;
-}
-
-.introCopy p,
-.sectionHeading > p,
-.campusCopy > p,
-.faqIntro > p {
-  color: rgba(var(--theme-ink-rgb), 0.68);
-  font-size: 17px;
-  line-height: 1.55;
-}
-
 .introCopy .lead,
 .campusCopy .lead {
   color: var(--theme-ink);
   font-size: clamp(22px, 2.3vw, 34px);
   line-height: 1.18;
+  max-width: none;
 }
 
 .introArtwork {
@@ -1132,27 +1151,6 @@
 .finalCta .ctaButton:focus-visible {
   background: var(--theme-overlay);
   color: var(--theme-accent) !important;
-}
-
-.sectionHeading {
-  display: grid;
-  column-gap: 34px;
-  row-gap: 12px;
-  grid-template-columns: minmax(160px, 0.35fr) minmax(0, 1fr);
-}
-
-.sectionHeading .sectionLabel {
-  grid-column: 1;
-}
-
-.sectionHeading h2 {
-  grid-column: 2;
-  max-width: 980px;
-}
-
-.sectionHeading > p {
-  grid-column: 2;
-  max-width: 660px;
 }
 
 .stepsSection {
@@ -1386,24 +1384,11 @@
   border-radius: 12px;
 }
 
-.zonesSection .sectionHeading {
-  grid-template-columns: minmax(0, 1fr);
-}
-
-.zonesSection .sectionHeading .sectionLabel,
-.zonesSection .sectionHeading h2 {
-  grid-column: 1;
-}
-
-.zonesSection .sectionLabel {
-  color: rgba(var(--theme-ink-rgb), 0.54);
-}
-
 .zonesGrid {
   display: grid;
   gap: 14px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-top: 78px;
+  margin-top: clamp(36px, 5vw, 48px);
 }
 
 .zoneCard {
@@ -1496,33 +1481,14 @@
   border-bottom: 1px solid rgba(var(--theme-ink-rgb), 0.04);
 }
 
-.fullEventIntro {
-  display: grid;
-  gap: clamp(8px, 1.3vw, 12px);
-  margin: 0;
-  max-width: 860px;
-}
-
-.fullEventIntro h2 {
-  font-size: clamp(32px, 4.5vw, 52px);
-}
-
-.fullEventIntro p {
-  color: rgba(var(--theme-ink-rgb), 0.66);
-  font-size: clamp(15px, 1.38vw, 18px);
-  line-height: 1.58;
-  margin: 0;
-  max-width: 700px;
-}
-
 .fullEventIntro .sectionLabel {
   color: rgba(var(--theme-ink-rgb), 0.38);
 }
 
 .campusCopy {
-  align-items: end;
+  align-items: start;
   display: grid;
-  gap: clamp(48px, 8vw, 132px);
+  gap: clamp(32px, 5vw, 72px);
   grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
   padding:
     clamp(76px, 8vw, 118px)
@@ -1530,32 +1496,13 @@
     clamp(52px, 6vw, 82px);
 }
 
-.campusCopy h2,
-.communityCopy h2,
-.faqIntro h2 {
-  font-size: clamp(34px, 4.2vw, 60px);
-}
-
-.communityCopy h2,
-.faqIntro h2 {
-  margin-top: 0;
-}
-
-.campusIntro {
-  display: grid;
-  gap: 12px;
-}
-
 .campusIntro h2 {
   font-size: clamp(42px, 5.2vw, 72px);
   max-width: 900px;
 }
 
-.campusIntro p {
-  color: rgba(var(--theme-ink-rgb), 0.66);
-  font-size: clamp(16px, 1.55vw, 20px);
-  line-height: 1.55;
-  max-width: 720px;
+.campusIntro > p {
+  max-width: 52ch;
 }
 
 .campusMeta {
@@ -1784,39 +1731,11 @@
 }
 
 .projectsIntro {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.9fr);
-  align-items: end;
-  column-gap: clamp(24px, 4vw, 56px);
-  row-gap: clamp(10px, 1.2vw, 18px);
-  max-width: none;
   padding-inline: clamp(24px, 6vw, 96px);
 }
 
-.projectsIntro h2 {
-  font-size: clamp(42px, 7vw, 65px);
-  font-weight: 500;
-  grid-row: 2;
-  grid-column: 1;
-}
-
-.projectsIntro > p {
-  color: rgba(var(--theme-ink-rgb), 0.68);
-  font-size: clamp(15px, 1.5vw, 19px);
-  line-height: 1.5;
-  margin: 0;
-  max-width: 44ch;
-  grid-row: 2;
-  grid-column: 2;
-}
-
-.projectsIntro .sectionLabel {
-  grid-row: 1;
-  grid-column: 1;
-}
-
 .projectsCarousel {
-  margin-top: clamp(36px, 5vw, 56px);
+  margin-top: clamp(36px, 5vw, 48px);
   mask-image: linear-gradient(
     90deg,
     transparent,
@@ -1847,7 +1766,7 @@
   mask-image: none;
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  scroll-padding-inline: clamp(20px, 5vw, 96px);
+  scroll-padding-inline: clamp(24px, 6vw, 96px);
   scroll-snap-type: x mandatory;
   touch-action: pan-x;
   -webkit-overflow-scrolling: touch;
@@ -1863,10 +1782,6 @@
   display: none;
 }
 
-.projectsCarouselPaused .projectsCarouselGroup {
-  padding-inline: clamp(20px, 5vw, 96px);
-}
-
 .projectsCarouselPaused .projectsCarouselGroup .projectCard {
   scroll-snap-align: start;
 }
@@ -1875,7 +1790,7 @@
   display: flex;
   flex-shrink: 0;
   gap: 18px;
-  padding-inline: 9px;
+  padding-inline: clamp(24px, 6vw, 96px);
 }
 
 .projectsCarouselGroup .projectCard {
@@ -2022,31 +1937,11 @@
   padding: clamp(88px, 10vw, 144px) clamp(24px, 6vw, 96px);
 }
 
-.trainersIntro {
-  align-items: end;
-  display: grid;
-  gap: clamp(42px, 9vw, 140px);
-  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.65fr);
-}
-
-.trainersIntro h2 {
-  font-size: clamp(42px, 7vw, 65px);
-  font-weight: 500;
-  max-width: 920px;
-}
-
-.trainersIntro > p {
-  color: rgba(var(--theme-ink-rgb), 0.68);
-  font-size: clamp(15px, 1.4vw, 18px);
-  line-height: 1.5;
-  max-width: 480px;
-}
-
 .trainersGrid {
   display: grid;
   gap: 28px 18px;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  margin-top: clamp(40px, 5vw, 64px);
+  margin-top: clamp(36px, 5vw, 48px);
 }
 
 .trainerCard {
@@ -2399,9 +2294,9 @@
 }
 
 .faqIntro {
+  height: fit-content;
   position: sticky;
   top: 120px;
-  height: fit-content;
 }
 
 .faqList {
@@ -2632,27 +2527,8 @@
     padding-bottom: clamp(240px, 32vw, 310px);
   }
 
-  .trainersIntro {
-    align-items: start;
-    grid-template-columns: 1fr;
-  }
-
   .projectsCarousel {
     margin-top: 32px;
-  }
-
-  .projectsIntro {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    max-width: 720px;
-  }
-
-  .projectsIntro .sectionLabel,
-  .projectsIntro h2,
-  .projectsIntro > p {
-    grid-column: auto;
-    grid-row: auto;
   }
 
   .projectsGrid {
@@ -2895,6 +2771,10 @@
     position: static;
   }
 
+  .faqSection {
+    gap: 36px;
+  }
+
   .footer {
     padding-inline: 30px;
   }
@@ -2932,32 +2812,27 @@
     padding-inline: 20px;
   }
 
-  .projectsIntro h2 {
+  .sectionHeading h2,
+  .projectsIntro h2,
+  .campusIntro h2,
+  .faqIntro h2,
+  .trainersIntro h2,
+  .fullEventIntro h2,
+  .scrambleTitle {
     font-size: clamp(34px, 9vw, 48px);
-    margin-top: 12px;
-  }
-
-  .trainersIntro h2 {
-    font-size: clamp(34px, 9vw, 48px);
-    margin-top: 12px;
-  }
-
-  .projectsIntro > p {
-    font-size: 15px;
-    line-height: 1.45;
-    margin-top: 14px;
-  }
-
-  .trainersIntro > p {
-    font-size: 15px;
   }
 
   .projectsCarousel {
-    margin-top: 28px;
+    margin-top: 36px;
+  }
+
+  .projectsCarouselPaused {
+    scroll-padding-inline: 20px;
   }
 
   .projectsCarouselGroup {
     gap: 14px;
+    padding-inline: 20px;
   }
 
   .projectsCarouselGroup .projectCard {
@@ -3239,15 +3114,6 @@
     top: 10px;
   }
 
-  .introLayout h2,
-  .sectionHeading h2,
-  .fullEventIntro h2,
-  .campusCopy h2,
-  .communityCopy h2,
-  .faqIntro h2 {
-    font-size: clamp(34px, 9vw, 48px);
-  }
-
   .learnathonHeader {
     margin-top: 40px;
   }
@@ -3274,29 +3140,12 @@
     padding-top: 44px;
   }
 
-  .sectionHeading {
-    display: block;
-  }
-
-  .sectionHeading h2 {
-    margin: 0;
-  }
-
-  .sectionHeading > p {
-    margin-top: 26px;
-  }
-
   .stepsGrid,
-  .zonesGrid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    margin-top: 52px;
-  }
-
+  .zonesGrid,
   .benefitsGrid {
     grid-template-columns: 1fr;
-    gap: 18px;
-    margin-top: 28px;
+    gap: 16px;
+    margin-top: 36px;
   }
 
   .benefitsGrid .zoneCard > img {
@@ -3419,29 +3268,11 @@
   }
 
   .campusCopy {
-    gap: 34px;
-  }
-
-  .campusIntro {
-    gap: 22px;
+    gap: 32px;
   }
 
   .fullEventIntro {
-    gap: 13px;
     max-width: 100%;
-  }
-
-  .fullEventIntro p {
-    font-size: 15px;
-  }
-
-  .fullEventIntro h2 {
-    font-size: clamp(28px, 7vw, 40px);
-    max-width: 18ch;
-  }
-
-  .campusIntro h2 {
-    font-size: clamp(38px, 11vw, 54px);
   }
 
   .campusGallery {
@@ -3464,9 +3295,11 @@
   }
 
   .campusCredit {
+    margin-inline: auto;
     max-width: calc(100% - 40px);
     padding-top: 12px;
-    width: fit-content;
+    text-align: center;
+    width: auto;
   }
 
   .communityHeading {
@@ -3538,17 +3371,31 @@
   }
 
   .finalCta {
-    align-items: start;
+    align-items: center;
     grid-template-columns: 1fr;
-    padding-inline: 20px;
+    justify-items: center;
+    min-height: min(72svh, 560px);
+    padding: 72px 24px;
+    text-align: center;
+  }
+
+  .finalCopy {
+    align-items: center;
+    gap: 14px;
+    max-width: 28ch;
+  }
+
+  .finalDescription {
+    max-width: 26ch;
   }
 
   .finalCta h2 {
-    font-size: clamp(38px, 11vw, 56px);
+    font-size: clamp(42px, 12vw, 58px);
   }
 
   .finalCtaButton {
-    align-self: start;
+    align-self: center;
+    margin-top: 12px;
   }
 
   .footer {
