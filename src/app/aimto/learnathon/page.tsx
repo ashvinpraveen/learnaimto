@@ -98,7 +98,7 @@ const whatYouGet = [
 
 const learnathonStats = [
   { value: "3,000+", label: "International & Local Participants" },
-  { value: "1,000+", label: "Hacker House Participants" },
+  { value: "1,000+", label: "AI builders" },
   { value: "50+", label: "Local & International Speakers" },
   { value: "50+", label: "Sponsors & Exhibitors" },
 ];
