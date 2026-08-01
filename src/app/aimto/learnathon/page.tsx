@@ -209,9 +209,7 @@ export default function LearnathonThreePage() {
           </div>
           <div className={styles.introLayout} data-reveal="up">
             <AimtoScrambleTitle />
-            <div
-              className={`${styles.introCopy} ${styles.learnathonIntroCopy}`}
-            >
+            <div className={styles.introCopy}>
               <p className={styles.lead}>
                 &ldquo;Building cool things with AI has never been easier.
                 Especially with hands-on support!&rdquo;
