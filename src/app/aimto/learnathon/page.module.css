@@ -64,20 +64,6 @@
   color: var(--theme-hero-ink);
 }
 
-:global(html[data-theme="light"]) .countdown {
-  background: var(--theme-countdown);
-  border-block-color: rgba(79, 36, 255, 0.28);
-  color: #070707;
-}
-
-:global(html[data-theme="light"]) .countdown .sectionLabel,
-:global(html[data-theme="light"]) .countdownUnits span {
-  color: rgba(7, 7, 7, 0.62);
-}
-
-:global(html[data-theme="light"]) .countdownUnits strong {
-  color: #070707;
-}
 
 .site[data-motion="ready"] [data-reveal="up"],
 .site[data-motion="ready"] [data-reveal="soft"],
@@ -2011,12 +1997,12 @@
 
 .countdown {
   align-items: center;
-  background: var(--theme-countdown);
-  border-block: 1px solid rgba(var(--theme-accent-rgb), 0.5);
+  background: var(--theme-accent);
+  color: var(--theme-accent-ink);
   display: flex;
   gap: 48px;
   justify-content: space-between;
-  padding: 34px clamp(24px, 6vw, 96px);
+  padding: clamp(40px, 5vw, 64px) clamp(24px, 6vw, 96px);
 }
 
 .countdown > div {
@@ -2026,7 +2012,7 @@
 }
 
 .countdown .sectionLabel {
-  color: rgba(var(--theme-ink-rgb), 0.58);
+  color: rgba(var(--theme-overlay-rgb), 0.72);
   max-width: none;
   white-space: nowrap;
 }
@@ -2043,7 +2029,7 @@
 }
 
 .countdownUnits strong {
-  color: var(--theme-accent-text);
+  color: var(--theme-accent-ink);
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: clamp(34px, 4.2vw, 58px);
   font-weight: 500;
@@ -2052,10 +2038,24 @@
 }
 
 .countdownUnits span {
-  color: rgba(var(--theme-ink-rgb), 0.62);
+  color: rgba(var(--theme-overlay-rgb), 0.62);
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 9px;
   text-transform: uppercase;
+}
+
+.countdown .ctaButton {
+  background: var(--theme-accent-ink);
+  color: var(--theme-accent) !important;
+  flex-shrink: 0;
+  min-height: 52px;
+  padding-inline: 26px;
+}
+
+.countdown .ctaButton:hover,
+.countdown .ctaButton:focus-visible {
+  background: var(--theme-overlay);
+  color: var(--theme-accent) !important;
 }
 
 .participationSection {
@@ -2542,13 +2542,23 @@
 
   .countdown,
   .countdown > div {
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
   }
 
+  .countdown {
+    gap: 28px;
+    justify-content: center;
+    text-align: center;
+  }
+
   .countdown > div {
-    gap: 24px;
+    gap: 20px;
     width: 100%;
+  }
+
+  .countdown .sectionLabel {
+    white-space: normal;
   }
 
   .countdownUnits {
@@ -2884,7 +2894,8 @@
   }
 
   .countdown {
-    padding-block: 30px;
+    min-height: min(52svh, 420px);
+    padding: 64px 24px;
   }
 
   .countdownUnits {
@@ -2896,11 +2907,12 @@
   }
 
   .countdownUnits strong {
-    font-size: clamp(28px, 10vw, 42px);
+    font-size: clamp(32px, 11vw, 44px);
   }
 
   .countdown .ctaButton {
-    width: 100%;
+    margin-top: 8px;
+    width: min(100%, 280px);
   }
 
   .participationGrid {
@@ -3371,7 +3383,9 @@
   }
 
   .finalCta {
+    align-content: center;
     align-items: center;
+    gap: 18px;
     grid-template-columns: 1fr;
     justify-items: center;
     min-height: min(72svh, 560px);
@@ -3381,7 +3395,7 @@
 
   .finalCopy {
     align-items: center;
-    gap: 14px;
+    gap: 8px;
     max-width: 28ch;
   }
 
@@ -3395,7 +3409,7 @@
 
   .finalCtaButton {
     align-self: center;
-    margin-top: 12px;
+    margin-top: 4px;
   }
 
   .footer {
