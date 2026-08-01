@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import styles from "./page.module.css";
 
 type ProjectIdea = {
@@ -104,26 +107,29 @@ function ProjectCard({
 }
 
 export default function LearnathonProjects() {
+  const [paused, setPaused] = useState(false);
+
   return (
     <section
       className={styles.projectsSection}
       aria-labelledby="learnathon-projects-title"
       id="inspiration"
     >
-        <div className={styles.projectsIntro} data-reveal="up">
-          <div className={styles.sectionLabel}>INSPIRATION_</div>
-          <h2 id="learnathon-projects-title">What you could build</h2>
-          <p>
-            Here&apos;s some ideas what other Malaysians are building, but feel
-            free to bring your own ideas. All you need is a laptop and we&apos;ll
-            guide you every step on the way.
-          </p>
-        </div>
+      <div className={styles.projectsIntro} data-reveal="up">
+        <div className={styles.sectionLabel}>INSPIRATION_</div>
+        <h2 id="learnathon-projects-title">What you could build</h2>
+        <p>
+          Here&apos;s some ideas what other Malaysians are building, but feel
+          free to bring your own ideas. All you need is a laptop and we&apos;ll
+          guide you every step on the way.
+        </p>
+      </div>
 
       <div
-        className={styles.projectsCarousel}
+        className={`${styles.projectsCarousel}${paused ? ` ${styles.projectsCarouselPaused}` : ""}`}
         aria-label="Example Learn-a-thon projects"
         data-reveal="up"
+        onPointerDown={() => setPaused(true)}
       >
         <div className={styles.projectsCarouselTrack}>
           <div className={styles.projectsCarouselGroup}>
