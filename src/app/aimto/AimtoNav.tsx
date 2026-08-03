@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import AimtoButton from "./AimtoButton";
-import AimtoThemeToggle from "./AimtoThemeToggle";
 import styles from "./page.module.css";
 
 type AimtoNavProps = {
@@ -43,10 +42,6 @@ export default function AimtoNav({ registrationUrl }: AimtoNavProps) {
           />
         </a>
         <div className={styles.navActions}>
-          <AimtoThemeToggle
-            className={styles.navThemeToggle}
-            surface={scrolled ? "default" : "hero"}
-          />
           <AimtoButton
             className={`${styles.ctaButton} ${styles.navCta}`}
             href={registrationUrl}
