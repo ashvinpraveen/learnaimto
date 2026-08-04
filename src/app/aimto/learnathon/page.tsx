@@ -105,6 +105,100 @@ const learnathonStats = [
 
 const faqs = LEARNATHON_FAQS;
 
+/** Partner logos sourced from the AIMTO 2026 partners strip on aimto.my */
+const partners = [
+  {
+    name: "Ministry of Digital",
+    src: "/aimto-assets/partners/ministry-of-digital.jpg",
+    width: 181,
+    height: 169,
+  },
+  {
+    name: "MyDIGITAL",
+    src: "/aimto-assets/partners/mydigital.jpg",
+    width: 408,
+    height: 169,
+  },
+  {
+    name: "YTL",
+    src: "/aimto-assets/partners/ytl.jpg",
+    width: 408,
+    height: 169,
+  },
+  {
+    name: "500 Global",
+    src: "/aimto-assets/partners/500-global.jpg",
+    width: 622,
+    height: 214,
+  },
+  {
+    name: "M30",
+    src: "/aimto-assets/partners/m30.png",
+    width: 1267,
+    height: 295,
+  },
+  {
+    name: "Kracked Devs",
+    src: "/aimto-assets/partners/kracked-devs.jpg",
+    width: 600,
+    height: 256,
+  },
+  {
+    name: "Kadosh AI",
+    src: "/aimto-assets/partners/kadosh-ai.jpg",
+    width: 286,
+    height: 62,
+  },
+  {
+    name: "Women in Tech",
+    src: "/aimto-assets/partners/women-in-tech.jpg",
+    width: 600,
+    height: 261,
+  },
+  {
+    name: "AI SEA",
+    src: "/aimto-assets/partners/ai-sea.jpg",
+    width: 271,
+    height: 271,
+  },
+  {
+    name: "Deriv",
+    src: "/aimto-assets/partners/deriv.jpg",
+    width: 600,
+    height: 261,
+  },
+  {
+    name: "Amiko",
+    src: "/aimto-assets/partners/amiko.jpg",
+    width: 600,
+    height: 141,
+  },
+  {
+    name: "Tealive",
+    src: "/aimto-assets/partners/tealive.jpg",
+    width: 396,
+    height: 105,
+  },
+  {
+    name: "EmbeddedLLM",
+    src: "/aimto-assets/partners/embedded-llm.jpg",
+    width: 600,
+    height: 152,
+  },
+  {
+    name: "The Campus",
+    src: "/aimto-assets/partners/the-campus.jpg",
+    width: 212,
+    height: 212,
+  },
+  {
+    name: "LuasLink",
+    src: "/aimto-assets/partners/luaslink.jpg",
+    width: 600,
+    height: 261,
+  },
+] as const;
+
 export default function LearnathonThreePage() {
   return (
     <div className={styles.site} id="aimto-learnathon-site">
@@ -368,6 +462,36 @@ export default function LearnathonThreePage() {
           </div>
         </section>
         */}
+
+        <section
+          className={styles.partnersSection}
+          id="partners"
+          aria-labelledby="community-partners-heading"
+        >
+          <div className={styles.partnersHeading} data-reveal="up">
+            <div>
+              <div className={styles.sectionLabel}>PARTNERS_</div>
+              <h2 id="community-partners-heading">Community partners</h2>
+            </div>
+            <p>
+              Communities, platforms and partners backing the Learn-a-thon and AI
+              Malaysia Takeover.
+            </p>
+          </div>
+          <div className={styles.partnerGrid} data-reveal="stagger">
+            {partners.map((partner) => (
+              <div key={partner.name}>
+                <Image
+                  src={partner.src}
+                  alt={partner.name}
+                  width={partner.width}
+                  height={partner.height}
+                  sizes="120px"
+                />
+              </div>
+            ))}
+          </div>
+        </section>
 
         <section className={styles.faqSection} id="faq">
           <div className={styles.faqIntro} data-reveal="up">
