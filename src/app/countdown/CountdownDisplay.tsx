@@ -8,19 +8,30 @@ import styles from "./page.module.css";
 
 const eventStart = new Date(EVENT_START_ISO).getTime();
 
-function getDaysRemaining() {
+function getRemaining() {
   const difference = Math.max(0, eventStart - Date.now());
-  return Math.floor(difference / 86_400_000);
+
+  return {
+    days: Math.floor(difference / 86_400_000),
+    hours: Math.floor((difference / 3_600_000) % 24),
+    minutes: Math.floor((difference / 60_000) % 60),
+  };
+}
+
+function formatUnit(value: number | undefined) {
+  return value === undefined ? "--" : String(value).padStart(2, "0");
 }
 
 export default function CountdownDisplay() {
-  const [days, setDays] = useState<number | null>(null);
+  const [remaining, setRemaining] = useState<ReturnType<
+    typeof getRemaining
+  > | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
-    const update = () => setDays(getDaysRemaining());
+    const update = () => setRemaining(getRemaining());
     update();
-    const timer = window.setInterval(update, 60_000);
+    const timer = window.setInterval(update, 1_000);
     return () => window.clearInterval(timer);
   }, []);
 
@@ -48,14 +59,11 @@ export default function CountdownDisplay() {
     }
   };
 
-  const daysLabel =
-    days === null
-      ? "DAYS TO GO"
-      : days === 1
-        ? "DAY TO GO"
-        : days === 0
-          ? "TODAY"
-          : "DAYS TO GO";
+  const units = [
+    ["Days", remaining?.days],
+    ["Hours", remaining?.hours],
+    ["Minutes", remaining?.minutes],
+  ] as const;
 
   return (
     <main className={styles.page} aria-label={`${SITE_NAME} countdown`}>
@@ -84,11 +92,15 @@ export default function CountdownDisplay() {
           className={styles.logo}
         />
 
-        <div className={styles.countdown}>
-          <p className={styles.days} aria-live="polite">
-            {days === null ? "--" : String(days).padStart(2, "0")}
-          </p>
-          <p className={styles.label}>{daysLabel}</p>
+        <div className={styles.countdown} aria-live="polite">
+          <div className={styles.units}>
+            {units.map(([label, value]) => (
+              <div key={label} className={styles.unit}>
+                <strong className={styles.value}>{formatUnit(value)}</strong>
+                <span className={styles.label}>{label}</span>
+              </div>
+            ))}
+          </div>
           <p className={styles.eventLine}>12 August 2026 · The Campus KL</p>
         </div>
       </div>

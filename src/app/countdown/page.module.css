@@ -55,7 +55,7 @@
   gap: clamp(28px, 6vw, 56px);
   padding: clamp(72px, 12vw, 120px) clamp(24px, 6vw, 48px) clamp(48px, 8vw, 80px);
   text-align: center;
-  width: min(100%, 920px);
+  width: min(100%, 1100px);
 }
 
 .logo {
@@ -66,28 +66,42 @@
 
 .countdown {
   display: grid;
-  gap: clamp(8px, 1.6vw, 14px);
+  gap: clamp(20px, 3vw, 32px);
   justify-items: center;
+  width: 100%;
 }
 
-.days {
-  animation: dayPulse 2.8s ease-in-out infinite;
+.units {
+  align-items: end;
+  display: flex;
+  gap: clamp(20px, 6vw, 72px);
+  justify-content: center;
+  width: 100%;
+}
+
+.unit {
+  display: grid;
+  gap: clamp(8px, 1.4vw, 12px);
+  justify-items: center;
+  min-width: 0;
+}
+
+.value {
+  animation: unitPulse 2.8s ease-in-out infinite;
   font-family: var(--font-space), sans-serif;
-  font-size: clamp(7.5rem, 28vw, 16rem);
+  font-size: clamp(4.2rem, 16vw, 9.5rem);
   font-weight: 700;
+  font-variant-numeric: tabular-nums;
   letter-spacing: -0.08em;
   line-height: 0.85;
-  margin: 0;
-  font-variant-numeric: tabular-nums;
 }
 
 .label {
   color: var(--countdown-ink-muted);
   font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: clamp(0.78rem, 1.8vw, 1rem);
+  font-size: clamp(0.72rem, 1.6vw, 0.95rem);
   font-weight: 700;
   letter-spacing: 0.14em;
-  margin: 0;
   text-transform: uppercase;
 }
 
@@ -101,7 +115,7 @@
   text-transform: uppercase;
 }
 
-@keyframes dayPulse {
+@keyframes unitPulse {
   0%,
   100% {
     transform: scale(1);
@@ -111,8 +125,18 @@
   }
 }
 
+@media (max-width: 640px) {
+  .units {
+    gap: clamp(12px, 5vw, 24px);
+  }
+
+  .value {
+    font-size: clamp(3.4rem, 18vw, 5.5rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .days {
+  .value {
     animation: none;
   }
 
