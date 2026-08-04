@@ -1,691 +1,181 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  type FormEvent,
-  type KeyboardEvent,
-} from "react";
-import Image from "next/image";
-import AimtoThemeToggle from "../aimto/AimtoThemeToggle";
-import { REGISTRATION_URL } from "@/lib/constants";
-import ShareCard, { downloadShareCard } from "./ShareCard";
-import {
-  buildScorecard,
-  buildShareText,
-  MAX_SCORE,
-  METHOD_NAME,
-  QUALIFIER,
-  QUIZ_QUESTIONS,
-  type QuizOption,
-} from "./questions";
+import { useState } from "react";
 import styles from "./page.module.css";
 
-const TOTAL_STEPS = QUIZ_QUESTIONS.length + 1; // + qualifier
-type Phase = "intro" | "quiz" | "qualifier" | "name" | "result";
+type Screen = "entry" | "projects" | "tutorial" | "complete";
+
+const LESSONS = [
+  {
+    label: "00 / GET SET UP",
+    title: "Open Google AI Studio first.",
+    body: "Open AI Studio in a new tab, then sign in or create a free Google account. Start a new chat and keep it open beside this tutorial—you’ll paste one prompt there at every step.",
+    prompt: "I’m brand new to building with AI. I’m making my first personal website today. Please act as my friendly building coach and guide me one small step at a time.",
+    preview: "AI Studio is open. You’re ready!",
+  },
+  {
+    label: "01 / YOUR IDEA",
+    title: "Start with something you care about.",
+    body: "Paste this into your new AI Studio chat. A great first build fixes one tiny annoyance—tell Gemini what you wish worked better.",
+    prompt: "I want to make a personal website that helps people understand who I am. Help me plan it.",
+    preview: "Your corner of the internet",
+  },
+  {
+    label: "02 / MAKE IT YOURS",
+    title: "Give your site a personality.",
+    body: "Paste this next prompt into the same AI Studio chat. Ask for a headline, a short intro, and one thing you are proud of. You do not need perfect words—AI can help you shape them.",
+    prompt: "Write friendly copy for my personal website. Include a welcoming headline, a short bio, and a fun fact.",
+    preview: "Hello, I’m a curious maker ✦",
+  },
+  {
+    label: "03 / ADD SOME COLOUR",
+    title: "Choose a vibe and iterate.",
+    body: "Paste this next prompt into AI Studio to direct the style. Try colours, fonts, or a mood. The secret is to respond to the first draft, not settle for it.",
+    prompt: "Make the design playful, warm, and a little retro. Use a bright accent colour and big friendly type.",
+    preview: "Built with curiosity & good snacks",
+  },
+  {
+    label: "04 / BUILD IT",
+    title: "Turn the plan into a real page.",
+    body: "Paste this final prompt into AI Studio to generate your first version. Then keep chatting with Gemini—ask for changes, try new ideas, and keep refining until the site feels like yours.",
+    prompt: "Create a simple one-page personal website from this plan. Use HTML and CSS, and explain how I can change it later.",
+    preview: "It’s alive! Your first site is ready.",
+  },
+];
+
+const PROJECTS = [
+  { icon: "✦", title: "Personal Website", note: "Tell your story online", active: true },
+  { icon: "▦", title: "Pixel Drawing Board", note: "Make tiny art with code", active: false },
+  { icon: "🦕", title: "Dinosaur Jumping Game", note: "Build a little game", active: false },
+];
 
 export default function WelcomeQuiz() {
-  const rootId = useId().replace(/:/g, "");
-  const [phase, setPhase] = useState<Phase>("intro");
-  const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [name, setName] = useState("");
-  const [direction, setDirection] = useState<"forward" | "back">("forward");
-  const [animKey, setAnimKey] = useState(0);
-  const [copied, setCopied] = useState(false);
-  const [shareStatus, setShareStatus] = useState<string | null>(null);
-  const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const nameInputRef = useRef<HTMLInputElement>(null);
-  const shareRootRef = useRef<HTMLDivElement>(null);
+  const [screen, setScreen] = useState<Screen>("entry");
+  const [lesson, setLesson] = useState(0);
+  const [toast, setToast] = useState("");
+  const [copiedPrompt, setCopiedPrompt] = useState(false);
 
-  const question = QUIZ_QUESTIONS[step];
-  const result = phase === "result" ? buildScorecard(answers) : null;
-
-  const progress =
-    phase === "result"
-      ? 100
-      : phase === "intro"
-        ? 0
-        : phase === "name"
-          ? 96
-          : phase === "qualifier"
-            ? ((QUIZ_QUESTIONS.length + 0.5) / (TOTAL_STEPS + 1)) * 100
-            : ((step + 0.15) / (TOTAL_STEPS + 1)) * 100;
-
-  const goForward = useCallback((next: Phase, nextStep = 0) => {
-    setDirection("forward");
-    setAnimKey((value) => value + 1);
-    setPhase(next);
-    setStep(nextStep);
-  }, []);
-
-  const goToStep = useCallback((nextStep: number, dir: "forward" | "back") => {
-    setDirection(dir);
-    setAnimKey((value) => value + 1);
-    setStep(nextStep);
-    setPhase("quiz");
-  }, []);
-
-  const selectOption = useCallback(
-    (option: QuizOption) => {
-      if (!question) return;
-      setAnswers((current) => ({ ...current, [question.id]: option.id }));
-
-      window.setTimeout(() => {
-        if (step >= QUIZ_QUESTIONS.length - 1) {
-          goForward("qualifier");
-          return;
-        }
-        goToStep(step + 1, "forward");
-      }, 180);
-    },
-    [goForward, goToStep, question, step],
-  );
-
-  const selectQualifier = useCallback(
-    (optionId: string) => {
-      setAnswers((current) => ({ ...current, blocker: optionId }));
-      window.setTimeout(() => goForward("name"), 180);
-    },
-    [goForward],
-  );
-
-  const startQuiz = () => goForward("quiz", 0);
-
-  const submitName = (event?: FormEvent) => {
-    event?.preventDefault();
-    if (!name.trim()) {
-      nameInputRef.current?.focus();
+  const chooseProject = (active: boolean) => {
+    if (active) {
+      setScreen("tutorial");
+      setLesson(0);
       return;
     }
-    goForward("result");
+    setToast("That one’s coming soon. Try Personal Website for now!");
+    window.setTimeout(() => setToast(""), 2600);
   };
 
-  const goBack = useCallback(() => {
-    if (phase === "result") {
-      setDirection("back");
-      setAnimKey((value) => value + 1);
-      setPhase("name");
-      return;
-    }
-    if (phase === "name") {
-      setDirection("back");
-      setAnimKey((value) => value + 1);
-      setPhase("qualifier");
-      return;
-    }
-    if (phase === "qualifier") {
-      goToStep(QUIZ_QUESTIONS.length - 1, "back");
-      return;
-    }
-    if (phase === "quiz" && step > 0) {
-      goToStep(step - 1, "back");
-      return;
-    }
-    if (phase === "quiz" && step === 0) {
-      setDirection("back");
-      setAnimKey((value) => value + 1);
-      setPhase("intro");
-    }
-  }, [goToStep, phase, step]);
-
-  const restart = () => {
-    setAnswers({});
-    setName("");
-    setCopied(false);
-    setShareStatus(null);
-    setStep(0);
-    setDirection("back");
-    setAnimKey((value) => value + 1);
-    setPhase("intro");
+  const jumpToBuild = () => {
+    setScreen("tutorial");
+    setLesson(0);
   };
 
-  useEffect(() => {
-    const previousDocumentBackground =
-      document.documentElement.style.backgroundColor;
-    const previousBodyBackground = document.body.style.backgroundColor;
-    const previousColorScheme = document.documentElement.style.colorScheme;
-
-    document.documentElement.style.backgroundColor = "#070707";
-    document.documentElement.style.colorScheme = "dark";
-    document.body.style.backgroundColor = "#070707";
-
-    return () => {
-      document.documentElement.style.backgroundColor =
-        previousDocumentBackground;
-      document.documentElement.style.colorScheme = previousColorScheme;
-      document.body.style.backgroundColor = previousBodyBackground;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (phase === "name") {
-      nameInputRef.current?.focus();
-    }
-  }, [phase]);
-
-  useEffect(() => {
-    if (phase !== "quiz" && phase !== "qualifier") return;
-
-    const activeOptions =
-      phase === "quiz" ? question?.options : QUALIFIER.options;
-    if (!activeOptions) return;
-
-    const onKeyDown = (event: globalThis.KeyboardEvent) => {
-      if (event.key === "Escape") {
-        goBack();
-        return;
-      }
-
-      if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-        event.preventDefault();
-        const currentIndex = optionRefs.current.findIndex(
-          (node) => node === document.activeElement,
-        );
-        const delta = event.key === "ArrowDown" ? 1 : -1;
-        const nextIndex =
-          currentIndex < 0
-            ? 0
-            : (currentIndex + delta + activeOptions.length) %
-              activeOptions.length;
-        optionRefs.current[nextIndex]?.focus();
-        return;
-      }
-
-      const digit = Number(event.key);
-      if (
-        Number.isInteger(digit) &&
-        digit >= 1 &&
-        digit <= activeOptions.length
-      ) {
-        event.preventDefault();
-        if (phase === "quiz" && question) {
-          selectOption(question.options[digit - 1]);
-        } else {
-          selectQualifier(QUALIFIER.options[digit - 1].id);
-        }
-      }
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [goBack, phase, question, selectOption, selectQualifier]);
-
-  const onOptionKeyDown = (
-    event: KeyboardEvent<HTMLButtonElement>,
-    action: () => void,
-  ) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      action();
-    }
+  const copyPrompt = async () => {
+    await navigator.clipboard?.writeText(current.prompt);
+    setCopiedPrompt(true);
+    window.setTimeout(() => setCopiedPrompt(false), 1800);
   };
 
-  const sharePayload = result
-    ? buildShareText({
-        name,
-        percent: result.percent,
-        personality: result.personality,
-      })
-    : "";
-
-  const copyShare = async () => {
-    try {
-      await navigator.clipboard.writeText(sharePayload);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1800);
-    } catch {
-      setShareStatus("Could not copy — long-press the card to screenshot.");
-    }
-  };
-
-  const downloadCard = async () => {
-    const slug = (name.trim() || "builder").toLowerCase().replace(/\s+/g, "-");
-    await downloadShareCard(
-      shareRootRef.current,
-      `aimto-ai-scorecard-${slug}.png`,
-    );
-    setShareStatus("Scorecard image downloaded.");
-    window.setTimeout(() => setShareStatus(null), 2000);
-  };
-
-  const nativeShare = async () => {
-    if (!navigator.share) {
-      await copyShare();
-      return;
-    }
-    try {
-      await navigator.share({
-        title: "My AIMTO AI Builder Score",
-        text: sharePayload,
-      });
-    } catch {
-      // user cancelled
-    }
-  };
-
-  const stepLabel =
-    phase === "quiz"
-      ? `${step + 1} / ${TOTAL_STEPS}`
-      : phase === "qualifier"
-        ? `${QUIZ_QUESTIONS.length + 1} / ${TOTAL_STEPS}`
-        : null;
+  const current = LESSONS[lesson];
 
   return (
-    <div className={styles.site} id={`welcome-${rootId}`}>
-      <div
-        className={styles.progressTrack}
-        role="progressbar"
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-valuenow={Math.round(progress)}
-        aria-label="Scorecard progress"
-      >
-        <div
-          className={styles.progressFill}
-          style={{ width: `${progress}%` }}
-        />
-      </div>
-
-      <header className={styles.topBar}>
-        <a className={styles.brand} href="/" aria-label="Aimto home">
-          <Image
-            src="/aimto-assets/logo-white.png"
-            alt="AI Malaysia Takeover"
-            width={600}
-            height={113}
-            sizes="150px"
-            priority
-          />
+    <main className={styles.app}>
+      <div className={styles.pixelGrid} aria-hidden="true" />
+      <header className={styles.header}>
+        <a className={styles.logo} href="/" aria-label="AIMTO home">
+          <span>AI</span>MTO
         </a>
-        <div className={styles.topBarActions}>
-          <AimtoThemeToggle />
-          {phase !== "intro" && (
-            <button
-              type="button"
-              className={styles.ghostButton}
-              onClick={goBack}
-            >
-              Back
-            </button>
-          )}
-        </div>
+        <div className={styles.status}><i /> FIRST QUEST</div>
       </header>
 
-      <main
-        className={`${styles.stage} ${
-          phase === "result" ? styles.stageResult : ""
-        }`}
-      >
-        <div
-          key={`${phase}-${step}-${animKey}`}
-          className={`${styles.panel} ${
-            phase === "result" ? styles.panelWide : ""
-          } ${direction === "forward" ? styles.slideIn : styles.slideInBack}`}
-        >
-          {phase === "intro" && (
-            <section className={styles.intro} aria-labelledby="welcome-title">
-              <p className={styles.kicker}>AI BUILDER SCORECARD_</p>
-              <h1 id="welcome-title" className={styles.title}>
-                How ready are you
-                <br />
-                to build with AI?
-              </h1>
-              <p className={styles.lede}>
-                A 2-minute checklist across the {METHOD_NAME} method. Get your
-                score, your builder type, and a personalised Learn-a-thon day
-                plan.
-              </p>
-              <ul className={styles.benefitList}>
-                <li>Your overall AI Builder Score + type</li>
-                <li>Category breakdown across {METHOD_NAME}</li>
-                <li>A day plan for 12 Aug at The Campus KL</li>
-              </ul>
-              <p className={styles.credibility}>
-                Built for the Malaysian Learn-a-thon — free, open to every
-                Malaysian, hands-on mentors on the floor.
-              </p>
-              <div className={styles.actions}>
-                <button
-                  type="button"
-                  className={styles.primaryButton}
-                  onClick={startQuiz}
-                >
-                  Discover your score <span aria-hidden="true">→</span>
-                </button>
-                <p className={styles.hint}>
-                  {TOTAL_STEPS} questions · under 2 minutes · press{" "}
-                  <kbd>1</kbd>–<kbd>4</kbd> to answer
-                </p>
-              </div>
-            </section>
-          )}
+      {screen === "entry" && (
+        <section className={`${styles.entry} ${styles.screen}`} aria-labelledby="welcome-title">
+          <div className={styles.sparkles} aria-hidden="true"><b>✦</b><b>+</b><b>✧</b></div>
+          <p className={styles.eyebrow}>AIMTO LEARN-A-THON PRESENTS</p>
+          <div className={styles.levelBadge}>+1 <span>LEVEL UP</span></div>
+          <h1 id="welcome-title">Welcome to your first<br />AI learning experience! <span>🥳</span></h1>
+          <p className={styles.lede}>No experience needed. Just bring a little curiosity—we’ll turn an idea into something real together.</p>
+          <button className={styles.primaryButton} onClick={() => setScreen("projects")}>Let’s go <span>→</span></button>
+          <p className={styles.keyHint}><kbd>↵</kbd> press enter to continue</p>
+        </section>
+      )}
 
-          {phase === "quiz" && question && (
-            <section
-              className={styles.question}
-              aria-labelledby={`q-${question.id}`}
-            >
-              <p className={styles.stepLabel}>
-                {stepLabel} · {METHOD_NAME} /{" "}
-                {question.category.toUpperCase()}
-              </p>
-              <h2 id={`q-${question.id}`} className={styles.questionTitle}>
-                {question.prompt}
-              </h2>
-              {question.helper ? (
-                <p className={styles.helper}>{question.helper}</p>
-              ) : null}
-              <div
-                className={styles.options}
-                role="listbox"
-                aria-label={question.prompt}
-              >
-                {question.options.map((option, index) => {
-                  const selected = answers[question.id] === option.id;
-                  return (
-                    <button
-                      key={option.id}
-                      ref={(node) => {
-                        optionRefs.current[index] = node;
-                      }}
-                      type="button"
-                      role="option"
-                      aria-selected={selected}
-                      className={`${styles.option} ${
-                        selected ? styles.optionSelected : ""
-                      }`}
-                      onClick={() => selectOption(option)}
-                      onKeyDown={(event) =>
-                        onOptionKeyDown(event, () => selectOption(option))
-                      }
-                    >
-                      <span className={styles.optionKey} aria-hidden="true">
-                        {index + 1}
-                      </span>
-                      <span className={styles.optionLabel}>{option.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </section>
-          )}
+      {screen === "projects" && (
+        <section className={`${styles.projects} ${styles.screen}`} aria-labelledby="project-title">
+          <div className={styles.sectionTop}><button className={styles.back} onClick={() => setScreen("entry")}>← Back</button><p className={styles.step}>LEVEL 01 OF 02</p></div>
+          <p className={styles.eyebrow}>CHOOSE YOUR ADVENTURE</p>
+          <h1 id="project-title">Let’s build your first project!</h1>
+          <p className={styles.projectLede}>Pick one to bring to life:</p>
+          <div className={styles.cardGrid}>
+            {PROJECTS.map((project) => (
+              <button key={project.title} className={`${styles.projectCard} ${project.active ? styles.activeCard : styles.lockedCard}`} onClick={() => chooseProject(project.active)}>
+                {!project.active && <span className={styles.comingSoon}>COMING SOON</span>}
+                <span className={styles.cardIcon}>{project.icon}</span>
+                <strong>{project.title}</strong>
+                <small>{project.note}</small>
+                {project.active && <span className={styles.cardGo}>Build this →</span>}
+              </button>
+            ))}
+          </div>
+          <button className={styles.ownIdea} onClick={jumpToBuild}>I already have my own idea, let’s jump straight in! 🚀</button>
+          {toast && <p role="status" className={styles.toast}>{toast}</p>}
+        </section>
+      )}
 
-          {phase === "qualifier" && (
-            <section
-              className={styles.question}
-              aria-labelledby="q-blocker"
-            >
-              <p className={styles.stepLabel}>
-                {stepLabel} · DAY PLAN INPUT
-              </p>
-              <h2 id="q-blocker" className={styles.questionTitle}>
-                {QUALIFIER.prompt}
-              </h2>
-              {QUALIFIER.helper ? (
-                <p className={styles.helper}>{QUALIFIER.helper}</p>
-              ) : null}
-              <div
-                className={styles.options}
-                role="listbox"
-                aria-label={QUALIFIER.prompt}
-              >
-                {QUALIFIER.options.map((option, index) => {
-                  const selected = answers.blocker === option.id;
-                  return (
-                    <button
-                      key={option.id}
-                      ref={(node) => {
-                        optionRefs.current[index] = node;
-                      }}
-                      type="button"
-                      role="option"
-                      aria-selected={selected}
-                      className={`${styles.option} ${
-                        selected ? styles.optionSelected : ""
-                      }`}
-                      onClick={() => selectQualifier(option.id)}
-                      onKeyDown={(event) =>
-                        onOptionKeyDown(event, () =>
-                          selectQualifier(option.id),
-                        )
-                      }
-                    >
-                      <span className={styles.optionKey} aria-hidden="true">
-                        {index + 1}
-                      </span>
-                      <span className={styles.optionLabel}>{option.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </section>
-          )}
-
-          {phase === "name" && (
-            <section className={styles.question} aria-labelledby="q-name">
-              <p className={styles.stepLabel}>ALMOST THERE_</p>
-              <h2 id="q-name" className={styles.questionTitle}>
-                What&apos;s your name?
-              </h2>
-              <p className={styles.helper}>
-                We put it on your personalised scorecard so it feels like yours
-                to keep and share.
-              </p>
-              <form className={styles.nameForm} onSubmit={submitName}>
-                <label className={styles.srOnly} htmlFor="builder-name">
-                  Your name
-                </label>
-                <input
-                  id="builder-name"
-                  ref={nameInputRef}
-                  className={styles.nameInput}
-                  value={name}
-                  onChange={(event) => setName(event.target.value)}
-                  placeholder="Type your name…"
-                  autoComplete="name"
-                  maxLength={40}
-                />
-                <button type="submit" className={styles.primaryButton}>
-                  See my scorecard <span aria-hidden="true">→</span>
-                </button>
-              </form>
-            </section>
-          )}
-
-          {phase === "result" && result && (
-            <section className={styles.result} aria-labelledby="score-title">
-              <div className={styles.resultGrid}>
-                <div className={styles.resultMain}>
-                  <p className={styles.kicker}>YOUR {METHOD_NAME} SCORECARD_</p>
-                  <p className={styles.resultName}>{name.trim()}</p>
-                  <div className={styles.scoreRow}>
-                    <p
-                      className={styles.scoreValue}
-                      style={{ color: result.personality.accent }}
-                      aria-live="polite"
-                    >
-                      {result.percent}
-                      <span>%</span>
-                    </p>
-                    <div className={styles.scoreMeta}>
-                      <p className={styles.tierLabel}>
-                        TYPE {result.personality.code} ·{" "}
-                        {result.personality.dayTrack}
-                      </p>
-                      <h2 id="score-title" className={styles.tierTitle}>
-                        {result.personality.title}
-                      </h2>
-                      <p className={styles.scoreDetail}>
-                        {result.personality.tagline} · {result.score}/{MAX_SCORE}{" "}
-                        pts
-                      </p>
-                    </div>
-                  </div>
-
-                  <p className={styles.summary}>{result.personality.summary}</p>
-
-                  <div className={styles.insightBlock}>
-                    <p className={styles.blockLabel}>INSIGHTS_</p>
-                    <ul className={styles.insightList}>
-                      {result.personality.insights.map((insight) => (
-                        <li key={insight}>{insight}</li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className={styles.traitBlock}>
-                    <p className={styles.blockLabel}>
-                      {METHOD_NAME} BREAKDOWN_
-                    </p>
-                    <ul className={styles.traitList}>
-                      {result.traits.map((trait) => (
-                        <li key={trait.id} className={styles.traitItem}>
-                          <div className={styles.traitHead}>
-                            <span>
-                              <strong>{trait.letter}</strong> {trait.label}
-                            </span>
-                            <span>
-                              {trait.value}/{trait.max}
-                            </span>
-                          </div>
-                          <div
-                            className={styles.traitBar}
-                            aria-hidden="true"
-                          >
-                            <span
-                              style={{
-                                width: `${trait.percent}%`,
-                                background: result.personality.accent,
-                              }}
-                            />
-                          </div>
-                          <p className={styles.traitMeaning}>{trait.meaning}</p>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className={styles.gapBlock}>
-                    <div>
-                      <p className={styles.blockLabel}>WHERE TO IMPROVE_</p>
-                      <ul className={styles.plainList}>
-                        {result.weakest.map((trait) => (
-                          <li key={trait.id}>{trait.insight}</li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div>
-                      <p className={styles.blockLabel}>ALREADY STRONG_</p>
-                      <ul className={styles.plainList}>
-                        {result.personality.strengths.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
+      {screen === "tutorial" && (
+        <section className={`${styles.tutorial} ${styles.screen}`} aria-labelledby="lesson-title">
+          <div className={styles.tutorialHeader}>
+            <button className={styles.back} onClick={() => setScreen("projects")}>← Projects</button>
+            <div className={styles.progressWrap}><span>YOUR BUILD PROGRESS</span><div><i style={{ width: `${((lesson + 1) / LESSONS.length) * 100}%` }} /></div></div>
+            <span className={styles.lessonCount}>{lesson + 1} / {LESSONS.length}</span>
+          </div>
+          <div className={styles.tutorialGrid}>
+            <div className={styles.lessonCopy}>
+              <p className={styles.eyebrow}>{current.label}</p>
+              <h1 id="lesson-title">{current.title}</h1>
+              <p className={styles.lessonBody}>{current.body}</p>
+              <div className={styles.promptBox} style={{ background: "#24203f", border: "3px solid #f4c335", boxShadow: "5px 5px 0 #29213d", color: "#fffaf0" }}>
+                <span style={{ color: "#ffd84d", fontSize: "0.76rem" }}>PASTE THIS INTO GOOGLE AI STUDIO</span>
+                <p style={{ background: "rgba(255,255,255,.075)", fontFamily: "var(--font-mono), monospace", fontStyle: "normal", margin: "16px 0", padding: "15px", whiteSpace: "pre-wrap" }}>“{current.prompt}”</p>
+                <div className={styles.promptActions} style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
+                  <button onClick={copyPrompt} style={{ background: "#ffd84d", border: "2px solid #ffd84d", boxShadow: "3px 3px 0 #0f0c1d", color: "#211c36", cursor: "pointer", font: "800 .82rem var(--font-mono), monospace", letterSpacing: ".04em", padding: "12px 14px", textDecoration: "none" }}>{copiedPrompt ? "✓ COPIED!" : "▣ COPY PROMPT"}</button>
+                  <a href="https://aistudio.google.com/" target="_blank" rel="noreferrer" style={{ border: "2px solid #aaa1dc", boxShadow: "3px 3px 0 #0f0c1d", color: "#fffaf0", font: "700 .82rem var(--font-mono), monospace", letterSpacing: ".04em", padding: "12px 14px", textDecoration: "none" }}>OPEN AI STUDIO ↗</a>
                 </div>
-
-                <aside className={styles.resultAside}>
-                  <div className={styles.sharePanel} ref={shareRootRef}>
-                    <p className={styles.blockLabel}>SHAREABLE SCORECARD_</p>
-                    <ShareCard
-                      name={name}
-                      percent={result.percent}
-                      score={result.score}
-                      maxScore={MAX_SCORE}
-                      personality={result.personality}
-                      traits={result.traits}
-                    />
-                    <div className={styles.shareActions}>
-                      <button
-                        type="button"
-                        className={styles.secondaryButton}
-                        onClick={downloadCard}
-                      >
-                        Download image
-                      </button>
-                      <button
-                        type="button"
-                        className={styles.secondaryButton}
-                        onClick={copyShare}
-                      >
-                        {copied ? "Copied" : "Copy text"}
-                      </button>
-                      <button
-                        type="button"
-                        className={styles.secondaryButton}
-                        onClick={nativeShare}
-                      >
-                        Share
-                      </button>
-                    </div>
-                    {shareStatus ? (
-                      <p className={styles.shareStatus}>{shareStatus}</p>
-                    ) : null}
-                  </div>
-
-                  <div className={styles.playbook}>
-                    <p className={styles.blockLabel}>YOUR LEARN-A-THON PLAN_</p>
-                    <h3 className={styles.playbookTitle}>
-                      {result.personality.dayTrack}
-                    </h3>
-                    <p className={styles.playbookLead}>
-                      12 Aug 2026 · The Campus, KL · Free for every Malaysian
-                    </p>
-                    <p className={styles.eventBenefit}>{result.eventBenefit}</p>
-
-                    <p className={styles.miniLabel}>FIRST MOVE ON THE DAY</p>
-                    <p className={styles.miniBody}>{result.firstMove}</p>
-
-                    <p className={styles.miniLabel}>ASK A MENTOR</p>
-                    <p className={styles.miniBody}>
-                      &ldquo;{result.mentorAsk}&rdquo;
-                    </p>
-
-                    <p className={styles.miniLabel}>HOUR-BY-HOUR</p>
-                    <ol className={styles.dayPlan}>
-                      {result.personality.dayPlan.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ol>
-
-                    <p className={styles.miniLabel}>WHAT YOU GET</p>
-                    <ul className={styles.plainList}>
-                      {result.eventHooks.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-
-                    <div className={styles.ctaStack}>
-                      <a
-                        className={styles.primaryButton}
-                        href={REGISTRATION_URL}
-                      >
-                        {result.personality.ctaLabel}{" "}
-                        <span aria-hidden="true">↗</span>
-                      </a>
-                      <p className={styles.ctaNote}>
-                        {result.personality.ctaNote}
-                      </p>
-                      <button
-                        type="button"
-                        className={styles.textButton}
-                        onClick={restart}
-                      >
-                        Retake scorecard
-                      </button>
-                    </div>
-                  </div>
-                </aside>
+                <small style={{ color: "#d7d1eb", display: "block", marginTop: "16px" }}>1. Copy it &nbsp; 2. Paste it in AI Studio &nbsp; 3. Come back here</small>
               </div>
-            </section>
-          )}
-        </div>
-      </main>
-    </div>
+              {lesson < LESSONS.length - 1 ? (
+                <button className={styles.primaryButton} onClick={() => setLesson((step) => step + 1)}>I tried it, next step <span>→</span></button>
+              ) : (
+                <div className={styles.finishActions}><button className={styles.primaryButton} onClick={() => setScreen("complete")}>Finish quest <span>★</span></button><p style={{ color: "#716a7b", fontSize: ".84rem", margin: 0 }}>Keep chatting in AI Studio until you&apos;re happy with it.</p></div>
+              )}
+            </div>
+            <aside className={styles.previewPanel} aria-label="Your website preview">
+              <p style={{ color: "#7a5cff", font: "800 .72rem var(--font-mono), monospace", letterSpacing: ".08em", margin: "0", padding: "14px 14px 0" }}>LIVE PREVIEW</p>
+              <div className={styles.browserBar}><i /><i /><i /><span>your-first-site.com</span></div>
+              <div className={styles.previewPage}>{lesson === 0 ? <div style={{ border: "2px dashed #a8a0ca", color: "#605a78", fontSize: "1.05rem", lineHeight: 1.5, maxWidth: "450px", padding: "25px", textAlign: "left" }}>Your page is empty for now—and that&apos;s exactly right. Your website will appear here as you go.</div> : <><p>MY FIRST WEBSITE</p><h2>{current.preview}</h2><div className={styles.previewShape}>✦</div><small>Made with AI, made by me.</small></>}</div>
+              <div className={styles.previewCaption}><span>LIVE PREVIEW</span><b>Things are taking shape ✨</b></div>
+            </aside>
+          </div>
+        </section>
+      )}
+
+      {screen === "complete" && (
+        <section className={`${styles.entry} ${styles.screen}`} aria-labelledby="complete-title">
+          <div aria-hidden="true" style={{ alignItems: "center", background: "#d8f4e6", border: "3px solid #25213d", boxShadow: "6px 6px 0 #7367e8", display: "flex", fontSize: "3.3rem", height: "112px", justifyContent: "center", marginBottom: "34px", width: "112px" }}>🧑‍🚀</div>
+          <p className={styles.eyebrow}>QUEST COMPLETE</p>
+          <h1 id="complete-title" style={{ fontSize: "clamp(2.7rem,5vw,4.8rem)" }}>You built a website!</h1>
+          <div className={styles.levelBadge} style={{ marginTop: "25px" }}>✦ +1 <span>LEVEL UP · LVL 2</span></div>
+          <p className={styles.lede} style={{ marginBottom: "20px" }}>You wrote real HTML, styled it with CSS, and learned how to steer an AI tutor instead of telling it what to do. That&apos;s the whole skill.</p>
+          <div style={{ maxWidth: "390px", textAlign: "left", width: "100%" }}>
+            <div style={{ display: "flex", font: "800 .72rem var(--font-mono), monospace", justifyContent: "space-between", letterSpacing: ".06em", marginBottom: "7px" }}><span>PERSONAL WEBSITE</span><span>100%</span></div>
+            <div style={{ background: "#e8dfcf", border: "2px solid #25213d", height: "14px", padding: "2px" }}><i style={{ background: "#ffd84d", display: "block", height: "100%", width: "100%" }} /></div>
+          </div>
+          <div className={styles.finishActions} style={{ justifyContent: "center", marginTop: "35px" }}>
+            <button className={styles.primaryButton} onClick={jumpToBuild}>Build my own idea next <span>→</span></button>
+            <button className={styles.reset} onClick={() => { setScreen("tutorial"); setLesson(0); }}>↻ Replay tutorial</button>
+          </div>
+        </section>
+      )}
+    </main>
   );
 }
