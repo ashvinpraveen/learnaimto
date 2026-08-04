@@ -15,6 +15,7 @@ function getRemaining() {
     days: Math.floor(difference / 86_400_000),
     hours: Math.floor((difference / 3_600_000) % 24),
     minutes: Math.floor((difference / 60_000) % 60),
+    seconds: Math.floor((difference / 1_000) % 60),
   };
 }
 
@@ -63,6 +64,7 @@ export default function CountdownDisplay() {
     ["Days", remaining?.days],
     ["Hours", remaining?.hours],
     ["Minutes", remaining?.minutes],
+    ["Seconds", remaining?.seconds],
   ] as const;
 
   return (

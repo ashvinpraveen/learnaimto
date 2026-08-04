@@ -55,7 +55,7 @@
   gap: clamp(28px, 6vw, 56px);
   padding: clamp(72px, 12vw, 120px) clamp(24px, 6vw, 48px) clamp(48px, 8vw, 80px);
   text-align: center;
-  width: min(100%, 1100px);
+  width: min(100%, 1200px);
 }
 
 .logo {
@@ -74,7 +74,7 @@
 .units {
   align-items: end;
   display: flex;
-  gap: clamp(20px, 6vw, 72px);
+  gap: clamp(12px, 4vw, 56px);
   justify-content: center;
   width: 100%;
 }
@@ -89,7 +89,7 @@
 .value {
   animation: unitPulse 2.8s ease-in-out infinite;
   font-family: var(--font-space), sans-serif;
-  font-size: clamp(4.2rem, 16vw, 9.5rem);
+  font-size: clamp(3.6rem, 12vw, 8rem);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.08em;
@@ -127,11 +127,16 @@
 
 @media (max-width: 640px) {
   .units {
-    gap: clamp(12px, 5vw, 24px);
+    gap: clamp(8px, 3.5vw, 16px);
   }
 
   .value {
-    font-size: clamp(3.4rem, 18vw, 5.5rem);
+    font-size: clamp(2.6rem, 14vw, 4.2rem);
+  }
+
+  .label {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
   }
 }
 
