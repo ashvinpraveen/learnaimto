@@ -1,0 +1,122 @@
+.page {
+  --countdown-bg: #d7ff36;
+  --countdown-ink: #070707;
+  --countdown-ink-muted: rgba(7, 7, 7, 0.58);
+
+  background: var(--countdown-bg);
+  color: var(--countdown-ink);
+  display: grid;
+  min-height: 100dvh;
+  min-height: 100svh;
+  overflow: hidden;
+  place-items: center;
+  position: relative;
+}
+
+.fullscreenButton {
+  align-items: center;
+  background: transparent;
+  border: 1.5px solid rgba(7, 7, 7, 0.28);
+  color: var(--countdown-ink);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  gap: 8px;
+  letter-spacing: 0.08em;
+  padding: 10px 14px;
+  position: absolute;
+  right: clamp(16px, 4vw, 32px);
+  text-transform: uppercase;
+  top: clamp(16px, 4vw, 32px);
+  transition:
+    background 180ms ease,
+    border-color 180ms ease;
+  z-index: 2;
+}
+
+.fullscreenButton:hover,
+.fullscreenButton:focus-visible {
+  background: rgba(7, 7, 7, 0.08);
+  border-color: rgba(7, 7, 7, 0.55);
+  outline: none;
+}
+
+.fullscreenButton:focus-visible {
+  outline: 2px solid var(--countdown-ink);
+  outline-offset: 3px;
+}
+
+.content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 6vw, 56px);
+  padding: clamp(72px, 12vw, 120px) clamp(24px, 6vw, 48px) clamp(48px, 8vw, 80px);
+  text-align: center;
+  width: min(100%, 920px);
+}
+
+.logo {
+  height: auto;
+  filter: invert(1);
+  width: min(72vw, 420px);
+}
+
+.countdown {
+  display: grid;
+  gap: clamp(8px, 1.6vw, 14px);
+  justify-items: center;
+}
+
+.days {
+  animation: dayPulse 2.8s ease-in-out infinite;
+  font-family: var(--font-space), sans-serif;
+  font-size: clamp(7.5rem, 28vw, 16rem);
+  font-weight: 700;
+  letter-spacing: -0.08em;
+  line-height: 0.85;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.label {
+  color: var(--countdown-ink-muted);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: clamp(0.78rem, 1.8vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.eventLine {
+  color: var(--countdown-ink-muted);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: clamp(0.68rem, 1.4vw, 0.82rem);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+@keyframes dayPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.018);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .days {
+    animation: none;
+  }
+
+  .fullscreenButton {
+    transition: none;
+  }
+}
