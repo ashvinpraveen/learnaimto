@@ -2388,7 +2388,7 @@
 }
 
 .cursorLogoCrop {
-  height: 58px;
+  height: 56px;
   overflow: hidden;
   width: 100px;
 }
@@ -2398,7 +2398,7 @@
   margin: 0;
   max-width: 100px;
   object-fit: contain;
-  transform: translateY(-21px);
+  transform: translateY(-19px);
   width: 100px;
 }
 

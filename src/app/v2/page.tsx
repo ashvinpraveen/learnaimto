@@ -143,7 +143,7 @@ const partners = [
     height: 214,
   },
   {
-    name: "M30",
+    name: "MRANTI",
     src: "/aimto-assets/partners/m30.png",
     width: 1267,
     height: 295,
