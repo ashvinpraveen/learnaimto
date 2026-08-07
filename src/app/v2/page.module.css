@@ -2341,6 +2341,7 @@
 
 .partnerBottomRow .partnerGroupLogos img[alt="Tealive"] {
   margin-right: 22px;
+  max-width: 85px;
 }
 
 .partnerBottomRow .partnerGroupLogos img[alt="The Campus"] {
@@ -2358,7 +2359,7 @@
 .partnerMiddleRow .partnerGroupLogos {
   display: grid;
   column-gap: 12px;
-  grid-template-columns: repeat(6, 124px);
+  grid-template-columns: repeat(5, 124px);
   justify-content: center;
   row-gap: 8px;
 }
@@ -2386,9 +2387,17 @@
   width: 58px;
 }
 
+.partnerMiddleRow .partnerGroupLogos img[alt="Cursor Community"] {
+  height: 58px;
+  max-width: 100px;
+  object-fit: cover;
+  object-position: center;
+  width: 100px;
+}
+
 .partnerMiddleRow .malaysianAiLockup {
   font-size: 16px;
-  gap: 6px;
+  gap: 3px;
 }
 
 .partnerMiddleRow .partnerGroupLogos .malaysianAiLockup img {
@@ -2411,9 +2420,9 @@
   align-items: center;
   color: #0f2a2b;
   display: inline-flex;
-  font-family: var(--font-space), system-ui, sans-serif;
+  font-family: var(--font-newsreader), Georgia, serif;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
   gap: 8px;
   letter-spacing: -0.025em;
   line-height: 1;
@@ -2938,6 +2947,10 @@
 
   .partnerMiddleRow .partnerGroupLogos {
     grid-template-columns: repeat(3, 124px);
+  }
+
+  .partnerMiddleRow .partnerGroupLogos > :last-child {
+    grid-column: 2;
   }
 }
 
@@ -3521,6 +3534,10 @@
 
   .partnerMiddleRow .partnerGroupLogos {
     grid-template-columns: repeat(2, 124px);
+  }
+
+  .partnerMiddleRow .partnerGroupLogos > :last-child {
+    grid-column: auto;
   }
 
   .partnerBottomRow .partnerGroup {

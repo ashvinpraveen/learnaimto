@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { Newsreader } from "next/font/google";
 import {
   LEARNATHON_FAQS,
   OG_IMAGE,
@@ -19,6 +20,12 @@ import AimtoButton from "../aimto/AimtoButton";
 import LearnathonCountdown from "../aimto/learnathon/LearnathonCountdown";
 import LearnathonProjects from "../aimto/learnathon/LearnathonProjects";
 import styles from "./page.module.css";
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  variable: "--font-newsreader",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -251,9 +258,7 @@ const partnerGroups = [
       partners[11],
       partners[12],
       partners[14],
-      partners[13],
       partners[15],
-      partners[10],
     ],
   },
   { label: "Event Partners", partners: partners.slice(16, 18) },
@@ -263,7 +268,10 @@ const partnerGroups = [
 
 export default function LearnathonThreePage() {
   return (
-    <div className={styles.site} id="aimto-learnathon-site">
+    <div
+      className={`${styles.site} ${newsreader.variable}`}
+      id="aimto-learnathon-site"
+    >
       <JsonLd data={learnathonEventJsonLd()} />
       <JsonLd data={learnathonFaqJsonLd()} />
       <AimtoMotion rootId="aimto-learnathon-site" />
@@ -636,7 +644,11 @@ function PartnerGroup({
       <div className={styles.partnerGroupLogos}>
         {group.partners.map((partner) => (
           partner.name === "Malaysian AI" ? (
-            <div className={styles.malaysianAiLockup} key={partner.name}>
+            <div
+              className={styles.malaysianAiLockup}
+              key={partner.name}
+              title={partner.name}
+            >
               <Image
                 src={partner.src}
                 alt={partner.name}
@@ -644,13 +656,14 @@ function PartnerGroup({
                 height={partner.height}
                 sizes="42px"
               />
-              <span>Malaysian.ai</span>
+              <span>malaysian.ai</span>
             </div>
           ) : (
             <Image
               key={partner.name}
               src={partner.src}
               alt={partner.name}
+              title={partner.name}
               width={partner.width}
               height={partner.height}
               sizes="(max-width: 700px) 130px, 200px"
