@@ -2344,8 +2344,8 @@
 }
 
 .partnerBottomRow .partnerGroupLogos img[alt="The Campus"] {
-  max-width: 120px;
-  width: 120px;
+  max-width: 100px;
+  width: 100px;
 }
 
 .partnerMiddleRow .partnerGroupLogos img[alt="Build with AI"],
@@ -2379,6 +2379,11 @@
   max-width: 100px;
   object-fit: contain;
   width: 100px;
+}
+
+.partnerMiddleRow .partnerGroupLogos img[alt="AI SEA"] {
+  max-width: 58px;
+  width: 58px;
 }
 
 .partnerMiddleRow .malaysianAiLockup {
