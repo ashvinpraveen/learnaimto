@@ -249,8 +249,8 @@ const partnerGroups = [
   {
     label: "Ecosystem & Community Partners",
     partners: [
-      partners[5],
       partners[8],
+      partners[5],
       partners[4],
       partners[7],
       partners[6],
