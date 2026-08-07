@@ -658,6 +658,22 @@ function PartnerGroup({
               />
               <span>malaysian.ai</span>
             </div>
+          ) : partner.name === "Cursor Community" ? (
+            <div
+              className={styles.cursorLogoCrop}
+              key={partner.name}
+              title={partner.name}
+            >
+              <Image
+                src={partner.src}
+                alt={partner.name}
+                width={partner.width}
+                height={partner.height}
+                loading="eager"
+                sizes="100px"
+                unoptimized
+              />
+            </div>
           ) : (
             <Image
               key={partner.name}

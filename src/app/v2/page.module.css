@@ -2387,11 +2387,18 @@
   width: 58px;
 }
 
-.partnerMiddleRow .partnerGroupLogos img[alt="Cursor Community"] {
+.cursorLogoCrop {
   height: 58px;
+  overflow: hidden;
+  width: 100px;
+}
+
+.partnerMiddleRow .partnerGroupLogos .cursorLogoCrop img {
+  height: 100px;
+  margin: 0;
   max-width: 100px;
-  object-fit: cover;
-  object-position: center;
+  object-fit: contain;
+  transform: translateY(-21px);
   width: 100px;
 }
 
