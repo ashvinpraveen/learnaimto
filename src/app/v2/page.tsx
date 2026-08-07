@@ -240,33 +240,47 @@ const partners = [
   },
 ] as const;
 
+const coreCommunityPartners = [
+  partners[8],
+  partners[5],
+  partners[4],
+  partners[7],
+  partners[6],
+] as const;
+
+const additionalCommunityPartners = [
+  partners[9],
+  partners[11],
+  partners[12],
+  partners[14],
+  partners[15],
+] as const;
+
 /** Mirrors the current partner hierarchy published on aimto.my. */
-const partnerGroups = [
+const getPartnerGroups = (includeAdditionalPartners: boolean) => [
   { label: "Supported by", partners: partners.slice(0, 1) },
   { label: "Strategic Partner", partners: partners.slice(1, 2) },
   { label: "AI Platform Partner", partners: partners.slice(2, 3) },
   { label: "VC Partner", partners: partners.slice(3, 4) },
   {
     label: "Ecosystem & Community Partners",
-    partners: [
-      partners[8],
-      partners[5],
-      partners[4],
-      partners[7],
-      partners[6],
-      partners[9],
-      partners[11],
-      partners[12],
-      partners[14],
-      partners[15],
-    ],
+    partners: includeAdditionalPartners
+      ? [...coreCommunityPartners, ...additionalCommunityPartners]
+      : coreCommunityPartners,
   },
   { label: "Event Partners", partners: partners.slice(16, 18) },
   { label: "Venue Partner", partners: partners.slice(18, 19) },
   { label: "Event Internet Partner", partners: partners.slice(19, 20) },
 ] as const;
 
-export default function LearnathonThreePage() {
+type PartnerGroup = ReturnType<typeof getPartnerGroups>[number];
+
+export default function LearnathonThreePage({
+  includeAdditionalPartners = true,
+}: {
+  includeAdditionalPartners?: boolean;
+}) {
+  const partnerGroups = getPartnerGroups(includeAdditionalPartners);
   return (
     <div
       className={`${styles.site} ${newsreader.variable}`}
@@ -615,6 +629,15 @@ export default function LearnathonThreePage() {
         <div className={styles.footerMeta}>
           <p>© The Malaysian Learn-a-thon 2026</p>
           <div className={styles.footerMetaLinks}>
+            <a
+              className={styles.openSourceLink}
+              href="https://github.com/ashvinpraveen/learnaimto"
+              target="_blank"
+              rel="noreferrer"
+            >
+              This page is open source. Contribute a pull request{" "}
+              <span aria-hidden="true">↗</span>
+            </a>
             <AimtoThemeToggle />
             <a
               href="https://instagram.com/malaysianai"
@@ -636,7 +659,7 @@ export default function LearnathonThreePage() {
 function PartnerGroup({
   group,
 }: {
-  group: (typeof partnerGroups)[number];
+  group: PartnerGroup;
 }) {
   return (
     <div className={styles.partnerGroup}>

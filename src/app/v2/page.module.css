@@ -2678,6 +2678,10 @@
   color: rgba(var(--theme-ink-rgb), 0.66);
 }
 
+.openSourceLink {
+  text-transform: none;
+}
+
 @media (max-width: 1000px) {
   .introSection {
     padding-bottom: clamp(240px, 32vw, 310px);
