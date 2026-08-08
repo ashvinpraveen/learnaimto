@@ -56,13 +56,22 @@ function buildLeaderboard_() {
 
   for (let rowIndex = 1; rowIndex < values.length; rowIndex += 1) {
     const row = values[rowIndex];
-    const email = normalizeEmail_(
-      row[studentEmailIndex] || row[personalEmailIndex],
-    );
+    const emails = [
+      normalizeEmail_(row[studentEmailIndex]),
+      normalizeEmail_(row[personalEmailIndex]),
+    ].filter(Boolean);
     const rawUniversity = String(row[universityIndex] || "").trim();
 
-    if (!email || !rawUniversity || seenEmails.has(email)) continue;
-    seenEmails.add(email);
+    // Skip blank rows, and skip when any email on the row was already counted
+    // so the same person cannot double-count via student + personal addresses.
+    if (
+      emails.length === 0 ||
+      !rawUniversity ||
+      emails.some((email) => seenEmails.has(email))
+    ) {
+      continue;
+    }
+    emails.forEach((email) => seenEmails.add(email));
 
     const normalizedUniversity = normalize_(rawUniversity);
     const university = canonicalNames.get(normalizedUniversity) || rawUniversity;

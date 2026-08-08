@@ -646,6 +646,7 @@ export default function LearnathonThreePage({
               <span aria-hidden="true">↗</span>
             </a>
             <AimtoThemeToggle />
+            <a href="/leaderboard">University Leaderboard</a>
             <a
               href="https://instagram.com/malaysianai"
               target="_blank"
