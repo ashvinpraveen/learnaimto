@@ -382,6 +382,27 @@
   filter: var(--aimto-logo-filter, none);
 }
 
+.nav .navLeaderboard {
+  background: rgba(7, 7, 7, 0.28);
+  border-color: rgba(255, 255, 255, 0.58);
+  color: #ffffff !important;
+  min-height: 46px;
+  padding-inline: 20px;
+}
+
+.nav .navLeaderboard:hover,
+.nav .navLeaderboard:focus-visible {
+  background: var(--aimto-accent, var(--lime));
+  border-color: var(--aimto-accent, var(--lime));
+  color: var(--aimto-accent-ink, #070707) !important;
+}
+
+:global(html[data-theme="light"]) .navScrolled .navLeaderboard {
+  background: transparent;
+  border-color: var(--aimto-border);
+  color: var(--aimto-ink) !important;
+}
+
 .mobileNavActions,
 .mobileMenu {
   display: none;

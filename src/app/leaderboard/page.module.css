@@ -120,37 +120,39 @@
   color: var(--theme-ink-muted);
   font-size: clamp(17px, 1.6vw, 22px);
   max-width: 690px;
+  position: relative;
 }
 
 .heroMotionReady .heroCopy {
   animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.95s both;
 }
 
-.animatedHighlight {
-  background-image: linear-gradient(
-    rgba(var(--theme-accent-rgb), 0.34),
-    rgba(var(--theme-accent-rgb), 0.34)
-  );
-  background-position: left center;
-  background-repeat: no-repeat;
-  background-size: 0% 100%;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
+.highlightContent {
+  position: relative;
+  z-index: 1;
 }
 
-:global(html[data-theme="light"]) .animatedHighlight {
-  background-image: linear-gradient(
-    rgba(var(--theme-accent-rgb), 0.5),
-    rgba(var(--theme-accent-rgb), 0.5)
-  );
+.highlightLayer {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
 }
 
-.highlightFirst {
-  animation: highlightSweep 2.6s cubic-bezier(0.22, 1, 0.36, 1) 2s forwards;
+.highlightLine {
+  background: rgba(var(--theme-accent-rgb), 0.34);
+  position: absolute;
+  transform: scaleX(0);
+  transform-origin: left center;
 }
 
-.highlightSecond {
-  animation: highlightSweep 1.8s cubic-bezier(0.22, 1, 0.36, 1) 4.65s forwards;
+.heroMotionReady .highlightLine {
+  animation: highlightSweep var(--highlight-duration)
+    cubic-bezier(0.22, 1, 0.36, 1) var(--highlight-delay) forwards;
+}
+
+:global(html[data-theme="light"]) .highlightLine {
+  background: rgba(var(--theme-accent-rgb), 0.5);
 }
 
 @keyframes heroTitleReveal {
@@ -197,14 +199,14 @@
 
 @keyframes highlightSweep {
   to {
-    background-size: 100% 100%;
+    transform: scaleX(1);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animatedHighlight {
+  .highlightLine {
     animation: none;
-    background-size: 100% 100%;
+    transform: scaleX(1);
   }
 }
 

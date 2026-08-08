@@ -5,6 +5,7 @@ import AimtoThemeToggle from "@/app/aimto/AimtoThemeToggle";
 import { REGISTRATION_URL, UNIVERSITY_SIGNUP_URL } from "@/lib/constants";
 import { getLeaderboardData } from "@/lib/leaderboard";
 import LeaderboardHeroMotion from "./LeaderboardHeroMotion";
+import ProgressiveHighlight from "./ProgressiveHighlight";
 import RippleDotField from "./RippleDotField";
 import brandStyles from "@/app/aimto/page.module.css";
 import styles from "./page.module.css";
@@ -59,16 +60,11 @@ export default async function LeaderboardPage() {
               Which campus will
               <span> take the lead?</span>
             </h1>
-            <p className={styles.heroCopy}>
-              The top two universities get a chance to win{" "}
-              <span className={`${styles.animatedHighlight} ${styles.highlightFirst}`}>
-                exclusive merch and AI credits, plus an
-              </span>
-              <br />
-              <span className={`${styles.animatedHighlight} ${styles.highlightSecond}`}>
-                office visit, co-working session and CEO networking.
-              </span>
-            </p>
+            <ProgressiveHighlight
+              className={styles.heroCopy}
+              prefix="The top two universities get a chance to win "
+              text="exclusive merch and AI credits, plus an office visit, co-working session and CEO networking."
+            />
 
             <div className={styles.stats} aria-label="Leaderboard summary">
               <div>
