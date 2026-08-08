@@ -628,7 +628,8 @@
   width: auto;
 }
 
-.heroOrganisers img:first-child {
+.heroOrganisers > div > :first-child img,
+.heroOrganisers > div > img:first-child {
   height: clamp(36px, 3.25vw, 50px);
 }
 
@@ -2434,6 +2435,7 @@
   letter-spacing: -0.025em;
   line-height: 1;
   margin: 6px;
+  text-decoration: none;
 }
 
 .partnerGroupLogos .malaysianAiLockup img {
@@ -2676,6 +2678,10 @@
 
 .footerMeta a {
   color: rgba(var(--theme-ink-rgb), 0.66);
+}
+
+.openSourceLink {
+  text-transform: none;
 }
 
 @media (max-width: 1000px) {
@@ -3214,7 +3220,8 @@
     height: 22px;
   }
 
-  .heroOrganisers img:first-child {
+  .heroOrganisers > div > :first-child img,
+  .heroOrganisers > div > img:first-child {
     height: 32px;
   }
 
