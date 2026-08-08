@@ -378,6 +378,10 @@
   color: var(--aimto-control-ink) !important;
 }
 
+:global(html[data-theme="light"]) .nav.navThemeLogo .brandLogo {
+  filter: var(--aimto-logo-filter, none);
+}
+
 .mobileNavActions,
 .mobileMenu {
   display: none;
