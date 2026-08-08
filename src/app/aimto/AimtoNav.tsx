@@ -7,9 +7,10 @@ import styles from "./page.module.css";
 
 type AimtoNavProps = {
   registrationUrl: string;
+  themeLogo?: boolean;
 };
 
-export default function AimtoNav({ registrationUrl }: AimtoNavProps) {
+export default function AimtoNav({ registrationUrl, themeLogo = false }: AimtoNavProps) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -22,7 +23,9 @@ export default function AimtoNav({ registrationUrl }: AimtoNavProps) {
   return (
     <header className={styles.navWrap}>
       <nav
-        className={`${styles.nav} ${scrolled ? styles.navScrolled : ""}`}
+        className={`${styles.nav} ${scrolled ? styles.navScrolled : ""} ${
+          themeLogo ? styles.navThemeLogo : ""
+        }`}
         data-scrolled={scrolled ? "true" : "false"}
         aria-label="AI Malaysia Takeover"
       >

@@ -5,7 +5,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
   ).replace(/\/$/, "");
 
-  const routes = ["/", "/aimto/learnathon", "/welcome", "/countdown"] as const;
+  const routes = [
+    "/",
+    "/aimto/learnathon",
+    "/welcome",
+    "/countdown",
+    "/leaderboard",
+  ] as const;
 
   return routes.map((path) => ({
     url: `${siteUrl}${path}`,
