@@ -11,6 +11,6 @@
 7. Authorize the script, open the deployment URL, and confirm it returns JSON.
 8. Add the deployment URL to Vercel as `LEADERBOARD_DATA_URL`, then redeploy.
 
-The Next.js page caches a successful response for 24 hours. Student email is
-preferred for duplicate detection, with personal email used as a fallback. The
-first valid response for an email address is counted.
+The Next.js page caches a successful response for 24 hours. Both student and
+personal emails on a response are tracked for duplicate detection, so the same
+person cannot be counted twice. The first valid response wins.

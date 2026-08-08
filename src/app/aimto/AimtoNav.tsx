@@ -46,12 +46,6 @@ export default function AimtoNav({ registrationUrl, themeLogo = false }: AimtoNa
         </a>
         <div className={styles.navActions}>
           <AimtoButton
-            className={`${styles.ctaButton} ${styles.navLeaderboard}`}
-            href="/leaderboard"
-          >
-            University Leaderboard <span aria-hidden="true">→</span>
-          </AimtoButton>
-          <AimtoButton
             className={`${styles.ctaButton} ${styles.navCta}`}
             href={registrationUrl}
           >
