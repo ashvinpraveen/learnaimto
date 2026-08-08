@@ -342,13 +342,20 @@ export default function LearnathonThreePage({
                 height={275}
                 sizes="110px"
               />
-              <Image
-                src="/aimto-assets/500-logo-white.png"
-                alt="500 Global"
-                width={800}
-                height={275}
-                sizes="100px"
-              />
+              <a
+                href="https://500.co"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="500 Global"
+              >
+                <Image
+                  src="/aimto-assets/500-logo-white.png"
+                  alt="500 Global"
+                  width={800}
+                  height={275}
+                  sizes="100px"
+                />
+              </a>
             </div>
           </div>
 
@@ -667,9 +674,12 @@ function PartnerGroup({
       <div className={styles.partnerGroupLogos}>
         {group.partners.map((partner) => (
           partner.name === "Malaysian AI" ? (
-            <div
+            <a
               className={styles.malaysianAiLockup}
               key={partner.name}
+              href="https://malaysian.ai"
+              target="_blank"
+              rel="noreferrer"
               title={partner.name}
             >
               <Image
@@ -680,7 +690,7 @@ function PartnerGroup({
                 sizes="42px"
               />
               <span>malaysian.ai</span>
-            </div>
+            </a>
           ) : partner.name === "Cursor Community" ? (
             <div
               className={styles.cursorLogoCrop}
@@ -697,6 +707,22 @@ function PartnerGroup({
                 unoptimized
               />
             </div>
+          ) : partner.name === "500 Global" ? (
+            <a
+              key={partner.name}
+              href="https://500.co"
+              target="_blank"
+              rel="noreferrer"
+              title={partner.name}
+            >
+              <Image
+                src={partner.src}
+                alt={partner.name}
+                width={partner.width}
+                height={partner.height}
+                sizes="(max-width: 700px) 130px, 200px"
+              />
+            </a>
           ) : (
             <Image
               key={partner.name}
