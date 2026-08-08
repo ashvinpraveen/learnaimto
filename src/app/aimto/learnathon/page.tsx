@@ -164,13 +164,20 @@ export default function LearnathonThreePage() {
                 height={275}
                 sizes="110px"
               />
-              <Image
-                src="/aimto-assets/500-logo-white.png"
-                alt="500 Global"
-                width={800}
-                height={275}
-                sizes="100px"
-              />
+              <a
+                href="https://500.co"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="500 Global"
+              >
+                <Image
+                  src="/aimto-assets/500-logo-white.png"
+                  alt="500 Global"
+                  width={800}
+                  height={275}
+                  sizes="100px"
+                />
+              </a>
             </div>
           </div>
 
