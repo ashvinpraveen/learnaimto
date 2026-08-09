@@ -19,6 +19,7 @@ type ProgressiveHighlightProps = {
   className: string;
   prefix: string;
   text: string;
+  suffix?: string;
 };
 
 const animationDelay = 2;
@@ -28,6 +29,7 @@ export default function ProgressiveHighlight({
   className,
   prefix,
   text,
+  suffix,
 }: ProgressiveHighlightProps) {
   const paragraphRef = useRef<HTMLParagraphElement>(null);
   const highlightedTextRef = useRef<HTMLSpanElement>(null);
@@ -62,7 +64,7 @@ export default function ProgressiveHighlight({
     void document.fonts?.ready.then(measureLines);
 
     return () => resizeObserver.disconnect();
-  }, [text]);
+  }, [text, prefix, suffix]);
 
   const totalWidth = lines.reduce((sum, line) => sum + line.width, 0);
   let completedWidth = 0;
@@ -72,6 +74,7 @@ export default function ProgressiveHighlight({
       <span className={styles.highlightContent}>
         {prefix}
         <span ref={highlightedTextRef}>{text}</span>
+        {suffix}
       </span>
       <span className={styles.highlightLayer} aria-hidden="true">
         {lines.map((line, index) => {
