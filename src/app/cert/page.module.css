@@ -1,0 +1,253 @@
+.page {
+  --cert-cream: #f9f0de;
+  --cert-ink: #0e1843;
+  --cert-ink-soft: rgba(14, 24, 67, 0.62);
+  --cert-line: rgba(14, 24, 67, 0.16);
+  --cert-accent: #7a3d8a;
+
+  background:
+    radial-gradient(120% 80% at 10% 0%, rgba(196, 120, 170, 0.18), transparent 55%),
+    radial-gradient(90% 70% at 100% 20%, rgba(120, 90, 180, 0.14), transparent 50%),
+    linear-gradient(180deg, #fbf4e8 0%, var(--cert-cream) 45%, #f3e6d2 100%);
+  color: var(--cert-ink);
+  min-height: 100dvh;
+  min-height: 100svh;
+  padding: clamp(24px, 5vw, 48px);
+  position: relative;
+}
+
+.glow {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.55), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(232, 170, 210, 0.18), transparent 35%);
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.formPanel,
+.certPanel {
+  margin: 0 auto;
+  max-width: 1080px;
+  position: relative;
+  width: min(100%, 1080px);
+}
+
+.formPanel {
+  display: grid;
+  gap: 18px;
+  max-width: 460px;
+  padding-top: clamp(48px, 12vh, 120px);
+}
+
+.eyebrow {
+  color: var(--cert-ink-soft);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: var(--font-space), var(--font-rethink), sans-serif;
+  font-size: clamp(2.4rem, 8vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  margin: 0;
+}
+
+.lede {
+  color: var(--cert-ink-soft);
+  font-family: var(--font-rethink), sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 34ch;
+}
+
+.form {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.label {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.input {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--cert-line);
+  color: var(--cert-ink);
+  font-family: var(--font-space), var(--font-rethink), sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding: 14px 16px;
+  width: 100%;
+}
+
+.input::placeholder {
+  color: rgba(14, 24, 67, 0.35);
+}
+
+.input:focus {
+  border-color: rgba(14, 24, 67, 0.45);
+  outline: 2px solid rgba(122, 61, 138, 0.28);
+  outline-offset: 2px;
+}
+
+.primaryButton,
+.secondaryButton,
+.ghostButton {
+  align-items: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  justify-content: center;
+  letter-spacing: 0.08em;
+  padding: 14px 18px;
+  text-transform: uppercase;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    opacity 160ms ease;
+}
+
+.primaryButton {
+  background: var(--cert-ink);
+  color: #f9f0de;
+  margin-top: 4px;
+}
+
+.primaryButton:hover,
+.primaryButton:focus-visible {
+  background: #18265c;
+}
+
+.secondaryButton {
+  background: rgba(255, 255, 255, 0.55);
+  border-color: var(--cert-line);
+  color: var(--cert-ink);
+}
+
+.secondaryButton:hover,
+.secondaryButton:focus-visible {
+  border-color: rgba(14, 24, 67, 0.4);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.ghostButton {
+  background: transparent;
+  border-color: var(--cert-line);
+  color: var(--cert-ink);
+  padding: 10px 14px;
+}
+
+.ghostButton:hover,
+.ghostButton:focus-visible {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.primaryButton:disabled,
+.secondaryButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.primaryButton:focus-visible,
+.secondaryButton:focus-visible,
+.ghostButton:focus-visible {
+  outline: 2px solid var(--cert-accent);
+  outline-offset: 3px;
+}
+
+.status {
+  color: var(--cert-ink-soft);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.78rem;
+  margin: 0;
+}
+
+.certPanel {
+  display: grid;
+  gap: 20px;
+}
+
+.certHeader {
+  align-items: end;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.certTitle {
+  font-family: var(--font-space), var(--font-rethink), sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 6px 0 0;
+}
+
+.certificateFrame {
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--cert-line);
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.certificateCanvas {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.loading {
+  background: rgba(249, 240, 222, 0.82);
+  color: var(--cert-ink-soft);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.78rem;
+  inset: 0;
+  letter-spacing: 0.08em;
+  margin: 0;
+  place-content: center;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.actions .primaryButton {
+  margin-top: 0;
+}
+
+@media (max-width: 640px) {
+  .certHeader {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .actions {
+    display: grid;
+  }
+
+  .actions > * {
+    width: 100%;
+  }
+}

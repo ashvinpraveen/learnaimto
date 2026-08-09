@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/welcome",
     "/countdown",
     "/leaderboard",
+    "/cert",
   ] as const;
 
   return routes.map((path) => ({
