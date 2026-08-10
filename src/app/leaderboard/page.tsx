@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import AimtoNav from "@/app/aimto/AimtoNav";
 import AimtoThemeToggle from "@/app/aimto/AimtoThemeToggle";
-import { REGISTRATION_URL, UNIVERSITY_SIGNUP_URL } from "@/lib/constants";
+import { UNIVERSITY_SIGNUP_URL } from "@/lib/constants";
 import { getLeaderboardData } from "@/lib/leaderboard";
 import LeaderboardHeroMotion from "./LeaderboardHeroMotion";
 import ProgressiveHighlight from "./ProgressiveHighlight";
@@ -45,7 +45,12 @@ export default async function LeaderboardPage() {
   );
   return (
     <div className={`${brandStyles.site} ${styles.page}`} id="top">
-      <AimtoNav registrationUrl={REGISTRATION_URL} themeLogo />
+      <AimtoNav
+        registrationUrl={UNIVERSITY_SIGNUP_URL}
+        ctaLabel="University signup"
+        openInNewTab
+        themeLogo
+      />
 
       <main>
         <section className={styles.hero}>
@@ -203,7 +208,7 @@ export default async function LeaderboardPage() {
                   <a
                     href={UNIVERSITY_SIGNUP_URL}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                   >
                     University signup <span aria-hidden="true">↗</span>
                   </a>

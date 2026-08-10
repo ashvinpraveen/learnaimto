@@ -7,10 +7,17 @@ import styles from "./page.module.css";
 
 type AimtoNavProps = {
   registrationUrl: string;
+  ctaLabel?: string;
+  openInNewTab?: boolean;
   themeLogo?: boolean;
 };
 
-export default function AimtoNav({ registrationUrl, themeLogo = false }: AimtoNavProps) {
+export default function AimtoNav({
+  registrationUrl,
+  ctaLabel = "Sign up free",
+  openInNewTab = false,
+  themeLogo = false,
+}: AimtoNavProps) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -48,16 +55,20 @@ export default function AimtoNav({ registrationUrl, themeLogo = false }: AimtoNa
           <AimtoButton
             className={`${styles.ctaButton} ${styles.navCta}`}
             href={registrationUrl}
+            target={openInNewTab ? "_blank" : undefined}
+            rel={openInNewTab ? "noopener noreferrer" : undefined}
           >
-            Sign up free <span aria-hidden="true">↗</span>
+            {ctaLabel} <span aria-hidden="true">↗</span>
           </AimtoButton>
         </div>
         <div className={styles.mobileNavActions}>
           <AimtoButton
             className={`${styles.ctaButton} ${styles.mobileJoinCta}`}
             href={registrationUrl}
+            target={openInNewTab ? "_blank" : undefined}
+            rel={openInNewTab ? "noopener noreferrer" : undefined}
           >
-            Sign up free <span aria-hidden="true">↗</span>
+            {ctaLabel} <span aria-hidden="true">↗</span>
           </AimtoButton>
         </div>
       </nav>
