@@ -285,69 +285,6 @@
   max-width: 1120px;
 }
 
-.comingSoonStage {
-  height: clamp(420px, 54vw, 610px);
-  margin: 0 auto;
-  max-width: 1120px;
-  overflow: hidden;
-  position: relative;
-}
-
-.previewBoard {
-  background: var(--theme-surface-soft);
-  filter: blur(2px);
-  min-height: 100%;
-  opacity: 0.78;
-  transform: scale(1.015);
-}
-
-.previewBoard .row {
-  min-height: 82px;
-}
-
-.comingSoon {
-  align-items: center;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  background: rgba(7, 7, 7, 0.56);
-  display: flex;
-  flex-direction: column;
-  inset: 0;
-  justify-content: center;
-  padding: clamp(42px, 7vw, 84px);
-  position: absolute;
-  text-align: center;
-}
-
-.comingSoon h3 {
-  font-size: clamp(38px, 6vw, 76px);
-  letter-spacing: -0.06em;
-  line-height: 0.95;
-  margin: 0;
-}
-
-:global(html[data-theme="light"]) .previewBoard {
-  filter: blur(3.5px) contrast(0.72);
-  opacity: 0.48;
-}
-
-:global(html[data-theme="light"]) .comingSoon {
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  background: radial-gradient(
-    circle at center,
-    rgba(243, 240, 232, 0.92) 0%,
-    rgba(243, 240, 232, 0.78) 48%,
-    rgba(243, 240, 232, 0.62) 100%
-  );
-}
-
-:global(html[data-theme="light"]) .comingSoon h3 {
-  color: #15130f;
-  font-weight: 600;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.72);
-}
-
 .supportGrid {
   display: grid;
   gap: 22px;
@@ -456,6 +393,7 @@
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 16px;
   justify-content: center;
+  position: relative;
   text-align: center;
 }
 
@@ -467,20 +405,148 @@
   font-weight: 700;
 }
 
-.rankCoin {
+.coinWrap {
+  animation: coinFloat 3.2s ease-in-out infinite;
   display: block;
   flex: 0 0 64px;
   height: 64px;
+  overflow: hidden;
+  perspective: 240px;
+  position: relative;
+  width: 64px;
+}
+
+.coinBody {
+  animation: coinSpin 2s ease-in-out infinite;
+  display: block;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  width: 100%;
+}
+
+.coinWrap::after {
+  animation: coinGlare 2s ease-in-out infinite;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.72) 50%,
+    transparent 70%
+  );
+  background-position: 180% 0;
+  background-size: 250% 100%;
+  content: "";
+  inset: 0;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  pointer-events: none;
+  position: absolute;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+}
+
+.rank1 .coinWrap::after {
+  mask-image: url("/aimto-assets/leaderboard-first-place-cutout.png");
+  -webkit-mask-image: url("/aimto-assets/leaderboard-first-place-cutout.png");
+}
+
+.rank2 .coinWrap::after {
+  mask-image: url("/aimto-assets/leaderboard-second-place-cutout-v2.png");
+  -webkit-mask-image: url("/aimto-assets/leaderboard-second-place-cutout-v2.png");
+}
+
+.rankCoin {
+  display: block;
+  filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.28));
+  height: 100%;
   image-rendering: pixelated;
   object-fit: cover;
-  width: 64px;
+  position: absolute;
+  transform: translateZ(4px);
+  width: 100%;
+}
+
+.coinBack {
+  filter: brightness(0.82) drop-shadow(0 3px 2px rgba(0, 0, 0, 0.28));
+  height: 100%;
+  image-rendering: pixelated;
+  object-fit: cover;
+  position: absolute;
+  transform: rotateY(180deg) translateZ(4px);
+  width: 100%;
+}
+
+.coinEdge {
+  background: linear-gradient(90deg, #a86508, #ffe38a 45%, #b56f09);
+  border-radius: 3px;
+  height: 78%;
+  left: 50%;
+  position: absolute;
+  top: 11%;
+  transform: translateX(-50%) rotateY(90deg);
+  width: 8px;
+}
+
+.rank2 .coinEdge {
+  background: linear-gradient(90deg, #777b82, #f0f3f7 45%, #72767d);
+}
+
+.rank2 .coinWrap {
+  animation-delay: -1.6s;
+}
+
+@keyframes coinFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes coinSpin {
+  0%,
+  45% {
+    transform: rotateY(0);
+  }
+
+  85%,
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes coinGlare {
+  0% {
+    background-position: 180% 0;
+    opacity: 0;
+  }
+
+  8% {
+    opacity: 0.85;
+  }
+
+  35% {
+    background-position: -80% 0;
+    opacity: 0;
+  }
+
+  36%,
+  100% {
+    background-position: -80% 0;
+    opacity: 0;
+  }
 }
 
 .rank3 .rank {
   color: var(--theme-ink);
 }
 
-.rank3 .university > span {
+.rank3 .almostThere {
   background: var(--theme-ink);
   color: var(--theme-canvas);
 }
@@ -497,7 +563,7 @@
   letter-spacing: -0.03em;
 }
 
-.university > span {
+.almostThere {
   background: var(--theme-accent);
   border-radius: 999px;
   color: var(--theme-accent-ink);
@@ -507,6 +573,40 @@
   font-weight: 700;
   padding: 4px 6px;
   text-transform: uppercase;
+}
+
+.placementChange {
+  align-items: center;
+  color: var(--theme-accent-text);
+  display: flex;
+  flex-direction: column;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 9px;
+  font-weight: 700;
+  gap: 0;
+  line-height: 1;
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.placementTriangle {
+  border-bottom: 9px solid currentColor;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  height: 0;
+  width: 0;
+}
+
+.placementDown {
+  color: #f05276;
+}
+
+.placementDown .placementTriangle {
+  border-bottom: 0;
+  border-top: 9px solid currentColor;
 }
 
 .signups {
@@ -693,7 +793,7 @@
     line-height: 1.15;
   }
 
-  .rankCoin {
+  .coinWrap {
     flex-basis: 48px;
     height: 48px;
     width: 48px;
@@ -715,6 +815,10 @@
   .heroCopy,
   .stats,
   .hero .deadline,
+  .coinWrap,
+  .coinWrap::after,
+  .coinBody,
+  .rankCoin,
   .row {
     animation: none;
     clip-path: none;
