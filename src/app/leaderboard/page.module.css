@@ -393,6 +393,7 @@
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 16px;
   justify-content: center;
+  position: relative;
   text-align: center;
 }
 
@@ -545,7 +546,7 @@
   color: var(--theme-ink);
 }
 
-.rank3 .university > span {
+.rank3 .almostThere {
   background: var(--theme-ink);
   color: var(--theme-canvas);
 }
@@ -562,7 +563,7 @@
   letter-spacing: -0.03em;
 }
 
-.university > span {
+.almostThere {
   background: var(--theme-accent);
   border-radius: 999px;
   color: var(--theme-accent-ink);
@@ -572,6 +573,40 @@
   font-weight: 700;
   padding: 4px 6px;
   text-transform: uppercase;
+}
+
+.placementChange {
+  align-items: center;
+  color: var(--theme-accent-text);
+  display: flex;
+  flex-direction: column;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 9px;
+  font-weight: 700;
+  gap: 0;
+  line-height: 1;
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.placementTriangle {
+  border-bottom: 9px solid currentColor;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  height: 0;
+  width: 0;
+}
+
+.placementDown {
+  color: #f05276;
+}
+
+.placementDown .placementTriangle {
+  border-bottom: 0;
+  border-top: 9px solid currentColor;
 }
 
 .signups {

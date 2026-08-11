@@ -6,6 +6,7 @@ import { UNIVERSITY_SIGNUP_URL } from "@/lib/constants";
 import { getLeaderboardData } from "@/lib/leaderboard";
 import LeaderboardAutoRefresh from "./LeaderboardAutoRefresh";
 import LeaderboardHeroMotion from "./LeaderboardHeroMotion";
+import LeaderboardRows from "./LeaderboardRows";
 import ProgressiveHighlight from "./ProgressiveHighlight";
 import RippleDotField from "./RippleDotField";
 import brandStyles from "@/app/aimto/page.module.css";
@@ -19,8 +20,6 @@ export const metadata: Metadata = {
 };
 
 export const revalidate = 300;
-
-const rankLabels = ["01", "02", "03"];
 
 function formatUpdatedAt(value: string | null) {
   if (!value) return "Updated recently";
@@ -114,63 +113,7 @@ export default async function LeaderboardPage() {
                 <span>Verified signups</span>
               </div>
 
-              <ol className={styles.rows}>
-                {leaderboard.universities.map((university, index) => (
-                  <li
-                    className={`${styles.row} ${index < 3 ? styles[`rank${index + 1}`] : ""}`}
-                    key={university.name}
-                  >
-                    <span className={styles.rank} aria-label={`Rank ${index + 1}`}>
-                      {index < 2 ? (
-                        <span className={styles.coinWrap}>
-                          <span className={styles.coinBody}>
-                            <span className={styles.coinEdge} aria-hidden="true" />
-                            <Image
-                              className={styles.rankCoin}
-                              src={
-                                index === 0
-                                  ? "/aimto-assets/leaderboard-first-place-cutout.png"
-                                  : "/aimto-assets/leaderboard-second-place-cutout-v2.png"
-                              }
-                              alt={
-                                index === 0
-                                  ? "Gold 01 placement coin"
-                                  : "Silver 02 placement coin"
-                              }
-                              width={72}
-                              height={72}
-                            />
-                            <Image
-                              aria-hidden="true"
-                              className={styles.coinBack}
-                              src={
-                                index === 0
-                                  ? "/aimto-assets/leaderboard-first-place-cutout.png"
-                                  : "/aimto-assets/leaderboard-second-place-cutout-v2.png"
-                              }
-                              alt=""
-                              width={72}
-                              height={72}
-                            />
-                          </span>
-                        </span>
-                      ) : (
-                        rankLabels[index] ?? String(index + 1).padStart(2, "0")
-                      )}
-                    </span>
-                    <div className={styles.university}>
-                      <strong>{university.name}</strong>
-                      {index === 2 && <span>Almost there</span>}
-                    </div>
-                    <span className={styles.signups}>
-                      <b>{university.signups}</b>
-                      <small>
-                        {university.signups === 1 ? "signup" : "signups"}
-                      </small>
-                    </span>
-                  </li>
-                ))}
-              </ol>
+              <LeaderboardRows universities={leaderboard.universities} />
             </div>
 
           </>
