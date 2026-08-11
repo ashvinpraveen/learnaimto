@@ -4,6 +4,7 @@ import AimtoNav from "@/app/aimto/AimtoNav";
 import AimtoThemeToggle from "@/app/aimto/AimtoThemeToggle";
 import { UNIVERSITY_SIGNUP_URL } from "@/lib/constants";
 import { getLeaderboardData } from "@/lib/leaderboard";
+import LeaderboardAutoRefresh from "./LeaderboardAutoRefresh";
 import LeaderboardHeroMotion from "./LeaderboardHeroMotion";
 import ProgressiveHighlight from "./ProgressiveHighlight";
 import RippleDotField from "./RippleDotField";
@@ -17,15 +18,15 @@ export const metadata: Metadata = {
   alternates: { canonical: "/leaderboard" },
 };
 
-export const revalidate = 86_400;
+export const revalidate = 300;
 
 const rankLabels = ["01", "02", "03"];
 
 function formatUpdatedAt(value: string | null) {
-  if (!value) return "Coming soon";
+  if (!value) return "Updated recently";
 
   const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "Updated daily";
+  if (Number.isNaN(date.getTime())) return "Updated recently";
 
   return new Intl.DateTimeFormat("en-MY", {
     timeZone: "Asia/Kuala_Lumpur",
@@ -45,6 +46,7 @@ export default async function LeaderboardPage() {
   );
   return (
     <div className={`${brandStyles.site} ${styles.page}`} id="top">
+      <LeaderboardAutoRefresh />
       <AimtoNav
         registrationUrl={UNIVERSITY_SIGNUP_URL}
         ctaLabel="University signup"
@@ -77,16 +79,12 @@ export default async function LeaderboardPage() {
                 <span>Malaysian universities welcome</span>
               </div>
               <div>
-                <strong>{leaderboard.isLive ? totalSignups : "Soon"}</strong>
-                <span>
-                  {leaderboard.isLive
-                    ? "verified student signups"
-                    : "first standings"}
-                </span>
+                <strong>{totalSignups}</strong>
+                <span>verified student signups</span>
               </div>
               <div>
-                <strong>10 PM</strong>
-                <span>daily refresh (MYT)</span>
+                <strong>5 MIN</strong>
+                <span>REFRESH</span>
               </div>
             </div>
 
@@ -102,99 +100,63 @@ export default async function LeaderboardPage() {
               <p className={styles.sectionLabel}>Campus standings_</p>
               <h2 id="standings-title">The leaderboard</h2>
             </div>
-            {leaderboard.isLive && (
-              <div className={styles.updated}>
-                <span className={styles.liveDot} />
-                {formatUpdatedAt(leaderboard.updatedAt)}
-              </div>
-            )}
+            <div className={styles.updated}>
+              <span className={styles.liveDot} />
+              {formatUpdatedAt(leaderboard.updatedAt)}
+            </div>
           </div>
 
-          {leaderboard.isLive ? (
-            <>
-              <div className={styles.board}>
-                <div className={styles.tableHeader} aria-hidden="true">
-                  <span>Rank</span>
-                  <span>University</span>
-                  <span>Verified signups</span>
-                </div>
-
-                <ol className={styles.rows}>
-                  {leaderboard.universities.map((university, index) => (
-                    <li
-                      className={`${styles.row} ${index < 3 ? styles[`rank${index + 1}`] : ""}`}
-                      key={university.name}
-                    >
-                      <span className={styles.rank} aria-label={`Rank ${index + 1}`}>
-                        {index < 2 ? (
-                          <Image
-                            className={styles.rankCoin}
-                            src={
-                              index === 0
-                                ? "/aimto-assets/leaderboard-first-place-cutout.png"
-                                : "/aimto-assets/leaderboard-second-place-cutout-v2.png"
-                            }
-                            alt={
-                              index === 0
-                                ? "Gold 01 placement coin"
-                                : "Silver 02 placement coin"
-                            }
-                            width={72}
-                            height={72}
-                          />
-                        ) : (
-                          rankLabels[index] ?? String(index + 1).padStart(2, "0")
-                        )}
-                      </span>
-                      <div className={styles.university}>
-                        <strong>{university.name}</strong>
-                        {index === 2 && <span>Almost there</span>}
-                      </div>
-                      <span className={styles.signups}>
-                        <b>{university.signups}</b>
-                        <small>
-                          {university.signups === 1 ? "signup" : "signups"}
-                        </small>
-                      </span>
-                    </li>
-                  ))}
-                </ol>
+          <>
+            <div className={styles.board}>
+              <div className={styles.tableHeader} aria-hidden="true">
+                <span>Rank</span>
+                <span>University</span>
+                <span>Verified signups</span>
               </div>
 
-              <p className={styles.note}>
-                One verified student email counts as one point for that student&apos;s
-                university. Each email address is counted once. Any Malaysian university
-                can join; a new university appears after its first verified signup.
-              </p>
-            </>
-          ) : (
-            <div className={styles.comingSoonStage}>
-              <div className={styles.previewBoard} aria-hidden="true">
-                <div className={styles.tableHeader}>
-                  <span>Rank</span>
-                  <span>University</span>
-                  <span>Verified signups</span>
-                </div>
-                <ol className={styles.rows}>
-                  {leaderboard.universities.map((university, index) => (
-                    <li className={styles.row} key={university.name}>
-                      <span className={styles.rank}>
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      <div className={styles.university}>
-                        <strong>{university.name}</strong>
-                      </div>
-                      <span className={styles.signups}>—</span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-
-              <div className={styles.comingSoon}>
-                <h3>Coming soon.</h3>
-              </div>
+              <ol className={styles.rows}>
+                {leaderboard.universities.map((university, index) => (
+                  <li
+                    className={`${styles.row} ${index < 3 ? styles[`rank${index + 1}`] : ""}`}
+                    key={university.name}
+                  >
+                    <span className={styles.rank} aria-label={`Rank ${index + 1}`}>
+                      {index < 2 ? (
+                        <Image
+                          className={styles.rankCoin}
+                          src={
+                            index === 0
+                              ? "/aimto-assets/leaderboard-first-place-cutout.png"
+                              : "/aimto-assets/leaderboard-second-place-cutout-v2.png"
+                          }
+                          alt={
+                            index === 0
+                              ? "Gold 01 placement coin"
+                              : "Silver 02 placement coin"
+                          }
+                          width={72}
+                          height={72}
+                        />
+                      ) : (
+                        rankLabels[index] ?? String(index + 1).padStart(2, "0")
+                      )}
+                    </span>
+                    <div className={styles.university}>
+                      <strong>{university.name}</strong>
+                      {index === 2 && <span>Almost there</span>}
+                    </div>
+                    <span className={styles.signups}>
+                      <b>{university.signups}</b>
+                      <small>
+                        {university.signups === 1 ? "signup" : "signups"}
+                      </small>
+                    </span>
+                  </li>
+                ))}
+              </ol>
             </div>
-          )}
+
+          </>
 
           <div className={styles.supportGrid}>
             <section className={styles.universitySignup}>

@@ -285,69 +285,6 @@
   max-width: 1120px;
 }
 
-.comingSoonStage {
-  height: clamp(420px, 54vw, 610px);
-  margin: 0 auto;
-  max-width: 1120px;
-  overflow: hidden;
-  position: relative;
-}
-
-.previewBoard {
-  background: var(--theme-surface-soft);
-  filter: blur(2px);
-  min-height: 100%;
-  opacity: 0.78;
-  transform: scale(1.015);
-}
-
-.previewBoard .row {
-  min-height: 82px;
-}
-
-.comingSoon {
-  align-items: center;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  background: rgba(7, 7, 7, 0.56);
-  display: flex;
-  flex-direction: column;
-  inset: 0;
-  justify-content: center;
-  padding: clamp(42px, 7vw, 84px);
-  position: absolute;
-  text-align: center;
-}
-
-.comingSoon h3 {
-  font-size: clamp(38px, 6vw, 76px);
-  letter-spacing: -0.06em;
-  line-height: 0.95;
-  margin: 0;
-}
-
-:global(html[data-theme="light"]) .previewBoard {
-  filter: blur(3.5px) contrast(0.72);
-  opacity: 0.48;
-}
-
-:global(html[data-theme="light"]) .comingSoon {
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  background: radial-gradient(
-    circle at center,
-    rgba(243, 240, 232, 0.92) 0%,
-    rgba(243, 240, 232, 0.78) 48%,
-    rgba(243, 240, 232, 0.62) 100%
-  );
-}
-
-:global(html[data-theme="light"]) .comingSoon h3 {
-  color: #15130f;
-  font-weight: 600;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.72);
-}
-
 .supportGrid {
   display: grid;
   gap: 22px;
