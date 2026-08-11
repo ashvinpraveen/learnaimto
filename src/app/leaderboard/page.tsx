@@ -122,21 +122,38 @@ export default async function LeaderboardPage() {
                   >
                     <span className={styles.rank} aria-label={`Rank ${index + 1}`}>
                       {index < 2 ? (
-                        <Image
-                          className={styles.rankCoin}
-                          src={
-                            index === 0
-                              ? "/aimto-assets/leaderboard-first-place-cutout.png"
-                              : "/aimto-assets/leaderboard-second-place-cutout-v2.png"
-                          }
-                          alt={
-                            index === 0
-                              ? "Gold 01 placement coin"
-                              : "Silver 02 placement coin"
-                          }
-                          width={72}
-                          height={72}
-                        />
+                        <span className={styles.coinWrap}>
+                          <span className={styles.coinBody}>
+                            <span className={styles.coinEdge} aria-hidden="true" />
+                            <Image
+                              className={styles.rankCoin}
+                              src={
+                                index === 0
+                                  ? "/aimto-assets/leaderboard-first-place-cutout.png"
+                                  : "/aimto-assets/leaderboard-second-place-cutout-v2.png"
+                              }
+                              alt={
+                                index === 0
+                                  ? "Gold 01 placement coin"
+                                  : "Silver 02 placement coin"
+                              }
+                              width={72}
+                              height={72}
+                            />
+                            <Image
+                              aria-hidden="true"
+                              className={styles.coinBack}
+                              src={
+                                index === 0
+                                  ? "/aimto-assets/leaderboard-first-place-cutout.png"
+                                  : "/aimto-assets/leaderboard-second-place-cutout-v2.png"
+                              }
+                              alt=""
+                              width={72}
+                              height={72}
+                            />
+                          </span>
+                        </span>
                       ) : (
                         rankLabels[index] ?? String(index + 1).padStart(2, "0")
                       )}
