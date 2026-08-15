@@ -580,6 +580,20 @@
   color: var(--theme-accent-ink) !important;
 }
 
+.heroActions .ctaSecondary {
+  background: transparent;
+  border-color: rgba(var(--theme-hero-ink-rgb), 0.42);
+  color: var(--theme-hero-ink) !important;
+}
+
+.heroActions .ctaSecondary:hover,
+.heroActions .ctaSecondary:focus-visible {
+  background: rgba(var(--theme-hero-ink-rgb), 0.1);
+  border-color: var(--theme-hero-ink);
+  box-shadow: none;
+  color: var(--theme-hero-ink) !important;
+}
+
 .textLink {
   align-items: center;
   border-bottom: 1px solid transparent;
