@@ -325,11 +325,14 @@ export default function LearnathonThreePage({
               </div>
             </div>
             <div className={styles.heroActions}>
-              <AimtoButton className={styles.ctaButton} href={signInUrl}>
-                Sign in <span aria-hidden="true">↗</span>
-              </AimtoButton>
               <AimtoButton className={styles.ctaButton} href={registrationUrl}>
                 Sign up free <span aria-hidden="true">↗</span>
+              </AimtoButton>
+              <AimtoButton
+                className={`${styles.ctaButton} ${styles.ctaSecondary}`}
+                href={signInUrl}
+              >
+                Sign in <span aria-hidden="true">↗</span>
               </AimtoButton>
             </div>
           </div>
