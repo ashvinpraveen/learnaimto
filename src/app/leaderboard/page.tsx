@@ -15,7 +15,7 @@ import styles from "./page.module.css";
 export const metadata: Metadata = {
   title: "University Leaderboard",
   description:
-    "See which Malaysian university is bringing the biggest student community to the Malaysian Learn-a-thon.",
+    "Campus race for the free Malaysian Learn-a-thon on 12 August at The Campus, KL — see which university is bringing the most students.",
   alternates: { canonical: "/leaderboard" },
 };
 
@@ -68,8 +68,9 @@ export default async function LeaderboardPage() {
             </h1>
             <ProgressiveHighlight
               className={styles.heroCopy}
-              prefix="The top two universities get a chance to win "
-              text="exclusive merch and AI credits, plus an office visit, co-working session and CEO networking."
+              prefix="Universities race to bring the most students to "
+              text="the free Learn-a-thon on 12 August at The Campus, KL"
+              suffix=". Top two can win exclusive merch and AI credits, plus an office visit, co-working session and CEO networking."
             />
 
             <div className={styles.stats} aria-label="Leaderboard summary">
