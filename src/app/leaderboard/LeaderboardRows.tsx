@@ -11,6 +11,7 @@ import styles from "./page.module.css";
 
 const STORAGE_KEY = "aimto-leaderboard-snapshot-v3";
 const rankLabels = ["01", "02", "03"];
+const WINNERS = new Set(["Sunway University", "Taylor's University"]);
 
 type StoredSnapshot = {
   changes: LeaderboardChanges;
@@ -95,8 +96,10 @@ function PlacementChange({ rankDelta }: { rankDelta?: number }) {
 
 export default function LeaderboardRows({
   universities,
+  showChanges = true,
 }: {
   universities: LeaderboardEntry[];
+  showChanges?: boolean;
 }) {
   const [changes, setChanges] = useState<LeaderboardChanges>({});
 
@@ -113,7 +116,7 @@ export default function LeaderboardRows({
         >
           <span
             className={styles.rank}
-            aria-label={`Rank ${index + 1}${changes[university.name]?.rankDelta ? `, ${changes[university.name].rankDelta > 0 ? "up" : "down"} ${Math.abs(changes[university.name].rankDelta)} ${Math.abs(changes[university.name].rankDelta) === 1 ? "place" : "places"} since the previous placement change` : ""}`}
+            aria-label={`Rank ${index + 1}${showChanges && changes[university.name]?.rankDelta ? `, ${changes[university.name].rankDelta > 0 ? "up" : "down"} ${Math.abs(changes[university.name].rankDelta)} ${Math.abs(changes[university.name].rankDelta) === 1 ? "place" : "places"} since the previous placement change` : ""}`}
           >
             {index < 2 ? (
               <span className={styles.coinWrap}>
@@ -152,12 +155,14 @@ export default function LeaderboardRows({
               rankLabels[index] ?? String(index + 1).padStart(2, "0")
             )}
             <PlacementChange
-              rankDelta={changes[university.name]?.rankDelta}
+              rankDelta={showChanges ? changes[university.name]?.rankDelta : undefined}
             />
           </span>
           <div className={styles.university}>
             <strong>{university.name}</strong>
-            {index === 2 && <span className={styles.almostThere}>Almost there</span>}
+            {WINNERS.has(university.name) && (
+              <span className={styles.winnerBadge}>Winner</span>
+            )}
           </div>
           <span className={styles.signups}>
             <b>{university.signups}</b>
