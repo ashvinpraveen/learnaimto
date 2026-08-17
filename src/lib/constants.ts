@@ -2,6 +2,7 @@ export const SITE_NAME = "AI Malaysia Takeover";
 export const EVENT_NAME = "The Malaysian Learn-a-thon";
 export const REGISTRATION_URL =
   "https://event.aimto.my/concierge-menu/registration";
+export const SIGN_IN_URL = "https://learn.aimto.my/start";
 export const UNIVERSITY_SIGNUP_URL =
   process.env.NEXT_PUBLIC_UNIVERSITY_SIGNUP_FORM_URL ||
   "https://forms.gle/j5GFhiebYEXwhWT16";

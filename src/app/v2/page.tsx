@@ -5,6 +5,7 @@ import {
   LEARNATHON_FAQS,
   OG_IMAGE,
   REGISTRATION_URL,
+  SIGN_IN_URL,
   SITE_NAME,
 } from "@/lib/constants";
 import {
@@ -66,6 +67,7 @@ export const metadata: Metadata = {
 };
 
 const registrationUrl = REGISTRATION_URL;
+const signInUrl = SIGN_IN_URL;
 
 const tickerItems = [
   "OPEN TO EVERY MALAYSIAN_",
@@ -326,9 +328,12 @@ export default function LearnathonThreePage({
               <AimtoButton className={styles.ctaButton} href={registrationUrl}>
                 Sign up free <span aria-hidden="true">↗</span>
               </AimtoButton>
-              <a className={styles.textLink} href="#overview">
-                About the day <span aria-hidden="true">↓</span>
-              </a>
+              <AimtoButton
+                className={`${styles.ctaButton} ${styles.ctaSecondary}`}
+                href={signInUrl}
+              >
+                Sign in <span aria-hidden="true">↗</span>
+              </AimtoButton>
             </div>
           </div>
 
