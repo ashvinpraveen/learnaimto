@@ -2,40 +2,22 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import AimtoNav from "@/app/aimto/AimtoNav";
 import AimtoThemeToggle from "@/app/aimto/AimtoThemeToggle";
-import { UNIVERSITY_SIGNUP_URL } from "@/lib/constants";
 import { getLeaderboardData } from "@/lib/leaderboard";
-import LeaderboardAutoRefresh from "./LeaderboardAutoRefresh";
+import ConfettiCelebration from "./ConfettiCelebration";
 import LeaderboardHeroMotion from "./LeaderboardHeroMotion";
 import LeaderboardRows from "./LeaderboardRows";
-import ProgressiveHighlight from "./ProgressiveHighlight";
 import RippleDotField from "./RippleDotField";
 import brandStyles from "@/app/aimto/page.module.css";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "University Leaderboard",
+  title: "University Leaderboard Winners",
   description:
-    "See which Malaysian university is bringing the biggest student community to the Malaysian Learn-a-thon.",
+    "Congratulations to Sunway University and Taylor's University, the Malaysian Learn-a-thon university leaderboard winners.",
   alternates: { canonical: "/leaderboard" },
 };
 
 export const revalidate = 300;
-
-function formatUpdatedAt(value: string | null) {
-  if (!value) return "Updated recently";
-
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "Updated recently";
-
-  return new Intl.DateTimeFormat("en-MY", {
-    timeZone: "Asia/Kuala_Lumpur",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  }).format(date);
-}
 
 export default async function LeaderboardPage() {
   const leaderboard = await getLeaderboardData();
@@ -45,15 +27,14 @@ export default async function LeaderboardPage() {
   );
   return (
     <div className={`${brandStyles.site} ${styles.page}`} id="top">
-      <LeaderboardAutoRefresh />
       <AimtoNav
-        registrationUrl={UNIVERSITY_SIGNUP_URL}
-        ctaLabel="University signup"
-        openInNewTab
+        registrationUrl="#results"
+        ctaLabel="See the winners"
         themeLogo
       />
 
       <main>
+        <ConfettiCelebration />
         <section className={styles.hero}>
           <div className={styles.heroGlow} aria-hidden="true" />
           <RippleDotField className={styles.heroDots} />
@@ -61,47 +42,56 @@ export default async function LeaderboardPage() {
             className={styles.heroContent}
             readyClassName={styles.heroMotionReady}
           >
-            <p className={styles.eyebrow}>The Malaysian Learn-a-thon</p>
-            <h1>
-              Which campus will
-              <span> take the lead?</span>
-            </h1>
-            <ProgressiveHighlight
-              className={styles.heroCopy}
-              prefix="The top two universities get a chance to win "
-              text="exclusive merch and AI credits, plus an office visit, co-working session and CEO networking."
-            />
+            <p className={styles.eyebrow}>The final results are in</p>
+            <h1>The winners have been crowned</h1>
+            <p className={styles.heroCopy}>
+              Congratulations to 🥇 Sunway University and 🥈 Taylor&apos;s
+              University to being our top 2 universities!
+            </p>
 
-            <div className={styles.stats} aria-label="Leaderboard summary">
-              <div>
-                <strong>All</strong>
-                <span>Malaysian universities welcome</span>
-              </div>
+            <div
+              className={`${styles.stats} ${styles.finalStats}`}
+              aria-label="Leaderboard summary"
+            >
               <div>
                 <strong>{totalSignups}</strong>
-                <span>verified student signups</span>
-              </div>
-              <div>
-                <strong>5 MIN</strong>
-                <span>REFRESH</span>
+                <span>final verified signups</span>
               </div>
             </div>
-
-            <p className={styles.deadline}>
-              Final tally closes Tuesday, 11 August at 10 PM (MYT).
-            </p>
           </LeaderboardHeroMotion>
         </section>
 
-        <section className={styles.boardSection} aria-labelledby="standings-title">
+        <section
+          className={styles.boardSection}
+          id="results"
+          aria-labelledby="standings-title"
+        >
+          <section className={styles.winnerAnnouncement} aria-labelledby="winners-title">
+            <p className={styles.sectionLabel}>Official winners_</p>
+            <h2 id="winners-title">Sunway &amp; Taylor’s</h2>
+            <p className={styles.winnerCopy}>
+              Congratulations! Someone from our team will reach out to both
+              winning universities through WhatsApp soon with the next steps.
+            </p>
+            <div className={styles.prizePackage}>
+              <div className={styles.prizeLabel}>
+                <span>Winning package</span>
+              </div>
+              <p>
+                Exclusive merch and AI credits, plus an office visit,
+                co-working session and CEO networking.
+              </p>
+            </div>
+          </section>
+
           <div className={styles.boardHeading}>
             <div>
-              <p className={styles.sectionLabel}>Campus standings_</p>
-              <h2 id="standings-title">The leaderboard</h2>
+              <p className={styles.sectionLabel}>Final campus standings_</p>
+              <h2 id="standings-title">The final leaderboard</h2>
             </div>
             <div className={styles.updated}>
-              <span className={styles.liveDot} />
-              {formatUpdatedAt(leaderboard.updatedAt)}
+              <span className={styles.closedDot} />
+              Results final
             </div>
           </div>
 
@@ -113,32 +103,23 @@ export default async function LeaderboardPage() {
                 <span>Verified signups</span>
               </div>
 
-              <LeaderboardRows universities={leaderboard.universities} />
+              <LeaderboardRows
+                universities={leaderboard.universities}
+                showChanges={false}
+              />
             </div>
 
           </>
 
           <div className={styles.supportGrid}>
             <section className={styles.universitySignup}>
-              <h2>Sign up for your university.</h2>
+              <h2>What happens next?</h2>
               <div className={styles.signupAction}>
                 <p>
-                  Add your verified signup and help move your university up the
-                  leaderboard.
+                  We’ll contact Sunway University and Taylor’s University
+                  through WhatsApp soon. Keep an eye on your messages for the
+                  details.
                 </p>
-                {UNIVERSITY_SIGNUP_URL ? (
-                  <a
-                    href={UNIVERSITY_SIGNUP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    University signup <span aria-hidden="true">↗</span>
-                  </a>
-                ) : (
-                  <span className={styles.signupPlaceholder}>
-                    Form link coming soon
-                  </span>
-                )}
               </div>
             </section>
           </div>
